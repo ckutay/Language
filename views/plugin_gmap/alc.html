@@ -1,0 +1,26 @@
+{{extend 'layout.html'}}
+
+<h1>{{=data.ALC_Full_Name}}</h1>
+<table>
+<tr ><td width="70%">{{=(data.ALC_Name)}} Data</td><td></td></tr>
+<tr><td>
+{{=plugin_wiki.widget('read',table=dbase, record_id=data.id)}}
+</td><td width="30%">
+<br>
+<span class="page_links">
+<br><p>
+[{{=A(T('List Community workers linked to '+data.ALC_Name), _href=URL(r=request, f='ribs', args=data.id))}}]
+</p><p>
+{{if auth.is_logged_in() :}}
+</p>
+
+[{{=A(T('Edit ALC'), _href=URL(r=request, f='edit_alc', args=data.id))}}]
+
+{{else:}}
+{{=A(T("Register/Login"), _href=URL(r=request, f='user'))}} to edit pages.
+{{pass}}
+</p>
+</span>
+</td></tr>
+</table>
+

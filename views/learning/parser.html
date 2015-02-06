@@ -1,0 +1,52 @@
+          <div id="Search">
+                <h2><b class="text1" >Search or translate sentence</b></h2>
+                <form method="get" action="{{=URL(r=request,c='learning', f='parser')}}">
+                    <fieldset>
+                    <input type="radio" name="type" value="English" />English
+                    <input type="radio" name="type" value={{=language}} checked />{{=language}}
+
+                    <input size="50" type="text" id="s" name="query" value="" />
+                    <input type="submit" id="x" value="Search" />
+<INPUT type="Submit"
+       onclick="ajax("{{=URL(r=request, c='learner', f='parser')}}",['q'],'#translate');"/>
+
+        </fieldset>
+                </form>
+{{if request.vars:}}
+	<h2>Search result for {{=query}}</h2>
+
+{{if words:}}
+		<h2>Translation:</h2>
+		<table>
+
+	{{if wordlist:}}
+		<tr>
+		   {{for word in words[0]:}}
+			<td>{{=word}}</td>
+		   {{pass}}
+
+		</tr><tr>
+
+			{{for word in words[1]:}}
+                        <td>{{=word}}</td>
+                   {{pass}}
+                </tr><tr>
+
+                        {{for word in words[2]:}}
+                        <td>{{=word}}</td>
+                   {{pass}}
+		</tr><tr>
+
+	{{else:}}
+		<tr><td><strong>{{=language}}</td><td><i>English</i></td><td></td></strong></tr>
+
+	    {{for word in words:}}
+		    <td>{{=word.Language}}</td>
+		    <td>{{=word.English}}</td>
+	
+	  	{{pass}}
+	</tr>
+	{{pass}}
+	</table>
+{{pass}}
+{{pass}}

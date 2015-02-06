@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+
+<h1>Edit Document</h1>
+{{page = db(db.page.uuid == form.record.uuid).select()
+if page:}}
+[{{=A('view page', _href=URL(r=request, f='_page', args=page[0].title))}}]
+{{pass}}
+<p>{{=form}}</p>

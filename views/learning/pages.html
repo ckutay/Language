@@ -1,0 +1,27 @@
+{{extend 'layout.html'}}
+
+
+<h3>Current Worksheets</h3>
+<table class="formatTable">
+<tr><td><strong>Title</td><td><i>Summary</i></td><td></td></strong></tr>
+
+  {{for page in pages:}}
+<tr>
+    <td>{{=A(page.title,_href=URL(r=request,f='page',args=page.slug))}}</td>
+   <td>{{=A(plugin_wiki.render(page.summary),_href=URL(r=request,c='learning', f='page',args=page.slug))}}</td>
+{{pass}}
+{{if auth.is_logged_in() :}}
+
+    <td>[{{=A('edit',_href=URL(r=request,c='learning', f='edit_page',args=page.slug))}}]</td>
+{{pass}}
+  </tr>
+  {{pass}}
+</table>
+{{if auth.is_logged_in() :}}
+{{if not request.vars.query and form:}}
+<h2>Create New page</h2>
+
+{{=form}}
+{{pass}}
+{{pass}}
+{{pass}}

@@ -1,0 +1,60 @@
+{{extend 'layout.html'}}
+<div id="hidden">
+<script type="text/javascript" src="{{=URL('static','plugin_wiki/markitup/jquery.markitup.pack.js')}}"></script>
+<script type="text/javascript" src="{{=URL('static','plugin_wiki/markitup/sets/markmin/set.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{=URL('static','plugin_wiki/markitup/skins/markitup/style.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{=URL('static','plugin_wiki/markitup/sets/markmin/style.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{=URL('static','js/jqueryMultiSelect.css')}}" />
+<script src="{{=URL('static','plugin_wiki/elrte-1.3/js/elrte.min.js')}}" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="{{=URL('static','plugin_wiki/elrte-1.3/css/elrte.full.css')}}" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="{{=URL('static','plugin_wiki/elrte-1.3/js/ui-themes/base/jquery-ui.css')}}" type="text/css" media="screen" charset="utf-8">
+
+</div>
+{{if resource:}}
+<h3>{{=resource.title}}</h3>
+{{pass}}
+<br>
+<audio controls>
+  <source src={{=URL(c="default", f="filedownload", args=os.path.join("file", resource.name))}} type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<p></p>
+<br>
+<h3>Edit Transcript </h3>
+
+<div id="plugin_wiki_form">
+{{=form.custom.begin}}
+<b>Page Unique Identifier (no spaces):</b> {{=form.custom.widget.slug}}
+<br><b>Title:</b> {{=form.custom.widget.title}}<br/>
+<b>Active:</b> {{=form.custom.widget.is_active}}
+<b>Public:</b> {{=form.custom.widget.is_public}}
+{{=form.custom.widget.body}}<br/>
+<div> 
+<b>Changelog:</b> {{=form.custom.widget.changelog}} 
+<b>Delete?</b> {{=form.custom.deletable}}<b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{=form.custom.submit}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<script>
+jQuery('input[type=submit]').after('<button onclick="document.location=\'{{=URL(c="plugin_wiki", f="transcript",args=request.args)}}\';return false">Cancel');
+</script>
+</b>{{=form.custom.end}}
+<br>
+{{if request.extension=='html':}} 
+<script>
+jQuery(document).ready(function() {
+{{if plugin_wiki_mode=='html':}}
+  elRTE.prototype.options.panels.web2pyPanel = [
+     'bold', 'italic', 'underline', 'forecolor', 'justifyleft', 'justifyright',
+     'justifycenter', 'justifyfull', 'formatblock', 'insertorderedlist', 'insertunorderedlist',
+     'link', 'image', 'flash'];
+  elRTE.prototype.options.toolbars.web2pyToolbar = ['web2pyPanel', 'tables'];
+  var opts = { toolbar  : 'web2pyToolbar' }
+  jQuery('#plugin_wiki_transcript_body').elrte(opts);
+{{else:}}
+  jQuery('#plugin_wiki_transcript_body').css('width','700px').css('height','400px').markItUp(mySettings);
+{{pass}}
+});
+</script>
+</div>
+{{pass}}
+</script>
+{{pass}}
+

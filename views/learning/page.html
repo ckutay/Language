@@ -1,0 +1,40 @@
+{{extend 'layout.html'}}
+   <!-- Page Content -->
+            <div class="col-sm-12">
+
+                <br><br>
+
+<div id="page-title" class="well well-sm">
+<h3>{{=title}}</h3>
+</div>
+<p>
+{{if page.worksheet:}}
+<div id="translate">
+{{include 'learning/parser.html'}}
+</div>
+{{pass}}
+<hr>
+<strong>{{=plugin_wiki.render(page.summary)}}</strong>
+</p><p>
+{{=plugin_wiki.render(page_body)}}
+</p>
+{{if page.attachments:}}
+<strong> Attachments:</strong>
+{{for attachment in page.attachments:}}
+<a href="{{=URL('plugin_wiki', 'attachment', args=attachment.id)}}">{{=attachment.name}}</a>
+<br>
+{{pass}}
+{{pass}}
+<p>
+{{if form:}}
+{{=form}}
+</p><p>
+{{pass}}
+<hr>
+{{if plugin_wiki_editor:}}
+<div class="plugin_wiki_info">Last modified by {{=db.plugin_wiki_page.modified_by.represent(page.modified_by)}} {{=prettydate(page.modified_on)}} 
+
+[<a href="{{=URL(r=request,f='page_history',args=page.slug)}}">history</a>]
+[<a href="{{=URL(r=request,c='plugin_wiki', f='edit_page',args=page.slug)}}">edit</a>]</div>
+{{pass}}
+</div>

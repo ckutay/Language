@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+
+<table>
+<tr><td></td><td>File under this Reference:  {{=filelist}}</td><td></td>
+{{ind=int(index)}}
+<tr><td>{{if ind>1:}}{{=A("Previous",_href=URL(r=request,f='references/'+filelist,args=ind-1))}}
+{{pass}}</td><td></td>
+<td>{{if ind<len(files)-1:}}
+{{=A("Next",_href=URL(r=request,f='references/'+filelist,args=ind+1))}}
+{{pass}}</td></tr>
+<tr><td></td><td><img src={{=link}} ></td><td></td></tr>
+</table>

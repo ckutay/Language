@@ -1,0 +1,10 @@
+
+AddHandler cgi-script cgi pl
+
+<Limit GET POST>
+
+ Options -Indexes
+    Order Allow,Deny
+    Allow from all
+
+</Limit>

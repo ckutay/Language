@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+
+<h1>New Document</h1>
+[{{=A('view page', _href=URL(r=request, f='_page', args=request.args))}}]
+
+<p>{{=form}}</p>

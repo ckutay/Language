@@ -1,0 +1,121 @@
+{{extend 'layout.html'}}
+<h3>Edit Page </h3>
+<div id="plugin_wiki_form">
+    {{=form.custom.begin}}
+    <b>Page Unique Identifier:</b> {{=form.custom.widget.slug}}
+    <br><b>Title:</b> {{=form.custom.widget.title}}<br>
+    {{if page.title!="index":}}
+    <b>Active:</b> {{=form.custom.widget.is_active}}
+    <b>Public:</b> {{=form.custom.widget.is_public}}
+    [{{=plugin_wiki.attachments('page',page.id)}}]
+    <br>
+    <b>WorkSheet [Do you want this page automatically linked to other sheets]:</b> {{=form.custom.widget.worksheet}}
+<!--{{if plugin_wiki_level>1:}}[{{=plugin_wiki.widget_builder()}}]{{pass}}
+-->
+<br><b>Summary [Appears in bold at top of page]:</b>
+<textarea id="plugin_wiki_page_summary" class="form-control" name="summary">
+    {{=plugin_wiki.render(page.summary)}}
+</textarea>
+
+</br>
+<div class="row">
+    <div class="col-sm-8">
+        <div>
+            <textarea id="plugin_wiki_page_body" name="body" style="height:400px;" ondrop="drop(event)" ondragover="allowDrop(event)">
+                {{=plugin_wiki.render(page.body)}}
+            </textarea>
+            {{pass}}
+        <!--{{=form.custom.widget.body}}-->
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height:200px;">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <span data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Actions</span>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" style="max-height:300px;overflow-y:scroll;">
+                        <img id="drag1" src="/Bundjalung/static/images/Actions/image8.jpg" class="img-responsive" draggable="true" ondragstart="drag(event)">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Collapsible Group Item #2</span>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Collapsible Group Item #3</span>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{if page.title!="index":}}
+{{=plugin_multiselect(db.plugin_wiki_page.tags)}}<br>
+<b>Menu Links: </b>
+{{=form.custom.widget.tags}}<br>
+{{pass}}
+<b>Changelog:</b> {{=form.custom.widget.changelog}} 
+<b>Delete?</b> {{=form.custom.deletable}}<b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{=form.custom.submit}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                
+<script>
+$('input[type=submit]').after('<button onclick="document.location=\'{{=URL(c="plugin_wiki", f="page",args=request.args)}}\';return false">Cancel');
+</script>
+<script>
+var dropzone = document.getElementById('plugin_wiki_page_body'); // paste your dropzone id here
+dropzone.ondrop = function(e){
+    console.log('drop'); // for debugging reasons
+    e.preventDefault();  // stop default behaviour
+
+    readfiles(e.dataTransfer.files); // function to handle file(s) that was added to dropzone
+};
+function allowDrop(ev) {
+  /* The default handling is to not allow dropping elements. */
+  /* Here we allow it by preventing the default behaviour. */
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  /* Here is specified what should be dragged. */
+  /* This data will be dropped at the place where the mouse button is released */
+  /* Here, we want to drag the element itself, so we set it's ID. */
+  ev.dataTransfer.setData("image/JPG", ev.target.id);
+}
+
+/* other functions stay the same */
+
+function drop(ev) {
+  ev.preventDefault();
+  var data=ev.dataTransfer.getData("text/html");
+  /* If you use DOM manipulation functions, their default behaviour it not to 
+     copy but to alter and move elements. By appending a ".cloneNode(true)", 
+     you will not move the original element, but create a copy. */
+  var nodeCopy = document.getElementById(data).cloneNode(true);
+  nodeCopy.id = "newId"; /* We cannot use the same ID */
+  ev.target.appendChild(nodeCopy);
+}
+</script>
+
+</b>{{=form.custom.end}}
+<br>
+{{pass}}

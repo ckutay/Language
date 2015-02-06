@@ -1,0 +1,15 @@
+{{extend 'layout.html'}}
+{{if page:}}
+{{=plugin_wiki.render(page.body)}}
+{{pass}}
+<p></p>
+<div style="clear: both;">
+{{if plugin_wiki_editor:}}
+<div class="plugin_wiki_info">Last modified by {{=db.plugin_wiki_page.modified_by.represent(page.modified_by)}} {{=prettydate(page.modified_on)}} {{if plugin_wiki_editor:}}[<a href="{{=URL(r=request,f='page_history',args="index")}}">history</a>]{{pass}}[<a href="{{=URL(r=request,f='edit_page',args="index")}}">edit</a>]</div>{{pass}}
+</div>
+{{=LOAD('plugin_gmap','map.load', ajax=True, url='http://localhost:8081/IRCA_Wiki/plugin_gmap/map.html')}}
+<center>
+  <div id="map" style="width: {{=width}}px; height: {{=height}}px"></div>
+  <script>load(); </script>
+</center>
+

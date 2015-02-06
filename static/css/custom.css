@@ -1,0 +1,258 @@
+/*!
+ * Start Bootstrap - Business Frontpage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+        /* (Index) Page Tab Navigation 'ON' States (determined by ID identifier on li tag) */
+body{
+    min-height: 2000px;
+    background-color: #cccc99;
+    color:#006644;
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+#popupword{
+
+padding: 5px; position: relative; display: none; margin: 0px; width: 425px; top: 0px; left: 10px; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
+background: 0px 0px no-repeat rgb(176, 196, 222);
+}
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+.business-header {
+    max-height: 250px;
+    background: url('../images/aboriginal.jpg') center center no-repeat scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Customize the text color and shadow color and to optimize text legibility. */
+
+.tagline {
+    text-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+/*Navbar personalization*/
+    /* navbar background and border */
+    .navbar{
+        background-color: #006644;
+        border-color: transparent;
+    }
+    /*navbar text */
+    .navbar-default .navbar-nav > li > a {
+        color: #8FE5B0 ;/*45E5B0;*/
+    }
+    /*navbar text color mouse over*/
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+        color: #00E599;
+    }
+    /*navbar active item color*/
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        color: #49E5AF;
+        background-color: #127F58;
+    }
+    /*navbar box around link of dropdown*/
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+        color: #49E5AF;
+        background-color: #008C5D;/*99cc99*/
+    }
+    /*box that comes from dropdown link*/
+    .navbar-nav>li>.dropdown-menu {
+        background-color: #007F55 ;/*009966*/
+    }
+    /*box that comes from dropdown link letter color*/
+    .dropdown-menu>li>a{
+        color:#49E5AF;
+    }
+    /*box that comes from dropdown link hover highlight */
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:active{
+        background-color: #006644;
+    }
+    /*when toggled, color of little menu box on navbar*/
+    .navbar-default .navbar-toggle {
+    border-color: #003300;
+    }
+    .navbar-right{
+        height: 50px;
+	color: #8FE5B0;
+        overflow: visible;
+    }
+    #menuLogin table{
+	width: 200px;
+	color: #8FE5B0;
+        background-color:  #007F55;
+	width: 300px;
+    }
+
+    /*when toggled, color of littlemenu box on navbar clicked */
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #00E599;
+    }
+    /*when toggled, color of the little menu box on navbar lines*/
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #003300;
+    }
+    /*border color*/
+    .navbar-default .navbar-collapse,.navbar-default .navbar-form {
+        border-color: #003300;
+    }
+    @media (max-width: 767px) {
+        /*When toggled, define the font color of submenus*/
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+            color: #003300;
+        }
+        /*when toggled, define the font color of dropdown menus when mouse over*/
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #669966;
+        }
+        /*Nao sei nao =P*/
+        .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+            color: #000;
+            background-color: #fff;
+        }
+        #circle-img-first{
+            position: absolute;
+        }   
+        #title{
+            margin-top: auto !important;
+            position: relative;
+            text-align: center;
+        }
+        .business-header {
+            height: 120px;
+        }
+    }
+/*Login details*/
+    /*Changes apperance of login button*/
+    #btnLogin{
+        background-color: #006644;
+        color: #8FE5B0;
+    }
+    /*creates spaces between fields on the login box*/
+    #username{
+        margin-bottom: 10px;
+    }
+    #password{
+        margin-bottom: 10px;
+    }
+
+#page-title{
+    border: transparent;
+    background:#cccc99 url('../images/img-title.jpg') no-repeat;
+    padding-left: 50px;
+    box-shadow: none;
+    width:100%;
+}
+
+.in.collapse+a.btn.showdetails:before
+{
+    content:'Advanced search «';
+}
+.collapse+a.btn.showdetails:before
+{
+    content:'Advanced search »';
+}
+/**/
+#search-jumbo{
+    background:#cccc99 url('../images/bg-jumbo.png') center center no-repeat scroll;
+    width:100%;
+    padding: 10px;
+    padding-left: 40px;
+}
+/* Flash */^M
+ .flash { background-color: #C0C0C0; font-weight: bold; clear: both; cursor: pointer; color: #FFFFFF; text-align: center; padding-bottom: 5px; padding-top: 5px;
+margin-bottom:20px; position:relative; width:100%; }^M
+div.error { background-color: red; color: white; padding: 3px}^M
+ /* Footer */^M
+.toggle {cursor: pointer;}
+
+.comment {border-bottom: 1px solid #E9E9E9; padding-top: 10px; padding-bottom: 10px; padding-left: 5px}
+.comment p {padding-bottom: 0; margin: 0}
+.line {
+    border-bottom: 1px dashed #E9E9E9;
+    width: 100%;
+    margin: 0px auto 10px auto;
+}
+.page_links {float:right; margin-right:15px; margin-top:-29px;}
+.page_links a {
+    border-top: 1px dashed #E9E9E9;
+    border-left: 1px dashed #E9E9E9;
+    border-right: 1px dashed #E9E9E9;
+    border-bottom: black;
+    padding: 3px;
+    background-color:yellow;
+    margin-right: 2px;
+}
+.page_links a:hover { background-color: #F6F6F6;}
+.page_title {border-bottom:1px dashed #E9E9E9;margin-bottom: 10px;}
+
+/*********** web2py specific ***********/
+div.flash {
+    font-weight:bold;
+    display:none;
+    position:fixed;
+    padding:10px;
+    top:48px;
+    right:250px;
+    min-width:280px;
+    opacity:0.95;
+    margin:0px 0px 10px 10px;
+    vertical-align:middle;
+    cursor:pointer;
+    color:#fff;
+    background-color:#000;
+    border:2px solid #fff;
+    border-radius:8px;
+    -o-border-radius: 8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    background-image: -webkit-linear-gradient(top,#222,#000);
+    background-image: -o-linear-gradient(top,#222,#000);
+    background-image: -moz-linear-gradient(90deg, #222, #000);
+    background-image: linear-gradient(top,#222,#000);
+    background-repeat: repeat-x;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    z-index:2000;
+}
+
+div.flash #closeflash{color:inherit; float:right; margin-left:15px;}
+.ie-lte7  div.flash #closeflash
+{color:expression(this.parentNode.currentStyle['color']);float:none;position:absolute;right:4px;}
+
+div.flash:hover { opacity:0.25; }
+
+div.error_wrapper {display:block}
+div.error {
+    width: 298px;
+    background:red;
+    border: 2px solid #d00;
+    color:white;
+    padding:5px;
+    display:inline-block;
+    background-image: -webkit-linear-gradient(left,#f00,#fdd);
+    background-image: -o-linear-gradient(left,#f00,#fdd);
+    background-image: -moz-linear-gradient(0deg, #f00, #fdd);
+    background-image: linear-gradient(left,#f00,#fdd);
+    background-repeat: repeat-y;
+}
+#map{
+    max-height: 500px;
+}
+
+#circle-img-first{
+}
+#title{
+    margin-top: 12%;
+}
+
