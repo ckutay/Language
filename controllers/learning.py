@@ -106,7 +106,7 @@ def print_suffix(suffix):
 def parser():
     words=None
     searchterm=request.vars.query
-    type=request.vars.type
+    lang=request.vars.lang
 
 	#null searches
     if not(request.vars):
@@ -116,14 +116,13 @@ def parser():
     elif (' ' in searchterm):
 	pass
     else:
-	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'type':type}))
+	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'lang':lang}))
 
-    typequery=request.vars.type
 ### add reference to example sentences
     #wordlist=searchterm.split()
     #for word in wordlist:
 #	pass
-    if typequery=="English":
+    if lang=="English":
                 query= dblanguage.BundjalungExamples.English.like('%%%s%%' % searchterm)
     else:
                 query= dblanguage.BundjalungExamples.Language.like('%%%s%%' % searchterm)
@@ -131,7 +130,7 @@ def parser():
     try:
 	words=words.select()
     except:
-	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'type':type}))
+	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'lang':lang}))
 ##else load dictionary
     wd = dictionary.AboriginalLanguageDictionary()
     ws = stemmer.AboriginalLanguageStemmer()
@@ -143,7 +142,7 @@ def parser():
 		words = []
 	
                 for word in newwords:
-                	words+= [translate_word(word, typequery, ws, wd)]   
+                	words+= [translate_word(word, lang, ws, wd)]   
     		lang=[]
     		english=[]
     		pos=[]
@@ -211,14 +210,46 @@ def page():
     a=db.plugin_wiki_attachment
     query = (a.tablename=="page")&(a.record_id==page.id)
     page.attachments=db(query).select()
-    tag=page.tags
-    tags=tag.split('|')
     page_body=page.body
-    if (page.worksheet):page_body = wsread_page(page)
+    if (page.worksheet):
+	page_body = wsread_page(page)
     page=wsread_question(page_body, page)
     title=page.title
     page_body=page.body
-    result  = parser()
-
-    #if not returned
+	
     return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)
+
+@auth.requires_login()
+def edit_page():
+    """
+    edit a page
+    """
+    slug = request.args(0) or 'Index'
+    tags=""
+    if request.args(1): tags='|'+request.args(1)+'|'
+    slug=slug.replace(' ','_')
+    w = db.plugin_wiki_page
+    w.role.writable = w.role.readable = plugin_wiki_level>1
+    page = w(slug=slug)
+    """
+    db.plugin_wiki_page.tag.default=""
+    db.plugin_wiki_page.update.tags=db.plugin_wiki_page.tags
+    """
+    if not page:
+        db.plugin_wiki_page.tags.default=tags
+
+        page = w.insert(slug=slug,
+                        title=slug.replace('_',' '),
+                        tags=tags,
+                        body=request.vars.template and w(slug=request.vars.template).body or '')
+    else:
+        tags = page.tags #in practice 'xyz' would be a variable
+    if page.title=="Index":
+        form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+                       next=URL(r=request, c='plugin_wiki', f='index'))
+    else:
+                form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+                next=URL(r=request,c='learning', f='page',args=slug))
+
+    return dict(form=form,page=page,tags=tags)
+

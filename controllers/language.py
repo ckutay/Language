@@ -77,10 +77,10 @@ def dictionary():
         order=request.args[0]
     else:
 	order=sort
-    orderbys="dblanguage.Bundjalung.Search_English"
+    orderbys=dblanguage.Bundjalung.Search_English
     if order==language:
                 orderbys=dblanguage.Bundjalung.Language_Word
-    else:
+    elif order=='Category':
                 orderbys=dblanguage.Bundjalung.Category
 
     searchterms=request.vars['query']
@@ -113,7 +113,7 @@ def dictionary():
 		numerics=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 		condition = dblanguage.Bundjalung.Search_English.startswith(alphanumeric.lower())|dblanguage.Bundjalung.Search_English.startswith('-'+alphanumeric.lower())
 
-	        wordlist=dblanguage(condition).select(dblanguage.Bundjalung.ALL, orderby=orderbys)
+	        wordlist=dblanguage(condition).select(orderby=orderbys)
     	else:
 		numerics=['A','BA','BE','BI', 'BU','D','J','L','M','N','NG','NY','O','S','WA', 'WE', 'WI', 'WU','YA','YE','Yi','YU']
 		condition = dblanguage.Bundjalung.Language_Word.startswith(alphanumeric.lower())|dblanguage.Bundjalung.Language_Word.startswith('-'+alphanumeric.lower())
@@ -220,23 +220,28 @@ def edit_word():
         word_id=int(word_id)
     except :
         integer=False
+	word_id=0
+    try:
  	name=word_id.replace('_',' ')
-
+    except: 
+	name=""
     w = dblanguage.Bundjalung
     if integer:
 	word = w(id=word_id)
     else:
-	word = w(Bundjalung=name)
+	word = w(Language_Word=name)
     if not word:
-        word = w.insert(Bundjalung=name)
+        word = w.insert(Language_Word=name)
     word, examples =read_word(word)
-    if auth.has_membership(auth.id_group('developer')):
+    if word: 
+	word_id=word.id
+    	if auth.has_membership(auth.id_group('developer')):
 
 	    form = crud.update(w, word, deletable=True, onaccept=crud.archive,
-                       next=URL(r=request,c='language', f='view_word',args=request.args))
-    else:
+                       next=URL(r=request,c='language', f='view_word',args=word_id))
+    	else:
             form = crud.update(w, word, deletable=False, onaccept=crud.archive,
-                       next=URL(r=request,c='language', f='view_word',args=request.args))
+                       next=URL(r=request,c='language', f='view_word',args=word_id))
     return dict(form=form,word=word,examples=examples)
 
 def read_word(word):

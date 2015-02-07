@@ -431,15 +431,13 @@ def edit_page():
     if page.title=="Index":
 	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
-    else:
-	if page.worksheet:
-		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
-		next=URL(r=request,c='learning', f='page',args=slug))
-	else:
+    else:	
+		images=dblanguage(dblanguage.images.id>0).select()
+		
 		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                 next=URL(r=request,c='plugin_wiki', f='page',args=slug))
 
-    return dict(form=form,page=page,tags=tags)
+    return dict(images=images, form=form,page=page,tags=tags)
 
 
 def page_history():

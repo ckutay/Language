@@ -1,6 +1,6 @@
 {{extend 'layout.html'}}
    <!-- Page Content -->
-            <div class="col-sm-12">
+            <div class="col-sm-8">
 
                 <br><br>
 
@@ -9,9 +9,7 @@
 </div>
 <p>
 {{if page.worksheet:}}
-<div id="translate">
-{{include 'learning/parser.html'}}
-</div>
+<a href="#" onclick=ajax('{{=URL(r=request,c="learning",f="parser")}}',[],"popupword");writeAjax();>Click to search phrase</a>
 {{pass}}
 <hr>
 <strong>{{=plugin_wiki.render(page.summary)}}</strong>

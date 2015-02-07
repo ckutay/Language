@@ -47,16 +47,6 @@ _()
 ###################################################
 # js and css modules required by the plugin
 ###################################################
-for _f in ['plugin_wiki/kendo/css/kendo.common.min.css',
-	'plugin_wiki/kendo/css/kendo.default.min.css',
-	'plugin_wiki/kendo/css/kendo.dataviz.min.css',
-	'plugin_wiki/kendo/css/kendo.dataviz.default.min.css',
-	'plugin_wiki/kendo/css/kendo.common.min.css',
-	'plugin_wiki/kendo/js/kendo.all.min.js',
-##	'plugin_wiki/kendo/js/jquery.min.js',
-]:
-#    response.files.append(URL('static',_f))
-     pass
 
 
 ##for _f in ['plugin_wiki/jqgrid/css/ui.jqgrid.css',

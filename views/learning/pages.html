@@ -13,6 +13,8 @@
 {{if auth.is_logged_in() :}}
 
     <td>[{{=A('edit',_href=URL(r=request,c='learning', f='edit_page',args=page.slug))}}]</td>
+{{else:}}
+    <td>Click on Link to view</td>
 {{pass}}
   </tr>
   {{pass}}

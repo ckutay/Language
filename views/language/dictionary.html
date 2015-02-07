@@ -65,6 +65,7 @@
 <img style="float: right; margin: 0px 15px 15px 0px; height: 200px;" src="http://bundjalung.dalang.com.au/Bundjalung/static/images/Bundjalung.jpg" >
 <div style="margin-top: 30px;">
 </div>
+<h4>
 <p><strong>The Search parameters used are:</strong>
 </p><p>
 Search word: {{=exact}}
@@ -76,6 +77,7 @@ Search Type: {{=sort}}
 All dialects{{pass}}
 </p></div>
 </div></div>
+</h4>
 <hr>
 <div id="popupword" ></div>
         <div id="WordList" class="jumbotron">
@@ -110,7 +112,7 @@ All dialects{{pass}}
  </tr>
   {{pass}}
 {{if auth.is_logged_in() :}}
-[{{=A(T('Enter new word'), _href=URL(r=request, f='enter_word '))}}]
+[{{=A(T('Add new word'), _href=URL(r=request, f='edit_word '))}}]
 {{pass}}
 </table>
 </div>

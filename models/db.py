@@ -261,6 +261,7 @@ dblanguage.define_table('images',
                 Field('name',requires=IS_NOT_EMPTY()),
                 Field('title',requires=IS_NOT_EMPTY()),
                 Field('filename','upload',requires=IS_NOT_EMPTY(),autodelete=True),
+		Field('category','string'),
                 migrate=False)
 dblanguage.define_table (language+'Examples',
 

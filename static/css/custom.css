@@ -93,6 +93,10 @@ footer {
         background-color:  #007F55;
 	width: 300px;
     }
+.formatTable table, .formatTable th, .formatTable td{
+border: 1px solid #003300;
+padding: 10px;
+}
 
     /*when toggled, color of littlemenu box on navbar clicked */
     .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {

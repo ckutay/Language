@@ -2,8 +2,8 @@
                 <h2><b class="text1" >Search or translate sentence</b></h2>
                 <form method="get" action="{{=URL(r=request,c='learning', f='parser')}}">
                     <fieldset>
-                    <input type="radio" name="type" value="English" />English
-                    <input type="radio" name="type" value={{=language}} checked />{{=language}}
+                    <input type="radio" name="lang" value="English" />English
+                    <input type="radio" name="lang" value={{=language}} checked />{{=language}}
 
                     <input size="50" type="text" id="s" name="query" value="" />
                     <input type="submit" id="x" value="Search" />

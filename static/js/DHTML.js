@@ -17,7 +17,11 @@ function setupText(hoverItem){
         hp.style.visibility="visible";
         hp.style.zIndex="100";
 }
-
+function writeAjax(){
+hp = document.getElementById("popupword");
+hp.style.display="block";
+hp.style.width="80%";
+}
 function stopText(){
 hp = document.getElementById("popupword");
 hp.innerHTML ="test";
