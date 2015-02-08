@@ -151,12 +151,11 @@ $(document).ready(function() {
         </li>
 
 
-
   {{  else:}}
       <li><a href="{{=_link}}" >{{=_name}}</a></li>
    {{pass}}
 {{pass}}
-
+</ul>
 <ul class="nav navbar-nav navbar-right">
              {{if auth.is_logged_in() :}}
 <li class="dropdown" id="menuLogin">

@@ -38,7 +38,6 @@ def wsread_page(page ):
     for words in parags:
      wordpara=words.split()
      for word in wordpara:
-	logging.warn('here')
 	condition = dblanguage.Bundjalung.English==word
 	wordlist=dblanguage(condition).select(dblanguage.Bundjalung.ALL, orderby=dblanguage.Bundjalung.English)
 

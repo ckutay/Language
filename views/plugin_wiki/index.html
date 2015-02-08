@@ -7,7 +7,7 @@
     </div>
     {{=plugin_wiki.render(page)}}
     <p>
-        <a class="btn btn-default btn-lg" href="{{=URL(c='plugin_wiki',f='language',args='dictionary')}}">More &raquo;</a>
+        <a class="btn btn-default btn-lg" href="{{=URL(c='language',f='dictionary')}}">More &raquo;</a>
     </p>
 </div>
 <div id="zoomLyr" class="col-sm-4">
@@ -33,9 +33,19 @@
         </p>
     </div>
     <div class="col-sm-4">
-        <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-        <h2>Language Material</h2>
-        <p>This is were we can promote teh sale of languge material - include palypal link?
+<link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.11/video.js"></script>
+
+<video class="img-circle img-responsive img-center"  controls preload="auto" > 
+<source src='{{=URL(c="default",f="video",args="PoppyHarryWalker1.ogv")}}' type="video/x-ogg">
+<source src='{{=URL(c="default",f="video",args="PoppyHarryWalker1.mov")}}' type="video/mpeg">
+<source src='{{=URL(c="default",f="video",args="PoppyHarryWalker1.wmv")}}' type="video/wmv">
+<source src='{{=URL(c="default",f="video",args="PoppyHarryWalker1.mp4")}}' type="video/mp4">
+</video>
+
+    <h2>Language Material</h2>
+        <p>Click on image to see preview of Poppy Harry Walker's DVD.
+This is were we can promote the sale of language material - include palypal link?
         </p>
     </div>
 
