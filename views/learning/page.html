@@ -1,5 +1,6 @@
 {{extend 'layout.html'}}
    <!-- Page Content -->
+<div class="container">
             <div class="col-sm-8">
 
                 <br><br>
@@ -19,7 +20,7 @@
 {{if page.attachments:}}
 <strong> Attachments:</strong>
 {{for attachment in page.attachments:}}
-<a href="{{=URL('plugin_wiki', 'attachment', args=attachment.id)}}">{{=attachment.name}}</a>
+{<a href="{{=URL('plugin_wiki', 'attachment', args=attachment.id)}}">{{=attachment.name}}</a>
 <br>
 {{pass}}
 {{pass}}
@@ -36,3 +37,5 @@
 [<a href="{{=URL(r=request,c='plugin_wiki', f='edit_page',args=page.slug)}}">edit</a>]</div>
 {{pass}}
 </div>
+</div>
+
