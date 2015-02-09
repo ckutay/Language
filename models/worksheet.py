@@ -106,6 +106,5 @@ def wsimage():
     if request.args(1):
             filenameadd = request.args(1)
             fullpath = os.path.join(fullpath, filenameadd)
-    logging.warn(fullpath)
     response.stream(os.path.join(request.folder,fullpath))
  

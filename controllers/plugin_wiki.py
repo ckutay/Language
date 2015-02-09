@@ -132,15 +132,17 @@ def edit_resource():
 	form=None
         resource_title=request.args(0)
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-        transcript=db(db.plugin_wiki_transcript.title==resource_title).select().first()
+	slug=resource_title.strip().replace(' ','_').lower()
+        transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
+	print transcript
+	print slug
         w = db.Resources
-        resource = w(title=resource_title)
+        resource = w(slug=slug)
         if not  resource:
            	redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	else:
-                #tags = page.tags #in practice 'xyz' would be a variable
-                form = crud.update(w, resource, deletable=True, onaccept=crud.archive,
-                next=URL(r=request,c='plugin_wiki', f='resource',args=resource_title))
+                form = crud.update(w, resource.id, deletable=False, onaccept=crud.archive,
+                next=URL(r=request,c='plugin_wiki', f='resource',args=resource.title))
 
 	resource_name=os.path.join('file',resource.name)
 	return dict(resources=None,resource=resource,resource_name=resource_name, transcript=transcript,form=form)
@@ -151,22 +153,21 @@ def edit_resource_transcript():
         resource_title=request.args(0)
 	form=None
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-        resource=db(db.Resources.title==resource_title).select().first()
-        if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-        transcript=db(db.plugin_wiki_transcript.title==resource_title).select().first()
+        slug=resource_title.strip().replace(' ','_').lower()
+        resource=db(db.Resources.slug==slug).select().first()
+	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
+        transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
+	print transcript
 	if plugin_wiki_editor:
-           slug=resource_title.replace(' ','_').lower() 
-    	   w = db.plugin_wiki_transcript
-    	   transcript= w(title=resource_title)
     	   if not transcript:
         	transcript= w.insert(slug=slug,
                         title=resource_title,
                         body=request.vars.template and w(slug=request.vars.template).body or '')
-           form = crud.update(w, transcript, deletable=True, onaccept=crud.archive,
+           form = crud.update(db.plugin_wiki_transcript, transcript, deletable=False, onaccept=crud.archive,
                 next=URL(r=request,c='plugin_wiki', f='resource',args=resource_title))
 
-
-	return dict(form=form, resources=None,resource=resource,transcript=transcript)
+        resource_name=os.path.join('file',resource.name)
+	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
 def resources():
 	Resources=db.Resources
@@ -177,9 +178,10 @@ def resources():
 def resource():
 	resource_title=request.args(0)
 	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
-	resource=db(db.Resources.title==resource_title).select().first()
+	slug=resource_title.strip().replace(' ','_').lower()
+        resource=db(db.Resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
-	page=db(db.plugin_wiki_transcript.title==resource_title)
+	page=db(db.plugin_wiki_transcript.slug==slug)
 	if (page): page=page.select().first()     
 	resource_name=os.path.join("file",resource.name)
 	return dict(resources=None,resource=resource, resource_name=resource_name, page=page)

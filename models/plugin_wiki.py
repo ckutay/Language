@@ -141,7 +141,7 @@ db.define_table('plugin_wiki_transcript',
                 Field('role',db.auth_group,
                       requires=IS_EMPTY_OR(IS_IN_DB(db,'auth_group.id','%(role)s'))),
                 Field('changelog',default=''),
-		Field('is_active', default=True),
+		Field('is_active', 'boolean', default=True),
                 auth.signature,
                 format = '%(slug)s', migrate=False)
 
@@ -164,10 +164,12 @@ db.define_table('plugin_wiki_attachment',
 
 db.define_table('Resources',
                 Field('id', 'integer',writable=False,readable=False),
+                Field('slug','string',length=50),
+
                 Field('name','upload',requires=IS_NOT_EMPTY(),autodelete=True),
-                Field('title','string',length=100),
+                Field('title','string',length=50),
                 Field('Collected_by','string',length=100),
-		Field('desc','text'),
+		Field('description','string', length=500),
 		Field('Public','boolean', default=False),
                 migrate=plugin_wiki_migrate)
 

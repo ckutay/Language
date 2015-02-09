@@ -14,7 +14,7 @@ Your browser does not support the audio element.
 <br>
 Transcript:
 <br>
-{{=plugin_wiki.render(transcript.body)}}
+{{=XML(plugin_wiki.render(transcript.body))}}
 <br>
 
 <a href={{=URL(c="plugin_wiki", f="edit_resource_transcript", args=resource.title)}}>Edit Transcript</a>

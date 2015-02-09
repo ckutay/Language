@@ -340,7 +340,7 @@ response.menuResource=[
       ['Dictionary Book', False, URL(r=request, c='plugin_wiki', f='page', args='dictionary')],
       ['Language Resources', False, URL(r=request, c='plugin_wiki', f='resources')],
       ['Written examples', False, URL(r=request, c='plugin_wiki', f='page', args='written_examples_of_the_language')],
-      ['WorkSheets', False, URL(r=request,c='learning',f='pages')],
+      ['Work Sheets', False, URL(r=request,c='learning',f='pages')],
     ]
 response.menuLogin=[
       ['Login', False, URL(r=request, c='default' , f='_user', args='login')],

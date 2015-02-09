@@ -26,7 +26,7 @@ Collected by {{=resource.Collected_by}}
 Your browser does not support the audio element.
 </audio> 
 <br>
-{{=resource.desc}}
+{{=resource.description}}
 <br>
 <a href={{=URL(c="plugin_wiki", f="edit_resource", args=resource.title)}}>Edit Details</a>
 <br>
@@ -34,7 +34,7 @@ Your browser does not support the audio element.
 <br>
 Transcript:
 <br>
-{{=plugin_wiki.render(page.body)}}
+{{=XML(plugin_wiki.render(page.body))}}
 <br>
 {{pass}}
 <a href={{=URL(c="plugin_wiki", f="edit_resource_transcript", args=resource.title)}}>Edit Transcript</a>
