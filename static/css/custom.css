@@ -84,19 +84,15 @@ footer {
     }
     .navbar-right{
         height: 50px;
-	color: #8FE5B0;
+    color: #8FE5B0;
         overflow: visible;
     }
     #menuLogin table{
-	width: 200px;
-	color: #8FE5B0;
+    width: 200px;
+    color: #8FE5B0;
         background-color:  #007F55;
-	width: 300px;
+    width: 300px;
     }
-.formatTable table, .formatTable th, .formatTable td{
-border: 1px solid #003300;
-padding: 10px;
-}
 
     /*when toggled, color of littlemenu box on navbar clicked */
     .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
@@ -126,6 +122,8 @@ padding: 10px;
         }
         #circle-img-first{
             position: absolute;
+            height:50px;
+
         }   
         #title{
             margin-top: auto !important;
