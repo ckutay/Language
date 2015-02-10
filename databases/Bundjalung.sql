@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Feb 07, 2015 at 11:01 PM
+-- Generation Time: Feb 09, 2015 at 10:03 AM
 -- Server version: 5.6.22
 -- PHP Version: 5.5.14
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `auth_event` (
   `user_id` int(11) DEFAULT NULL,
   `origin` varchar(255) DEFAULT NULL,
   `description` longtext
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=536 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=539 ;
 
 --
 -- Dumping data for table `auth_event`
@@ -543,7 +543,10 @@ INSERT INTO `auth_event` (`id`, `time_stamp`, `client_ip`, `user_id`, `origin`, 
 (532, '2015-02-05 18:29:48', '129.94.175.2', 1, 'auth', 'User 1 Logged-in'),
 (533, '2015-02-05 22:10:45', '129.94.175.2', 1, 'auth', 'User 1 Logged-out'),
 (534, '2015-02-06 11:12:59', '129.94.175.2', 1, 'auth', 'User 1 Logged-in'),
-(535, '2015-02-07 17:23:13', '127.0.0.1', 19, 'auth', 'User 19 Logged-in');
+(535, '2015-02-07 17:23:13', '127.0.0.1', 19, 'auth', 'User 19 Logged-in'),
+(536, '2015-02-09 16:31:57', '127.0.0.1', 1, 'auth', 'User 1 Logged-in'),
+(537, '2015-02-09 16:56:53', '127.0.0.1', 1, 'auth', 'User 1 Logged-in'),
+(538, '2015-02-09 16:59:31', '127.0.0.1', 1, 'auth', 'User 1 Logged-in');
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1050,7 @@ CREATE TABLE IF NOT EXISTS `plugin_wiki_transcript` (
   `modified_on` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `comments_allowed` char(1) NOT NULL DEFAULT 'F'
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `plugin_wiki_transcript`
@@ -1056,7 +1059,8 @@ CREATE TABLE IF NOT EXISTS `plugin_wiki_transcript` (
 INSERT INTO `plugin_wiki_transcript` (`id`, `slug`, `title`, `is_public`, `body`, `summary`, `role`, `changelog`, `is_active`, `created_on`, `created_by`, `modified_on`, `modified_by`, `comments_allowed`) VALUES
 (1, 'calley', 'Calley', 'T', '', '', NULL, '', 'T', '2013-05-04 15:02:23', 1, '2013-05-04 15:02:23', 1, 'F'),
 (2, 'terry_crowley23a', 'Terry Crowley23a', 'T', '<div>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</div><div>&lt;!DOCTYPE Trans SYSTEM "trans-13.dtd"&gt;</div><div>&lt;Trans scribe="admin" audio_filename="01 crowley 3223A" version="1" version_date="130308"&gt;</div><div>&lt;Speakers&gt;</div><div>&lt;Speaker id="spk1" name="Terry Crowley" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;Speaker id="spk2" name="Ethel Walker" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;/Speakers&gt;</div><div>&lt;Episode&gt;</div><div>&lt;Section type="report" startTime="0" endTime="3842.7734375"&gt;</div><div>&lt;Turn startTime="0" endTime="8.685"&gt;</div><div>&lt;Sync time="0"/&gt;</div><div>Archive tape 3223 side 1 of field tape 2/3 recorded by Terry Crowley</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="8.685" endTime="12.431"&gt;</div><div>&lt;Sync time="8.685"/&gt;</div><div>?how do you say</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk2" startTime="12.431" endTime="3842.7734375"&gt;</div><div>&lt;Sync time="12.431"/&gt;</div><div><br></div><div>&lt;/Turn&gt;</div><div>&lt;/Section&gt;</div><div>&lt;/Episode&gt;</div><div>&lt;/Trans&gt;</div>', '', NULL, '', 'T', '2013-05-04 15:39:40', 1, '2013-05-04 15:43:18', 1, 'F'),
-(3, 'terry_crowley23b', 'Terry Crowley23b', 'T', '<div>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</div><div>&lt;!DOCTYPE Trans SYSTEM "trans-13.dtd"&gt;</div><div>&lt;Trans scribe="admin" audio_filename="01 Crowley 3222B" version="1" version_date="130308"&gt;</div><div>&lt;Speakers&gt;</div><div>&lt;Speaker id="spk1" name="Ethel Walker" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;Speaker id="spk2" name="Ned Walker" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;Speaker id="spk3" name="Terry Crowley" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;/Speakers&gt;</div><div>&lt;Episode&gt;</div><div>&lt;Section type="report" startTime="0" endTime="3671.2265625"&gt;</div><div>&lt;Turn startTime="0" endTime="7.69"&gt;</div><div>&lt;Sync time="0"/&gt;</div><div>Archive Tape number 3222 Track A Side 1 of field tape number 2 recorded by Terry Crowley</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="7.69" endTime="24.901"&gt;</div><div>&lt;Sync time="7.69"/&gt;</div><div>Yanganiyahra mahnyu Yanganiyahra mahnyu gadjiguywiya&nbsp;</div><div>&lt;Sync time="13.725"/&gt;</div><div>mahyn wagan wagan mahyn yanganeh</div><div>&lt;Sync time="18.573"/&gt;</div><div>&nbsp;that means... bring em? cook em?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="24.901" endTime="29.045"&gt;</div><div>&lt;Sync time="24.901"/&gt;</div><div>How would you catch it</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="29.045" endTime="34.189"&gt;</div><div>&lt;Sync time="29.045"/&gt;</div><div>Ganyahlu ngali namahla ganyahlu ( catch we capture/catch catch)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="34.189" endTime="39.168"&gt;</div><div>&lt;Sync time="34.189"/&gt;</div><div>How would you use the ?ganyahla</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="39.168" endTime="46.466"&gt;</div><div>&lt;Sync time="39.168"/&gt;</div><div>Birahlaga djambathu ganyahla birahla djambathu (fish- try to catch... try to)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="46.466" endTime="48.622"&gt;</div><div>&lt;Sync time="46.466"/&gt;</div><div>fetched out the water</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="48.622" endTime="54.117"&gt;</div><div>&lt;Sync time="48.622"/&gt;</div><div>Buhwilahgu male buhwilha yang, (pull out that pull out this way)</div><div>&lt;Sync time="51.595"/&gt;</div><div>gawulung bahnybiyn mala (long way ??? that</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="54.117" endTime="64.483"&gt;</div><div>&lt;Sync time="54.117"/&gt;</div><div>get the fish out.. and you take em home</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="64.483" endTime="77.223"&gt;</div><div>&lt;Sync time="64.483"/&gt;</div><div>Yahnggayn ngali waybargubu gahbu yahngnayn mahnyi djarwahyn (?go we fire- ?greedy ?go ?those close ?eat)</div><div>&lt;Sync time="73.118"/&gt;</div><div>guybahnyngay guybahyn waybare (cook I cook fire?)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="77.223" endTime="78.404"&gt;</div><div>&lt;Sync time="77.223"/&gt;</div><div>How would you cook it?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="78.404" endTime="85.58"&gt;</div><div>&lt;Sync time="78.404"/&gt;</div><div>Waybareh waybare dimande that means cook em on the coals</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="85.58" endTime="92.391"&gt;</div><div>&lt;Sync time="85.58"/&gt;</div><div>Would you open it up (yeh) how would you clean it?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="92.391" endTime="102.324"&gt;</div><div>&lt;Sync time="92.391"/&gt;</div><div>Mahnyu warah burah munduya warah burah munduya ...that means take em guts out of the belly ( ?take guts remove stomach-at )</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="102.324" endTime="106.664"&gt;</div><div>&lt;Sync time="102.324"/&gt;</div><div>Throw em on the ground, throw em to the dogs... throw em away</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="106.664" endTime="110.997"&gt;</div><div>&lt;Sync time="106.664"/&gt;</div><div>Birah mahyn birah that''s throw them away</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="110.997" endTime="117.309"&gt;</div><div>&lt;Sync time="110.997"/&gt;</div><div>Then I suppose you take it out the fire...</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="117.309" endTime="163.331"&gt;</div><div>&lt;Sync time="117.309"/&gt;</div><div>Burahyga mahnya majimah waringbinywanbi ... that means coals&nbsp;</div><div>&lt;Sync time="125.567"/&gt;</div><div>ngehngaleh djelehga</div><div>&lt;Sync time="135.312"/&gt;</div><div>eat em</div><div>&lt;Sync time="137.613"/&gt;</div><div>djalehl &nbsp;eat</div><div>&lt;Sync time="141.064"/&gt;</div><div><br></div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="163.331" endTime="3671.2265625"&gt;</div><div>&lt;Sync time="163.331"/&gt;</div><div>Nyang ngali&nbsp;</div><div>&lt;Sync time="196.142"/&gt;</div><div>You talking about going down the river are you&nbsp;</div><div>&lt;Sync time="227.996"/&gt;</div><div>jaajum&nbsp;</div><div>&lt;Sync time="263.647"/&gt;</div><div>I want someone to answer me , I gotta say over there that means going over there yilawila ngay</div><div>&lt;Sync time="275.023"/&gt;</div><div>Gila ngali yan.gay nyaliyah gila yabay wurrarr ganyalubandiya</div><div>&lt;Sync time="300.293"/&gt;</div><div>You could said that, that''s for me to say itover again ......</div><div>&lt;Sync time="323.221"/&gt;</div><div><br></div><div>&lt;Sync time="340.39"/&gt;</div><div><br></div><div>&lt;Sync time="359.129"/&gt;</div><div>?Jinggi wala mala matha wana balanhu</div><div>&lt;Sync time="377.524"/&gt;</div><div>Well I heard them</div><div>&lt;/Turn&gt;</div><div>&lt;/Section&gt;</div><div>&lt;/Episode&gt;</div><div>&lt;/Trans&gt;</div>  <div><br></div>', '', NULL, '', 'T', '2013-05-04 15:43:39', 1, '2013-05-04 15:43:51', 1, 'F');
+(3, 'terry_crowley23b', 'Terry Crowley23b', 'T', '<div>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</div><div>&lt;!DOCTYPE Trans SYSTEM "trans-13.dtd"&gt;</div><div>&lt;Trans scribe="admin" audio_filename="01 Crowley 3222B" version="1" version_date="130308"&gt;</div><div>&lt;Speakers&gt;</div><div>&lt;Speaker id="spk1" name="Ethel Walker" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;Speaker id="spk2" name="Ned Walker" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;Speaker id="spk3" name="Terry Crowley" check="no" dialect="native" accent="" scope="local"/&gt;</div><div>&lt;/Speakers&gt;</div><div>&lt;Episode&gt;</div><div>&lt;Section type="report" startTime="0" endTime="3671.2265625"&gt;</div><div>&lt;Turn startTime="0" endTime="7.69"&gt;</div><div>&lt;Sync time="0"/&gt;</div><div>Archive Tape number 3222 Track A Side 1 of field tape number 2 recorded by Terry Crowley</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="7.69" endTime="24.901"&gt;</div><div>&lt;Sync time="7.69"/&gt;</div><div>Yanganiyahra mahnyu Yanganiyahra mahnyu gadjiguywiya&nbsp;</div><div>&lt;Sync time="13.725"/&gt;</div><div>mahyn wagan wagan mahyn yanganeh</div><div>&lt;Sync time="18.573"/&gt;</div><div>&nbsp;that means... bring em? cook em?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="24.901" endTime="29.045"&gt;</div><div>&lt;Sync time="24.901"/&gt;</div><div>How would you catch it</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="29.045" endTime="34.189"&gt;</div><div>&lt;Sync time="29.045"/&gt;</div><div>Ganyahlu ngali namahla ganyahlu ( catch we capture/catch catch)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="34.189" endTime="39.168"&gt;</div><div>&lt;Sync time="34.189"/&gt;</div><div>How would you use the ?ganyahla</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="39.168" endTime="46.466"&gt;</div><div>&lt;Sync time="39.168"/&gt;</div><div>Birahlaga djambathu ganyahla birahla djambathu (fish- try to catch... try to)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="46.466" endTime="48.622"&gt;</div><div>&lt;Sync time="46.466"/&gt;</div><div>fetched out the water</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="48.622" endTime="54.117"&gt;</div><div>&lt;Sync time="48.622"/&gt;</div><div>Buhwilahgu male buhwilha yang, (pull out that pull out this way)</div><div>&lt;Sync time="51.595"/&gt;</div><div>gawulung bahnybiyn mala (long way ??? that</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="54.117" endTime="64.483"&gt;</div><div>&lt;Sync time="54.117"/&gt;</div><div>get the fish out.. and you take em home</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="64.483" endTime="77.223"&gt;</div><div>&lt;Sync time="64.483"/&gt;</div><div>Yahnggayn ngali waybargubu gahbu yahngnayn mahnyi djarwahyn (?go we fire- ?greedy ?go ?those close ?eat)</div><div>&lt;Sync time="73.118"/&gt;</div><div>guybahnyngay guybahyn waybare (cook I cook fire?)</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="77.223" endTime="78.404"&gt;</div><div>&lt;Sync time="77.223"/&gt;</div><div>How would you cook it?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="78.404" endTime="85.58"&gt;</div><div>&lt;Sync time="78.404"/&gt;</div><div>Waybareh waybare dimande that means cook em on the coals</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="85.58" endTime="92.391"&gt;</div><div>&lt;Sync time="85.58"/&gt;</div><div>Would you open it up (yeh) how would you clean it?</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="92.391" endTime="102.324"&gt;</div><div>&lt;Sync time="92.391"/&gt;</div><div>Mahnyu warah burah munduya warah burah munduya ...that means take em guts out of the belly ( ?take guts remove stomach-at )</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="102.324" endTime="106.664"&gt;</div><div>&lt;Sync time="102.324"/&gt;</div><div>Throw em on the ground, throw em to the dogs... throw em away</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="106.664" endTime="110.997"&gt;</div><div>&lt;Sync time="106.664"/&gt;</div><div>Birah mahyn birah that''s throw them away</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk3" startTime="110.997" endTime="117.309"&gt;</div><div>&lt;Sync time="110.997"/&gt;</div><div>Then I suppose you take it out the fire...</div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="117.309" endTime="163.331"&gt;</div><div>&lt;Sync time="117.309"/&gt;</div><div>Burahyga mahnya majimah waringbinywanbi ... that means coals&nbsp;</div><div>&lt;Sync time="125.567"/&gt;</div><div>ngehngaleh djelehga</div><div>&lt;Sync time="135.312"/&gt;</div><div>eat em</div><div>&lt;Sync time="137.613"/&gt;</div><div>djalehl &nbsp;eat</div><div>&lt;Sync time="141.064"/&gt;</div><div><br></div><div>&lt;/Turn&gt;</div><div>&lt;Turn speaker="spk1" startTime="163.331" endTime="3671.2265625"&gt;</div><div>&lt;Sync time="163.331"/&gt;</div><div>Nyang ngali&nbsp;</div><div>&lt;Sync time="196.142"/&gt;</div><div>You talking about going down the river are you&nbsp;</div><div>&lt;Sync time="227.996"/&gt;</div><div>jaajum&nbsp;</div><div>&lt;Sync time="263.647"/&gt;</div><div>I want someone to answer me , I gotta say over there that means going over there yilawila ngay</div><div>&lt;Sync time="275.023"/&gt;</div><div>Gila ngali yan.gay nyaliyah gila yabay wurrarr ganyalubandiya</div><div>&lt;Sync time="300.293"/&gt;</div><div>You could said that, that''s for me to say itover again ......</div><div>&lt;Sync time="323.221"/&gt;</div><div><br></div><div>&lt;Sync time="340.39"/&gt;</div><div><br></div><div>&lt;Sync time="359.129"/&gt;</div><div>?Jinggi wala mala matha wana balanhu</div><div>&lt;Sync time="377.524"/&gt;</div><div>Well I heard them</div><div>&lt;/Turn&gt;</div><div>&lt;/Section&gt;</div><div>&lt;/Episode&gt;</div><div>&lt;/Trans&gt;</div>  <div><br></div>', '', NULL, '', 'T', '2013-05-04 15:43:39', 1, '2013-05-04 15:43:51', 1, 'F'),
+(7, 'oakes1a', 'Oakes1a', 'T', '', '', NULL, '', 'T', '2015-02-09 20:56:57', 1, '2015-02-09 20:56:57', 1, 'F');
 
 -- --------------------------------------------------------
 
@@ -1088,8 +1092,7 @@ CREATE TABLE IF NOT EXISTS `plugin_wiki_transcript_archive` (
 --
 
 INSERT INTO `plugin_wiki_transcript_archive` (`id`, `current_record`, `slug`, `title`, `summary`, `is_public`, `body`, `tags`, `role`, `changelog`, `is_active`, `created_on`, `created_by`, `modified_on`, `modified_by`, `comments_allowed`) VALUES
-(1, 2, 'terry_crowley23a', 'Terry Crowley23a', '', 'T', '', '', NULL, '', 'T', '2013-05-04 15:39:40', 1, '2013-05-04 15:39:40', 1, 'F'),
-(2, 3, 'terry_crowley23b', 'Terry Crowley23b', '', 'T', '', '', NULL, '', 'T', '2013-05-04 15:43:39', 1, '2013-05-04 15:43:39', 1, 'F');
+(1, 2, 'terry_crowley23a', 'Terry Crowley23a', '', 'T', '', '', NULL, '', 'T', '2013-05-04 15:39:40', 1, '2013-05-04 15:39:40', 1, 'F');
 
 -- --------------------------------------------------------
 
@@ -1113,10 +1116,11 @@ CREATE TABLE IF NOT EXISTS `profile` (
 
 CREATE TABLE IF NOT EXISTS `Resources` (
 `id` int(11) NOT NULL,
+  `slug` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
   `Collected_by` varchar(100) NOT NULL,
-  `desc` text NOT NULL,
+  `description` text NOT NULL,
   `Public` varchar(1) NOT NULL DEFAULT 'F'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
 
@@ -1124,91 +1128,199 @@ CREATE TABLE IF NOT EXISTS `Resources` (
 -- Dumping data for table `Resources`
 --
 
-INSERT INTO `Resources` (`id`, `name`, `title`, `Collected_by`, `desc`, `Public`) VALUES
-(1, 'calley_m01_01178_a6da482255.mp3', 'Calley', 'Calley', ' ', 'F'),
-(2, 'crowley_t04_003759a_30abb5578d.mp3', 'Terry Crowley9a', 'Terry Crowley', 'Place of origin: Tabulam (NSW N Coast SH56-02) Performer/Speaker: Ethel Walker', 'F'),
-(3, 'crowley_t04_003759b_5367b7af2d.mp3', 'Terry Crowley9b', 'Terry Crowley', ' ', 'F'),
-(4, 'crowley_t04_003760a_ba6fab8804.mp3', 'Terry Crowley10a', 'Terry Crowley', ' ', 'F'),
-(5, 'crowley_t04_003760b_d52aa76e6b.mp3', 'Terry Crowley10b', 'Terry Crowley', ' ', 'F'),
-(6, 'crowley_t04_003761a_780f8706f4.mp3', 'Terry Crowley11a', 'Terry Crowley', ' ', 'F'),
-(7, 'crowley_t06_003222a_298bcb199b.mp3', 'Terry Crowley22a', 'Terry Crowley', 'Performer/Speaker: Lyle Roberts', 'F'),
-(8, 'crowley_t06_003222b_e0122077fc.mp3', 'Terry Crowley22b', 'Terry Crowley', 'Performer/Speaker: Ethel Walker', 'F'),
-(9, 'crowley_t06_003223a_07786422fb.mp3', 'Terry Crowley23a', 'Terry Crowley', ' 3223A', 'F'),
-(10, 'crowley_t06_003223b_55ae080a73.mp3', 'Terry Crowley23b', 'Terry Crowley', ' 3223b', 'F'),
-(11, 'crowley_t06_003224a_41005f01b0.mp3', 'Terry Crowley24a', 'Terry Crowley', ' ', 'F'),
-(12, 'crowley_t06_003224b_815f0ed9ba.mp3', 'Terry Crowley24b', 'Terry Crowley', ' ', 'F'),
-(13, 'crowley_t06_003225a_523ceda4c1.mp3', 'Terry Crowley25a', 'Terry Crowley', ' ', 'F'),
-(14, 'crowley_t06_003225b_814c89dc8e.mp3', 'Terry Crowley25b', 'Terry Crowley', ' ', 'F'),
-(15, 'crowley_t06_003226a_3010997c01.mp3', 'Terry Crowley26a', 'Terry Crowley', ' ', 'F'),
-(16, 'crowley_t06_003226b_9f4b42fc29.mp3', 'Terry Crowley26b', 'Terry Crowley', ' ', 'F'),
-(17, 'crowley_t06_003227a_4fd101747c.mp3', 'Terry Crowley27a', 'Terry Crowley', ' ', 'F'),
-(18, 'crowley_t06_003227b_307bb78928.mp3', 'Terry Crowley27b', 'Terry Crowley', ' ', 'F'),
-(19, 'crowley_t06_003228a_54d8f0477b.mp3', 'Terry Crowley28a', 'Terry Crowley', ' ', 'F'),
-(20, 'fox_donnelly_01_017550_556a4c3180.mp3', 'Fox Donnelly', 'Fox Donnelly', 'Title: Songs and discussion with Dick Donnelly', 'F'),
-(21, 'gibbons_b01_00053_66d47c9bd0.mp3', 'Gibbons', 'Gibbons', ' ', 'F'),
-(22, 'gummow_m01_13001_0a40e6d29a.mp3', 'Songs of Bundjalung 1', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(23, 'gummow_m01_13002_f6890d5d88.mp3', 'Songs of Bundjalung 2', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(24, 'gummow_m01_13003_d328e46b36.mp3', 'Songs of Bundjalung 3', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(25, 'gummow_m01_13004_8a9982254d.mp3', 'Songs of Bundjalung 4', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(26, 'gummow_m01_13005_b4d43ae70d.mp3', 'Songs of Bundjalung 5', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(27, 'gummow_m01_13006_592be38551.mp3', 'Songs of Bundjalung 6', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(28, 'gummow_m01_13007_4babcb2860.mp3', 'Songs of Bundjalung 7', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(29, 'gummow_m01_13008_3c2f45c086.mp3', 'Songs of Bundjalung 8', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
-(30, 'gummow_m03_13009_cf4f70e2e4.mp3', 'Songs of Bundjalung 9', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
-(31, 'gummow_m03_13010_8dcbaf98a7.mp3', 'Songs of Bundjalung 10', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
-(32, 'gummow_m03_13011_466ca8c71f.mp3', 'Songs of Bundjalung 11', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
-(33, 'oakes_m01_001066a_d3aa3cac94.mp3', 'Oakes1a', 'Oakes', 'Interview with Jim Morgan. Corroboree songs and vocabulary with discussion of Cecil Taylor''s recital at Casino; retape of interview with James Morgan singing songs for a radio broadcast prepared for the Richmond River Historical Society by Glen Hall; 6 songs by Cecil Taylor', 'F'),
-(34, 'oakes_m01_001066b_86f35133bd.mp3', 'Oakes', 'Oakes', 'Interview with Jim Morgan. Corroboree songs and vocabulary with discussion of Cecil Taylor''s recital at Casino; retape of interview with James Morgan singing songs for a radio broadcast prepared for the Richmond River Historical Society by Glen Hall; 6 songs by Cecil Taylor', 'F'),
-(35, 'sommerlad_j02_002141a_969ad621f3.mp3', 'Sommerlada', 'Sommerlad', ' ', 'F'),
-(36, 'sommerlad_j02_002143b_2c8beff227.mp3', 'Sommerladb', 'Sommerlad', ' ', 'F'),
-(37, 'willoughby_a01_004744_2efbeb3928.mp3', 'Willoughbya1', 'Willoughby', ' ', 'F'),
-(38, 'willoughby_a01_004745_9310136a4b.mp3', 'Willoughbya2', 'Willoughby', ' ', 'F'),
-(39, 'wurm_s03_002880a_94336a4d11.mp3', 'Wurm0a', 'Wurm', ' ', 'F'),
-(40, 'wurm_s03_002881a_09dd074847.mp3', 'Wurm1a', 'Wurm', ' ', 'F'),
-(41, 'wurm_s03_002881b_20f18b1e8f.mp3', 'Wurm1b', 'Wurm', ' ', 'F'),
-(42, 'wurm_s03_002882a_cbb724da0d.mp3', 'Wurm2a', 'Wurm', ' ', 'F'),
-(43, 'wurm_s03_002882b_b299be3f66.mp3', 'Wurm2b', 'Wurm', ' ', 'F'),
-(44, 'wurm_s03_002883a_f6f812ec4c.mp3', 'Wurm3a', 'Wurm', ' ', 'F'),
-(45, 'wurm_s03_002883b_5e5e684c98.mp3', 'Wurm3b', 'Wurm', ' ', 'F'),
-(46, 'wurm_s03_002884a_1645d629f9.mp3', 'Wurm4a', 'Wurm', ' ', 'F'),
-(47, 'wurm_s03_002884b_fb84ca748a.mp3', 'Wurm4b', 'Wurm', ' ', 'F'),
-(48, 'wurm_s03_002885a_723d97b25c.mp3', 'Wurm5a', 'Wurm', ' ', 'F'),
-(49, 'wurm_s03_002885b_40c83900db.mp3', 'Wurm5b', 'Wurm', ' ', 'F'),
-(50, 'wurm_s03_002886a_a25aa2ee98.mp3', 'Wurm6a', 'Wurm', ' ', 'F'),
-(51, 'wurm_s03_002886b_00e9a4fc01.mp3', 'Wurm6b', 'Wurm', ' ', 'F'),
-(52, 'wurm_s03_002887a_2eec96e762.mp3', 'Wurm7a', 'Wurm', ' ', 'F'),
-(53, 'wurm_s03_002887b_8acf51ab78.mp3', 'Wurm7b', 'Wurm', ' ', 'F'),
-(54, 'wurm_s03_002888a_7d7fee601f.mp3', 'Wurm8a', 'Wurm', ' ', 'F'),
-(55, 'wurm_s03_002888b_879da67674.mp3', 'Wurm8b', 'Wurm', ' ', 'F'),
-(56, 'wurm_s03_002889a_bcac52d0dc.mp3', 'Wurm9a', 'Wurm', ' ', 'F'),
-(57, 'wurm_s03_002889b_4d30ec6bb0.mp3', 'Wurm9b', 'Wurm', ' ', 'F'),
-(58, 'wurm_s03_002890a_ccac1537d4.mp3', 'Wurm10a', 'Wurm', ' ', 'F'),
-(59, 'wurm_s03_002890b_10ab7c97db.mp3', 'Wurm10b', 'Wurm', ' ', 'F'),
-(60, 'wurm_s03_002891a_4d00ec5d6e.mp3', 'Wurm11a', 'Wurm', ' ', 'F'),
-(61, 'wurm_s03_002891b_ed28d54206.mp3', 'Wurm11b', 'Wurm', ' ', 'F'),
-(62, 'wurm_s03_002892a_1d5e66582b.mp3', 'Wurm12a', 'Wurm', ' ', 'F'),
-(63, 'wurm_s03_002892b_7d18e3e821.mp3', 'Wurm12b', 'Wurm', ' ', 'F'),
-(64, 'wurm_s03_002893a_4dcd57f830.mp3', 'Wurm13a', 'Wurm', ' ', 'F'),
-(65, 'wurm_s03_002894a_944c04ccf2.mp3', 'Wurm14a', 'Wurm', ' ', 'F'),
-(66, 'wurm_s03_002894b_268d6f3a84.mp3', 'Wurm14b', 'Wurm', ' ', 'F'),
-(67, 'wurm_s03_002895a_0bc0bcdcdd.mp3', 'Wurm15a', 'Wurm', ' ', 'F'),
-(68, 'wurm_s03_002895b_6dc74baee8.mp3', 'Wurm15b', 'Wurm', ' ', 'F'),
-(69, 'yugambeh_01_0146621_d476290290.mp3', 'Yugambeh2a', 'Yugambeh', ' ', 'F'),
-(70, 'yugambeh_01_0146622_7ea2e8c0ae.mp3', 'Yugambeh2b', 'Yugambeh', ' ', 'F'),
-(71, 'yugambeh_01_0146623_c064b12cbf.mp3', 'Yugambeh2c', 'Yugambeh', ' ', 'F'),
-(72, 'yugambeh_01_014663_b8e0d7de71.mp3', 'Yugambeh3', 'Yugambeh', ' ', 'F'),
-(73, 'yugambeh_01_014664_fea81b76b2.mp3', 'Yugambeh4', 'Yugambeh', ' ', 'F'),
-(74, 'yugambeh_01_014665_1d35f4f0cf.mp3', 'Yugambeh5', 'Yugambeh', ' ', 'F'),
-(75, 'yugambeh_01_014665_67ba4747ec.mp3', 'Yugambeh5b', 'Yugambeh', ' ', 'F'),
-(76, 'yugambeh_01_014666_ee262a938d.mp3', 'Yugambeh6', 'Yugambeh', ' ', 'F'),
-(77, 'yugambeh_01_014667_5e5243a12b.mp3', 'Yugambeh7', 'Yugambeh', ' ', 'F'),
-(78, 'yugambeh_01_014668_815f3334d5.mp3', 'Yugambeh8', 'Yugambeh', ' ', 'F'),
-(79, 'yugambeh_01_014669_f8eb69dcf4.mp3', 'Yugambeh9', 'Yugambeh', ' ', 'F'),
-(80, 'yugambeh_01_014670_1adc7943ec.mp3', 'Yugambeh10', 'Yugambeh', ' ', 'F'),
-(81, 'yugambeh_01_0146711_d590bf5480.mp3', 'Yugambeh11', 'Yugambeh', ' ', 'F'),
-(82, 'yugambeh_01_0146712_f5c3635564.mp3', 'Yugambeh12', 'Yugambeh', ' ', 'F'),
-(83, 'yugambeh_01_0146713_cc2255d7af.mp3', 'Yugambeh13', 'Yugambeh', ' ', 'F'),
-(84, 'yugambeh_01_0146714_edbfda80cb.mp3', 'Yugambeh14', 'Yugambeh', ' ', 'F');
+INSERT INTO `Resources` (`id`, `slug`, `name`, `title`, `Collected_by`, `description`, `Public`) VALUES
+(1, 'calley', 'calley_m01_01178_a6da482255.mp3', 'Calley', 'Calley', ' ', 'F'),
+(2, 'terry_crowley9a', 'crowley_t04_003759a_30abb5578d.mp3', 'Terry Crowley9a', 'Terry Crowley', 'Place of origin: Tabulam (NSW N Coast SH56-02) Performer/Speaker: Ethel Walker', 'F'),
+(3, 'terry_crowley9b', 'crowley_t04_003759b_5367b7af2d.mp3', 'Terry Crowley9b', 'Terry Crowley', ' ', 'F'),
+(4, 'terry_crowley10a', 'crowley_t04_003760a_ba6fab8804.mp3', 'Terry Crowley10a', 'Terry Crowley', ' ', 'F'),
+(5, 'terry_crowley10b', 'crowley_t04_003760b_d52aa76e6b.mp3', 'Terry Crowley10b', 'Terry Crowley', ' ', 'F'),
+(6, 'terry_crowley11a', 'crowley_t04_003761a_780f8706f4.mp3', 'Terry Crowley11a', 'Terry Crowley', ' ', 'F'),
+(7, 'terry_crowley22a', 'crowley_t06_003222a_298bcb199b.mp3', 'Terry Crowley22a', 'Terry Crowley', 'Performer/Speaker: Lyle Roberts', 'F'),
+(8, 'terry_crowley22b', 'crowley_t06_003222b_e0122077fc.mp3', 'Terry Crowley22b', 'Terry Crowley', 'Performer/Speaker: Ethel Walker', 'F'),
+(9, 'terry_crowley23a', 'crowley_t06_003223a_07786422fb.mp3', 'Terry Crowley23a', 'Terry Crowley', 'Tape 3223A', 'F'),
+(10, 'terry_crowley23b', 'crowley_t06_003223b_55ae080a73.mp3', 'Terry Crowley23b', 'Terry Crowley', ' 3223b', 'F'),
+(11, 'terry_crowley24a', 'crowley_t06_003224a_41005f01b0.mp3', 'Terry Crowley24a', 'Terry Crowley', ' ', 'F'),
+(12, 'terry_crowley24b', 'crowley_t06_003224b_815f0ed9ba.mp3', 'Terry Crowley24b', 'Terry Crowley', ' ', 'F'),
+(13, 'terry_crowley25a', 'crowley_t06_003225a_523ceda4c1.mp3', 'Terry Crowley25a', 'Terry Crowley', ' ', 'F'),
+(14, 'terry_crowley25b', 'crowley_t06_003225b_814c89dc8e.mp3', 'Terry Crowley25b', 'Terry Crowley', ' ', 'F'),
+(15, 'terry_crowley26a', 'crowley_t06_003226a_3010997c01.mp3', 'Terry Crowley26a', 'Terry Crowley', ' ', 'F'),
+(16, 'terry_crowley26b', 'crowley_t06_003226b_9f4b42fc29.mp3', 'Terry Crowley26b', 'Terry Crowley', ' ', 'F'),
+(17, 'terry_crowley27a', 'crowley_t06_003227a_4fd101747c.mp3', 'Terry Crowley27a', 'Terry Crowley', ' ', 'F'),
+(18, 'terry_crowley27b', 'crowley_t06_003227b_307bb78928.mp3', 'Terry Crowley27b', 'Terry Crowley', ' ', 'F'),
+(19, 'terry_crowley28a', 'crowley_t06_003228a_54d8f0477b.mp3', 'Terry Crowley28a', 'Terry Crowley', ' ', 'F'),
+(20, 'fox_donnelly', 'fox_donnelly_01_017550_556a4c3180.mp3', 'Fox Donnelly', 'Fox Donnelly', 'Title: Songs and discussion with Dick Donnelly', 'F'),
+(21, 'gibbons', 'gibbons_b01_00053_66d47c9bd0.mp3', 'Gibbons', 'Gibbons', ' ', 'F'),
+(22, 'songs_of_bundjalung_1', 'gummow_m01_13001_0a40e6d29a.mp3', 'Songs of Bundjalung 1', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(23, 'songs_of_bundjalung_2', 'gummow_m01_13002_f6890d5d88.mp3', 'Songs of Bundjalung 2', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(24, 'songs_of_bundjalung_3', 'gummow_m01_13003_d328e46b36.mp3', 'Songs of Bundjalung 3', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(25, 'songs_of_bundjalung_4', 'gummow_m01_13004_8a9982254d.mp3', 'Songs of Bundjalung 4', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(26, 'songs_of_bundjalung_5', 'gummow_m01_13005_b4d43ae70d.mp3', 'Songs of Bundjalung 5', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(27, 'songs_of_bundjalung_6', 'gummow_m01_13006_592be38551.mp3', 'Songs of Bundjalung 6', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(28, 'songs_of_bundjalung_7', 'gummow_m01_13007_4babcb2860.mp3', 'Songs of Bundjalung 7', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(29, 'songs_of_bundjalung_8', 'gummow_m01_13008_3c2f45c086.mp3', 'Songs of Bundjalung 8', 'Margaret Gummow', 'Annotation: Participants include Mary Wilson; Griffo; Mary Cowlan; Janet Gomes; Marjery Henderson; Millie Boyd; Eric and Una Walke; Aboriginal Program broadcast by Frank Roberts', 'F'),
+(30, 'songs_of_bundjalung_9', 'gummow_m03_13009_cf4f70e2e4.mp3', 'Songs of Bundjalung 9', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
+(31, 'songs_of_bundjalung_10', 'gummow_m03_13010_8dcbaf98a7.mp3', 'Songs of Bundjalung 10', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
+(32, 'songs_of_bundjalung_11', 'gummow_m03_13011_466ca8c71f.mp3', 'Songs of Bundjalung 11', 'Margaret Gummow', 'Performer/Speaker: Fletcher Roberts; Lincoln Gordon; Lucy Daley; Eileen Morgan; Millie Boyd; John Breckonbridge; Marie Breckonbridge; Charlotte Page; Louise Smith', 'F'),
+(33, 'oakes1a', 'oakes_m01_001066a_d3aa3cac94.mp3', 'Oakes1a', 'Oakes', 'Interview with Jim Morgan. Corroboree songs and vocabulary with discussion of Cecil Taylor''s recital at Casino; retape of interview with James Morgan singing songs for a radio broadcast prepared for the Richmond River Historical Society by Glen Hall; 6 songs by Cecil Taylo', 'F'),
+(34, 'oakes', 'oakes_m01_001066b_86f35133bd.mp3', 'Oakes', 'Oakes', 'Interview with Jim Morgan. Corroboree songs and vocabulary with discussion of Cecil Taylor''s recital at Casino; retape of interview with James Morgan singing songs for a radio broadcast prepared for the Richmond River Historical Society by Glen Hall; 6 songs by Cecil Taylor\r\r', 'F'),
+(35, 'sommerlada', 'sommerlad_j02_002141a_969ad621f3.mp3', 'Sommerlada', 'Sommerlad', ' ', 'F'),
+(36, 'sommerladb', 'sommerlad_j02_002143b_2c8beff227.mp3', 'Sommerladb', 'Sommerlad', ' ', 'F'),
+(37, 'willoughbya1', 'willoughby_a01_004744_2efbeb3928.mp3', 'Willoughbya1', 'Willoughby', ' ', 'F'),
+(38, 'willoughbya2', 'willoughby_a01_004745_9310136a4b.mp3', 'Willoughbya2', 'Willoughby', ' ', 'F'),
+(39, 'wurm0a', 'wurm_s03_002880a_94336a4d11.mp3', 'Wurm0a', 'Wurm', ' ', 'F'),
+(40, 'wurm1a', 'wurm_s03_002881a_09dd074847.mp3', 'Wurm1a', 'Wurm', ' ', 'F'),
+(41, 'wurm1b', 'wurm_s03_002881b_20f18b1e8f.mp3', 'Wurm1b', 'Wurm', ' ', 'F'),
+(42, 'wurm2a', 'wurm_s03_002882a_cbb724da0d.mp3', 'Wurm2a', 'Wurm', ' ', 'F'),
+(43, 'wurm2b', 'wurm_s03_002882b_b299be3f66.mp3', 'Wurm2b', 'Wurm', ' ', 'F'),
+(44, 'wurm3a', 'wurm_s03_002883a_f6f812ec4c.mp3', 'Wurm3a', 'Wurm', ' ', 'F'),
+(45, 'wurm3b', 'wurm_s03_002883b_5e5e684c98.mp3', 'Wurm3b', 'Wurm', ' ', 'F'),
+(46, 'wurm4a', 'wurm_s03_002884a_1645d629f9.mp3', 'Wurm4a', 'Wurm', ' ', 'F'),
+(47, 'wurm4b', 'wurm_s03_002884b_fb84ca748a.mp3', 'Wurm4b', 'Wurm', ' ', 'F'),
+(48, 'wurm5a', 'wurm_s03_002885a_723d97b25c.mp3', 'Wurm5a', 'Wurm', ' ', 'F'),
+(49, 'wurm5b', 'wurm_s03_002885b_40c83900db.mp3', 'Wurm5b', 'Wurm', ' ', 'F'),
+(50, 'wurm6a', 'wurm_s03_002886a_a25aa2ee98.mp3', 'Wurm6a', 'Wurm', ' ', 'F'),
+(51, 'wurm6b', 'wurm_s03_002886b_00e9a4fc01.mp3', 'Wurm6b', 'Wurm', ' ', 'F'),
+(52, 'wurm7a', 'wurm_s03_002887a_2eec96e762.mp3', 'Wurm7a', 'Wurm', ' ', 'F'),
+(53, 'wurm7b', 'wurm_s03_002887b_8acf51ab78.mp3', 'Wurm7b', 'Wurm', ' ', 'F'),
+(54, 'wurm8a', 'wurm_s03_002888a_7d7fee601f.mp3', 'Wurm8a', 'Wurm', ' ', 'F'),
+(55, 'wurm8b', 'wurm_s03_002888b_879da67674.mp3', 'Wurm8b', 'Wurm', ' ', 'F'),
+(56, 'wurm9a', 'wurm_s03_002889a_bcac52d0dc.mp3', 'Wurm9a', 'Wurm', ' ', 'F'),
+(57, 'wurm9b', 'wurm_s03_002889b_4d30ec6bb0.mp3', 'Wurm9b', 'Wurm', ' ', 'F'),
+(58, 'wurm10a', 'wurm_s03_002890a_ccac1537d4.mp3', 'Wurm10a', 'Wurm', ' ', 'F'),
+(59, 'wurm10b', 'wurm_s03_002890b_10ab7c97db.mp3', 'Wurm10b', 'Wurm', ' ', 'F'),
+(60, 'wurm11a', 'wurm_s03_002891a_4d00ec5d6e.mp3', 'Wurm11a', 'Wurm', ' ', 'F'),
+(61, 'wurm11b', 'wurm_s03_002891b_ed28d54206.mp3', 'Wurm11b', 'Wurm', ' ', 'F'),
+(62, 'wurm12a', 'wurm_s03_002892a_1d5e66582b.mp3', 'Wurm12a', 'Wurm', ' ', 'F'),
+(63, 'wurm12b', 'wurm_s03_002892b_7d18e3e821.mp3', 'Wurm12b', 'Wurm', ' ', 'F'),
+(64, 'wurm13a', 'wurm_s03_002893a_4dcd57f830.mp3', 'Wurm13a', 'Wurm', ' ', 'F'),
+(65, 'wurm14a', 'wurm_s03_002894a_944c04ccf2.mp3', 'Wurm14a', 'Wurm', ' ', 'F'),
+(66, 'wurm14b', 'wurm_s03_002894b_268d6f3a84.mp3', 'Wurm14b', 'Wurm', ' ', 'F'),
+(67, 'wurm15a', 'wurm_s03_002895a_0bc0bcdcdd.mp3', 'Wurm15a', 'Wurm', ' ', 'F'),
+(68, 'wurm15b', 'wurm_s03_002895b_6dc74baee8.mp3', 'Wurm15b', 'Wurm', ' ', 'F'),
+(69, 'yugambeh2a', 'yugambeh_01_0146621_d476290290.mp3', 'Yugambeh2a', 'Yugambeh', ' ', 'F'),
+(70, 'yugambeh2b', 'yugambeh_01_0146622_7ea2e8c0ae.mp3', 'Yugambeh2b', 'Yugambeh', ' ', 'F'),
+(71, 'yugambeh2c', 'yugambeh_01_0146623_c064b12cbf.mp3', 'Yugambeh2c', 'Yugambeh', ' ', 'F'),
+(72, 'yugambeh3', 'yugambeh_01_014663_b8e0d7de71.mp3', 'Yugambeh3', 'Yugambeh', ' ', 'F'),
+(73, 'yugambeh4', 'yugambeh_01_014664_fea81b76b2.mp3', 'Yugambeh4', 'Yugambeh', ' ', 'F'),
+(74, 'yugambeh5', 'yugambeh_01_014665_1d35f4f0cf.mp3', 'Yugambeh5', 'Yugambeh', ' ', 'F'),
+(75, 'yugambeh5b', 'yugambeh_01_014665_67ba4747ec.mp3', 'Yugambeh5b', 'Yugambeh', ' ', 'F'),
+(76, 'yugambeh6', 'yugambeh_01_014666_ee262a938d.mp3', 'Yugambeh6', 'Yugambeh', ' ', 'F'),
+(77, 'yugambeh7', 'yugambeh_01_014667_5e5243a12b.mp3', 'Yugambeh7', 'Yugambeh', ' ', 'F'),
+(78, 'yugambeh8', 'yugambeh_01_014668_815f3334d5.mp3', 'Yugambeh8', 'Yugambeh', ' ', 'F'),
+(79, 'yugambeh9', 'yugambeh_01_014669_f8eb69dcf4.mp3', 'Yugambeh9', 'Yugambeh', ' ', 'F'),
+(80, 'yugambeh10', 'yugambeh_01_014670_1adc7943ec.mp3', 'Yugambeh10', 'Yugambeh', ' ', 'F'),
+(81, 'yugambeh11', 'yugambeh_01_0146711_d590bf5480.mp3', 'Yugambeh11', 'Yugambeh', ' ', 'F'),
+(82, 'yugambeh12', 'yugambeh_01_0146712_f5c3635564.mp3', 'Yugambeh12', 'Yugambeh', ' ', 'F'),
+(83, 'yugambeh13', 'yugambeh_01_0146713_cc2255d7af.mp3', 'Yugambeh13', 'Yugambeh', ' ', 'F'),
+(84, 'yugambeh14', 'yugambeh_01_0146714_edbfda80cb.mp3', 'Yugambeh14', 'Yugambeh', ' ', 'F');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resources_archive`
+--
+
+CREATE TABLE IF NOT EXISTS `resources_archive` (
+`id` int(11) NOT NULL,
+  `current_record` int(10) NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `Collected_by` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `Public` varchar(1) NOT NULL DEFAULT 'F'
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
+
+--
+-- Dumping data for table `resources_archive`
+--
+
+INSERT INTO `resources_archive` (`id`, `current_record`, `slug`, `name`, `title`, `Collected_by`, `description`, `Public`) VALUES
+(1, 0, 'calley', 'calley_m01_01178_a6da482255.mp3', 'Calley', 'Calley', '_', 'F'),
+(2, 0, 'terry_crowley9a', 'crowley_t04_003759a_30abb5578d.mp3', 'Terry_Crowley9a', 'Terry_Crowley', 'Place_of_origin:_Tabulam_(NSW_N_Coast_SH56-02)_Performer/Speaker:_Ethel_Walker', 'F'),
+(3, 0, 'terry_crowley9b', 'crowley_t04_003759b_5367b7af2d.mp3', 'Terry_Crowley9b', 'Terry_Crowley', '_', 'F'),
+(4, 0, 'terry_crowley10a', 'crowley_t04_003760a_ba6fab8804.mp3', 'Terry_Crowley10a', 'Terry_Crowley', '_', 'F'),
+(5, 0, 'terry_crowley10b', 'crowley_t04_003760b_d52aa76e6b.mp3', 'Terry_Crowley10b', 'Terry_Crowley', '_', 'F'),
+(6, 0, 'terry_crowley11a', 'crowley_t04_003761a_780f8706f4.mp3', 'Terry_Crowley11a', 'Terry_Crowley', '_', 'F'),
+(7, 0, 'terry_crowley22a', 'crowley_t06_003222a_298bcb199b.mp3', 'Terry_Crowley22a', 'Terry_Crowley', 'Performer/Speaker:_Lyle_Roberts', 'F'),
+(8, 0, 'terry_crowley22b', 'crowley_t06_003222b_e0122077fc.mp3', 'Terry_Crowley22b', 'Terry_Crowley', 'Performer/Speaker:_Ethel_Walker', 'F'),
+(9, 0, 'terry_crowley23a', 'crowley_t06_003223a_07786422fb.mp3', 'Terry_Crowley23a', 'Terry_Crowley', '_3223A', 'F'),
+(10, 0, 'terry_crowley23b', 'crowley_t06_003223b_55ae080a73.mp3', 'Terry_Crowley23b', 'Terry_Crowley', '_3223b', 'F'),
+(11, 0, 'terry_crowley24a', 'crowley_t06_003224a_41005f01b0.mp3', 'Terry_Crowley24a', 'Terry_Crowley', '_', 'F'),
+(12, 0, 'terry_crowley24b', 'crowley_t06_003224b_815f0ed9ba.mp3', 'Terry_Crowley24b', 'Terry_Crowley', '_', 'F'),
+(13, 0, 'terry_crowley25a', 'crowley_t06_003225a_523ceda4c1.mp3', 'Terry_Crowley25a', 'Terry_Crowley', '_', 'F'),
+(14, 0, 'terry_crowley25b', 'crowley_t06_003225b_814c89dc8e.mp3', 'Terry_Crowley25b', 'Terry_Crowley', '_', 'F'),
+(15, 0, 'terry_crowley26a', 'crowley_t06_003226a_3010997c01.mp3', 'Terry_Crowley26a', 'Terry_Crowley', '_', 'F'),
+(16, 0, 'terry_crowley26b', 'crowley_t06_003226b_9f4b42fc29.mp3', 'Terry_Crowley26b', 'Terry_Crowley', '_', 'F'),
+(17, 0, 'terry_crowley27a', 'crowley_t06_003227a_4fd101747c.mp3', 'Terry_Crowley27a', 'Terry_Crowley', '_', 'F'),
+(18, 0, 'terry_crowley27b', 'crowley_t06_003227b_307bb78928.mp3', 'Terry_Crowley27b', 'Terry_Crowley', '_', 'F'),
+(19, 0, 'terry_crowley28a', 'crowley_t06_003228a_54d8f0477b.mp3', 'Terry_Crowley28a', 'Terry_Crowley', '_', 'F'),
+(20, 0, 'fox_donnelly', 'fox_donnelly_01_017550_556a4c3180.mp3', 'Fox_Donnelly', 'Fox_Donnelly', 'Title:_Songs_and_discussion_with_Dick_Donnelly', 'F'),
+(21, 0, 'gibbons', 'gibbons_b01_00053_66d47c9bd0.mp3', 'Gibbons', 'Gibbons', '_', 'F'),
+(22, 0, 'songs_of_bundjalung_1', 'gummow_m01_13001_0a40e6d29a.mp3', 'Songs_of_Bundjalung_1', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(23, 0, 'songs_of_bundjalung_2', 'gummow_m01_13002_f6890d5d88.mp3', 'Songs_of_Bundjalung_2', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(24, 0, 'songs_of_bundjalung_3', 'gummow_m01_13003_d328e46b36.mp3', 'Songs_of_Bundjalung_3', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(25, 0, 'songs_of_bundjalung_4', 'gummow_m01_13004_8a9982254d.mp3', 'Songs_of_Bundjalung_4', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(26, 0, 'songs_of_bundjalung_5', 'gummow_m01_13005_b4d43ae70d.mp3', 'Songs_of_Bundjalung_5', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(27, 0, 'songs_of_bundjalung_6', 'gummow_m01_13006_592be38551.mp3', 'Songs_of_Bundjalung_6', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(28, 0, 'songs_of_bundjalung_7', 'gummow_m01_13007_4babcb2860.mp3', 'Songs_of_Bundjalung_7', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(29, 0, 'songs_of_bundjalung_8', 'gummow_m01_13008_3c2f45c086.mp3', 'Songs_of_Bundjalung_8', 'Margaret_Gummow', 'Annotation:_Participants_include_Mary_Wilson;_Griffo;_Mary_Cowlan;_Janet_Gomes;_Marjery_Henderson;_Millie_Boyd;_Eric_and_Una_Walke;_Aboriginal_Program_broadcast_by_Frank_Roberts', 'F'),
+(30, 0, 'songs_of_bundjalung_9', 'gummow_m03_13009_cf4f70e2e4.mp3', 'Songs_of_Bundjalung_9', 'Margaret_Gummow', 'Performer/Speaker:_Fletcher_Roberts;_Lincoln_Gordon;_Lucy_Daley;_Eileen_Morgan;_Millie_Boyd;_John_Breckonbridge;_Marie_Breckonbridge;_Charlotte_Page;_Louise_Smith', 'F'),
+(31, 0, 'songs_of_bundjalung_10', 'gummow_m03_13010_8dcbaf98a7.mp3', 'Songs_of_Bundjalung_10', 'Margaret_Gummow', 'Performer/Speaker:_Fletcher_Roberts;_Lincoln_Gordon;_Lucy_Daley;_Eileen_Morgan;_Millie_Boyd;_John_Breckonbridge;_Marie_Breckonbridge;_Charlotte_Page;_Louise_Smith', 'F'),
+(32, 0, 'songs_of_bundjalung_11', 'gummow_m03_13011_466ca8c71f.mp3', 'Songs_of_Bundjalung_11', 'Margaret_Gummow', 'Performer/Speaker:_Fletcher_Roberts;_Lincoln_Gordon;_Lucy_Daley;_Eileen_Morgan;_Millie_Boyd;_John_Breckonbridge;_Marie_Breckonbridge;_Charlotte_Page;_Louise_Smith', 'F'),
+(33, 0, 'oakes1a', 'oakes_m01_001066a_d3aa3cac94.mp3', 'Oakes1a', 'Oakes', 'Interview_with_Jim_Morgan._Corroboree_songs_and_vocabulary_with_discussion_of_Cecil_Taylor''s_recital_at_Casino;_retape_of_interview_with_James_Morgan_singing_songs_for_a_radio_broadcast_prepared_for_the_Richmond_River_Historical_Society_by_Glen_Hall;_6_songs_by_Cecil_Taylor', 'F'),
+(34, 0, 'oakes', 'oakes_m01_001066b_86f35133bd.mp3', 'Oakes', 'Oakes', 'Interview_with_Jim_Morgan._Corroboree_songs_and_vocabulary_with_discussion_of_Cecil_Taylor''s_recital_at_Casino;_retape_of_interview_with_James_Morgan_singing_songs_for_a_radio_broadcast_prepared_for_the_Richmond_River_Historical_Society_by_Glen_Hall;_6_songs_by_Cecil_Taylor', 'F'),
+(35, 0, 'sommerlada', 'sommerlad_j02_002141a_969ad621f3.mp3', 'Sommerlada', 'Sommerlad', '_', 'F'),
+(36, 0, 'sommerladb', 'sommerlad_j02_002143b_2c8beff227.mp3', 'Sommerladb', 'Sommerlad', '_', 'F'),
+(37, 0, 'willoughbya1', 'willoughby_a01_004744_2efbeb3928.mp3', 'Willoughbya1', 'Willoughby', '_', 'F'),
+(38, 0, 'willoughbya2', 'willoughby_a01_004745_9310136a4b.mp3', 'Willoughbya2', 'Willoughby', '_', 'F'),
+(39, 0, 'wurm0a', 'wurm_s03_002880a_94336a4d11.mp3', 'Wurm0a', 'Wurm', '_', 'F'),
+(40, 0, 'wurm1a', 'wurm_s03_002881a_09dd074847.mp3', 'Wurm1a', 'Wurm', '_', 'F'),
+(41, 0, 'wurm1b', 'wurm_s03_002881b_20f18b1e8f.mp3', 'Wurm1b', 'Wurm', '_', 'F'),
+(42, 0, 'wurm2a', 'wurm_s03_002882a_cbb724da0d.mp3', 'Wurm2a', 'Wurm', '_', 'F'),
+(43, 0, 'wurm2b', 'wurm_s03_002882b_b299be3f66.mp3', 'Wurm2b', 'Wurm', '_', 'F'),
+(44, 0, 'wurm3a', 'wurm_s03_002883a_f6f812ec4c.mp3', 'Wurm3a', 'Wurm', '_', 'F'),
+(45, 0, 'wurm3b', 'wurm_s03_002883b_5e5e684c98.mp3', 'Wurm3b', 'Wurm', '_', 'F'),
+(46, 0, 'wurm4a', 'wurm_s03_002884a_1645d629f9.mp3', 'Wurm4a', 'Wurm', '_', 'F'),
+(47, 0, 'wurm4b', 'wurm_s03_002884b_fb84ca748a.mp3', 'Wurm4b', 'Wurm', '_', 'F'),
+(48, 0, 'wurm5a', 'wurm_s03_002885a_723d97b25c.mp3', 'Wurm5a', 'Wurm', '_', 'F'),
+(49, 0, 'wurm5b', 'wurm_s03_002885b_40c83900db.mp3', 'Wurm5b', 'Wurm', '_', 'F'),
+(50, 0, 'wurm6a', 'wurm_s03_002886a_a25aa2ee98.mp3', 'Wurm6a', 'Wurm', '_', 'F'),
+(51, 0, 'wurm6b', 'wurm_s03_002886b_00e9a4fc01.mp3', 'Wurm6b', 'Wurm', '_', 'F'),
+(52, 0, 'wurm7a', 'wurm_s03_002887a_2eec96e762.mp3', 'Wurm7a', 'Wurm', '_', 'F'),
+(53, 0, 'wurm7b', 'wurm_s03_002887b_8acf51ab78.mp3', 'Wurm7b', 'Wurm', '_', 'F'),
+(54, 0, 'wurm8a', 'wurm_s03_002888a_7d7fee601f.mp3', 'Wurm8a', 'Wurm', '_', 'F'),
+(55, 0, 'wurm8b', 'wurm_s03_002888b_879da67674.mp3', 'Wurm8b', 'Wurm', '_', 'F'),
+(56, 0, 'wurm9a', 'wurm_s03_002889a_bcac52d0dc.mp3', 'Wurm9a', 'Wurm', '_', 'F'),
+(57, 0, 'wurm9b', 'wurm_s03_002889b_4d30ec6bb0.mp3', 'Wurm9b', 'Wurm', '_', 'F'),
+(58, 0, 'wurm10a', 'wurm_s03_002890a_ccac1537d4.mp3', 'Wurm10a', 'Wurm', '_', 'F'),
+(59, 0, 'wurm10b', 'wurm_s03_002890b_10ab7c97db.mp3', 'Wurm10b', 'Wurm', '_', 'F'),
+(60, 0, 'wurm11a', 'wurm_s03_002891a_4d00ec5d6e.mp3', 'Wurm11a', 'Wurm', '_', 'F'),
+(61, 0, 'wurm11b', 'wurm_s03_002891b_ed28d54206.mp3', 'Wurm11b', 'Wurm', '_', 'F'),
+(62, 0, 'wurm12a', 'wurm_s03_002892a_1d5e66582b.mp3', 'Wurm12a', 'Wurm', '_', 'F'),
+(63, 0, 'wurm12b', 'wurm_s03_002892b_7d18e3e821.mp3', 'Wurm12b', 'Wurm', '_', 'F'),
+(64, 0, 'wurm13a', 'wurm_s03_002893a_4dcd57f830.mp3', 'Wurm13a', 'Wurm', '_', 'F'),
+(65, 0, 'wurm14a', 'wurm_s03_002894a_944c04ccf2.mp3', 'Wurm14a', 'Wurm', '_', 'F'),
+(66, 0, 'wurm14b', 'wurm_s03_002894b_268d6f3a84.mp3', 'Wurm14b', 'Wurm', '_', 'F'),
+(67, 0, 'wurm15a', 'wurm_s03_002895a_0bc0bcdcdd.mp3', 'Wurm15a', 'Wurm', '_', 'F'),
+(68, 0, 'wurm15b', 'wurm_s03_002895b_6dc74baee8.mp3', 'Wurm15b', 'Wurm', '_', 'F'),
+(69, 0, 'yugambeh2a', 'yugambeh_01_0146621_d476290290.mp3', 'Yugambeh2a', 'Yugambeh', '_', 'F'),
+(70, 0, 'yugambeh2b', 'yugambeh_01_0146622_7ea2e8c0ae.mp3', 'Yugambeh2b', 'Yugambeh', '_', 'F'),
+(71, 0, 'yugambeh2c', 'yugambeh_01_0146623_c064b12cbf.mp3', 'Yugambeh2c', 'Yugambeh', '_', 'F'),
+(72, 0, 'yugambeh3', 'yugambeh_01_014663_b8e0d7de71.mp3', 'Yugambeh3', 'Yugambeh', '_', 'F'),
+(73, 0, 'yugambeh4', 'yugambeh_01_014664_fea81b76b2.mp3', 'Yugambeh4', 'Yugambeh', '_', 'F'),
+(74, 0, 'yugambeh5', 'yugambeh_01_014665_1d35f4f0cf.mp3', 'Yugambeh5', 'Yugambeh', '_', 'F'),
+(75, 0, 'yugambeh5b', 'yugambeh_01_014665_67ba4747ec.mp3', 'Yugambeh5b', 'Yugambeh', '_', 'F'),
+(76, 0, 'yugambeh6', 'yugambeh_01_014666_ee262a938d.mp3', 'Yugambeh6', 'Yugambeh', '_', 'F'),
+(77, 0, 'yugambeh7', 'yugambeh_01_014667_5e5243a12b.mp3', 'Yugambeh7', 'Yugambeh', '_', 'F'),
+(78, 0, 'yugambeh8', 'yugambeh_01_014668_815f3334d5.mp3', 'Yugambeh8', 'Yugambeh', '_', 'F'),
+(79, 0, 'yugambeh9', 'yugambeh_01_014669_f8eb69dcf4.mp3', 'Yugambeh9', 'Yugambeh', '_', 'F'),
+(80, 0, 'yugambeh10', 'yugambeh_01_014670_1adc7943ec.mp3', 'Yugambeh10', 'Yugambeh', '_', 'F'),
+(81, 0, 'yugambeh11', 'yugambeh_01_0146711_d590bf5480.mp3', 'Yugambeh11', 'Yugambeh', '_', 'F'),
+(82, 0, 'yugambeh12', 'yugambeh_01_0146712_f5c3635564.mp3', 'Yugambeh12', 'Yugambeh', '_', 'F'),
+(83, 0, 'yugambeh13', 'yugambeh_01_0146713_cc2255d7af.mp3', 'Yugambeh13', 'Yugambeh', '_', 'F'),
+(84, 0, 'yugambeh14', 'yugambeh_01_0146714_edbfda80cb.mp3', 'Yugambeh14', 'Yugambeh', '_', 'F'),
+(85, 9, 'terry_crowley23a', 'crowley_t06_003223a_07786422fb.mp3', 'Terry_Crowley23a', 'Terry_Crowley', '_3223A', 'F');
 
 -- --------------------------------------------------------
 
@@ -1235,31 +1347,6 @@ INSERT INTO `shows` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `web2py_session_Bundjalung` (
-`id` int(11) NOT NULL,
-  `locked` char(1) DEFAULT NULL,
-  `client_ip` varchar(64) DEFAULT NULL,
-  `created_datetime` datetime DEFAULT NULL,
-  `modified_datetime` datetime DEFAULT NULL,
-  `unique_key` varchar(64) DEFAULT NULL,
-  `session_data` longblob
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `web2py_session_Bundjalung`
---
-
-INSERT INTO `web2py_session_Bundjalung` (`id`, `locked`, `client_ip`, `created_datetime`, `modified_datetime`, `unique_key`, `session_data`) VALUES
-(1, 'F', '127.0.0.1', '2015-02-07 17:09:35', '2015-02-07 17:09:35', '46ae0b63-4303-486b-9cc4-238df73243e3', 0x67414a6a5a327831623234755a327876596d4673637770545a584e7a61573975436e45426659565363514975),
-(2, 'F', '127.0.0.1', '2015-02-07 17:20:05', '2015-02-08 00:25:55', 'c8fc9360-3c81-48e9-b93a-18e49c29852f', 0x67414a6a5a327831623234755a327876596d4673637770545a584e7a61573975436e4542665845434b46556558325a76636d31725a586c62634778315a326c755833647061326c666347466e5a5338784d44466463514e6463515256525455324e7a686a4d47566a4d4442694d44526d597a566d4e545a695a6a4e6b595463334f544a694e6d49794f6a6468593245304f5449344c575a695a446b744e4745315a5331694e54686d4c54686c4f546c6a4e7a67334d4745794d3345465956554b5832463164476866626d563464484547546c55465a6d78686332687842303556424746316447687843474e6e624856766269357a644739795957646c436c4e3062334a685a32554b63516c3963516f6f565174795a57316c62574a6c636c39745a58454c6946554564584e6c636e454d59326473645739754c6d526862433576596d706c5933527a436c4a766477707844536d42635135396351386f5651683163325679626d46745a58455156515a6a6133563059586c56436d5a70636e4e305832356862575678455655445132463056516c7359584e305832356862575678456c55465333563059586c5644334a6c5a326c7a64484a6864476c76626c39705a484554696742564257567459576c736352525646474e72645852686555426a615852705a584d7562334a6e4c6d463156524a795a584e6c6446397759584e7a643239795a4639725a586c784655355643564a7662475666546d46745a58455756515a6c5a476c3062334a5645484a6c5a326c7a64484a6864476c76626c39725a586c7846303556416d6c6b6352694b41524e31596c554b6247467a6446393261584e706448455a59325268644756306157316c436d5268644756306157316c436e456156516f48337749484552634e416c564868564a784731554961473168593139725a586c784846556b4f474e6c59574d32597a59744f4745774d5330304d7a6c694c5468695a6a45744d3259324f54646a595451315932526d635231564333567a5a584a665a334a766458427a6352353963523956436d563463476c79595852706232357849456f416a5363416459565363534656486c396d62334a74613256355733427364576470626c393361577470583342685a3255764d544179585845695858456a565556684e44686a4d7a686a4e574d7a596a4669596a4135595751314e6d5a6b597a5130593255334d4459794d54706a4e446b334f5759314f4331694d3256684c54526a5a5755744f44566c5a4330774f545a6b4f44526d4e7a6c684e4468784a4746564756396d62334a746132563557304a31626d527159577831626d63764e546b314f5631784a5631784a6c56464d4455794d6a4a6b5a6a45344d6d45354e6d4d32596d59355a574e684e6a45304f54566d4d4755785a5751364d6a497a5a5759344d7a6b744f474a6d596930305954646b4c546b34596a4d744d4451775a54466c596a4a694e574e6a63536468565231665a6d39796257746c655674776248566e6157356664326c72615639775957646c4c7a55305858456f585845705655566a5a4755324d546b335a4455784e4759774d47457a4e446b7a4e4751775a6a4d344f44686d4d6a557859546f774f474d344e6a51354e6930795a444d344c5451344e6d4d74596d45304d7930334d47597a5a445531596a49354f5464784b6d46564556396d62334a74613256355733427962325a7062475664635374646353776f565351794f5467324d7a566b5979316b4d32557a4c54526a4d3245744f4745314d69316b4d6d5978596d4d795a6a646d4f574e784c56556b4d6a55784e6d49314d6a4d74597a526d4d5330304d6a46694c5749354e6d49744e6a686c4d7a466c4d7a41335a575532635335564a47466d597a646b5a5451324c5759785a4751744e44526d597931684d575a694c5745324e7a5668593252694d6a63774d334576565351324d44466c4d544a6d4e433032597a6b7a4c5451794d475174596d526b5a4330784e7a4d774f446779596a59344f5456784d46556b4d6a42694e5446685a6a63744f44597a4f4330304d4459314c5467354e7a59744d6a59344e3255784e6a4d334d44566a6354466c56526c665a6d39796257746c655674436457356b616d46736457356e4c7a55354e6a426463544a6463544e565254566c5a474d774e6a686a4d44686b4e3259344f4459334d324d304e7a51305a6a4a6b595451344e6a67324f6d59354d6a4d774d5451314c5759344d7a6b744e444d304e6931685a6a68684c5749324e4749304e475179597a6b304e6e45305956555058325a76636d31725a586c626247396e61573564635456646354596f565351304f4455314f44646a59533169596a55354c54526d4d4755744f546c6c5a43316d4e7a49324e57566a59546b304e6d4e784e31556b4d6a526a5957526a4d6a55744d6d4a6d4e4330304e3249344c5745794d6d597459325135596a597a4f47557a4d445a686354686c565231665a6d39796257746c655674776248566e6157356664326c72615639775957646c4c7a493558584535585845364b4656464d446c69597a42694f5441344e6d59354e7a63354d7a4d304e4749314d4751334e4455324e6d557a4e4455364f5755315932526d4f446b74596a4130597930304e4759334c574668596a59744e7a4d304d446c6b4e6d4d774d544d346354745652544135596d4d77596a6b774f445a6d4f5463334f544d7a4e4452694e54426b4e7a51314e6a5a6c4d7a51314f6a4e694e7a5a6b4e3255304c54686d4d7a41744e44597a597931695a6a566a4c57466a4d6a4131595452684e54453059584538565555774f574a6a4d4749354d4467325a6a6b334e7a6b7a4d7a5130596a55775a4463304e5459325a544d304e546f785a5459344f5459315979316a596a67784c5452695a444d744f5755314d43307a4e6a466c4f5445315954426a4e7a6878505656464d446c69597a42694f5441344e6d59354e7a63354d7a4d304e4749314d4751334e4455324e6d557a4e4455364e6a68684d7a55334d7a59744e4459354d6930305a6a4e6b4c546c685a6a4974595449344e7a5668597a4d354d6a55346354355652544135596d4d77596a6b774f445a6d4f5463334f544d7a4e4452694e54426b4e7a51314e6a5a6c4d7a51314f6d59314d6a51344d544d324c5441334e6d59744e446468595331694d5751334c574d304e4445334d54526a5a5745774d33452f565555774f574a6a4d4749354d4467325a6a6b334e7a6b7a4d7a5130596a55775a4463304e5459325a544d304e54706b5a5467354e3251324f53307a4d6a41334c5451795a445974595745334f43316d5a5442684d6a6b79597a49324d7a4a78514656464d446c69597a42694f5441344e6d59354e7a63354d7a4d304e4749314d4751334e4455324e6d557a4e4455364d6a51354d446b33595759744e545933597930304d5759304c546779596a63745957566b4d5451304d6a566c4d3246696355465652544135596d4d77596a6b774f445a6d4f5463334f544d7a4e4452694e54426b4e7a51314e6a5a6c4d7a51314f6a67314e7a5a6d4d7a6c6b4c544a6c4e7a55744e4456684e793034597a52694c574930596d4d304e6d4a694d7a6c6d4f484643565555774f574a6a4d4749354d4467325a6a6b334e7a6b7a4d7a5130596a55775a4463304e5459325a544d304e5470684f4463345a546c6959793077597a67774c54526d5a6d4974596a686959793032596d45325a474e6c4e5464695a475278513156464d446c69597a42694f5441344e6d59354e7a63354d7a4d304e4749314d4751334e4455324e6d557a4e4455365a474d334d5452685a5451744e6a52694e6930305a5446694c574935596a51745a5467324e5451775a6a5531596d51336355526c6459565363555575),
-(3, 'F', '127.0.0.1', '2015-02-07 17:20:47', '2015-02-07 17:20:47', '301b13bb-69de-4b5c-854a-66b548a7b033', 0x67414a6a5a327831623234755a327876596d4673637770545a584e7a61573975436e45426659565363514975);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `web2py_session_Bundjalungold`
---
-
-CREATE TABLE IF NOT EXISTS `web2py_session_Bundjalungold` (
 `id` int(11) NOT NULL,
   `locked` char(1) DEFAULT NULL,
   `client_ip` varchar(64) DEFAULT NULL,
@@ -1412,6 +1499,12 @@ ALTER TABLE `Resources`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `resources_archive`
+--
+ALTER TABLE `resources_archive`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `shows`
 --
 ALTER TABLE `shows`
@@ -1421,12 +1514,6 @@ ALTER TABLE `shows`
 -- Indexes for table `web2py_session_Bundjalung`
 --
 ALTER TABLE `web2py_session_Bundjalung`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web2py_session_Bundjalungold`
---
-ALTER TABLE `web2py_session_Bundjalungold`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1442,7 +1529,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `auth_event`
 --
 ALTER TABLE `auth_event`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=536;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=539;
 --
 -- AUTO_INCREMENT for table `auth_group`
 --
@@ -1527,7 +1614,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 -- AUTO_INCREMENT for table `plugin_wiki_transcript`
 --
 ALTER TABLE `plugin_wiki_transcript`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `plugin_wiki_transcript_archive`
 --
@@ -1539,6 +1626,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `Resources`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
 --
+-- AUTO_INCREMENT for table `resources_archive`
+--
+ALTER TABLE `resources_archive`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=86;
+--
 -- AUTO_INCREMENT for table `shows`
 --
 ALTER TABLE `shows`
@@ -1547,11 +1639,6 @@ MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `web2py_session_Bundjalung`
 --
 ALTER TABLE `web2py_session_Bundjalung`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `web2py_session_Bundjalungold`
---
-ALTER TABLE `web2py_session_Bundjalungold`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

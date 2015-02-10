@@ -56,11 +56,11 @@ def search(orderbys, searchterm,typequery, dialect, extra):
     if dialect!="All":
 	if dialect=="Middle Clarence":
 		query=query&(dblanguage.Bundjalung.Middle_Clarence!="")
-	elif dialect=="Condamine_Upper_Clarence":
+	elif dialect=="Condamine Upper Clarence":
 		 query=query&(dblanguage.Bundjalung.Condamine_Upper__Clarence!="")
-	elif dialect=="Lower_Richmond":
+	elif dialect=="Lower Richmond":
 		 query=query&(dblanguage.Bundjalung.Lower_Richmond!="")
-	elif dialect=="Gold_Coast_Tweed":
+	elif dialect=="Gold Coast Tweed":
 		 query=query&(dblanguage.Bundjalung.Gold_Coast_Tweed!="")
 	else:	
 		query=query&(dblanguage.Bundjalung.Copmanhurst!="")
@@ -275,21 +275,21 @@ def read_word(word):
 	word.dialect=""
 	colour="black"
 	if word.Gold_Coast_Tweed.strip() !="":
-		word.dialect+="Gold_Coast_Tweed, "
+		word.dialect+="Gold Coast Tweed, "
 	if word.Lower_Richmond.strip()!="":
-		word.dialect+="Lower_Richmond, "
+		word.dialect+="Lower Richmond, "
 
         if word.Middle_Clarence.strip()!="":
-                word.dialect+="Middle_Clarence, "
+                word.dialect+="Middle Clarence, "
 
         if word.Condamine_Upper_Clarence.strip()!="":
-                word.dialect+="Condamine_Upper_Clarence, "
+                word.dialect+="Condamine Upper Clarence, "
 
         if word.Copmanhurst.strip()!="":
                 word.dialect+="Copmanhurst "
-
 #remove ','
 	word.dialect = word.dialect.strip()[:-1]
+	if word.dialect.strip()=="": word.dialect="All"
 # if only one dialect
  	if word.dialect!="" and word.dialect.find(',')<0:
 		colour=db(db.dialect.name==word.dialect).select()

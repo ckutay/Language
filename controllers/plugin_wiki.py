@@ -134,8 +134,6 @@ def edit_resource():
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
-	print transcript
-	print slug
         w = db.Resources
         resource = w(slug=slug)
         if not  resource:
@@ -157,7 +155,6 @@ def edit_resource_transcript():
         resource=db(db.Resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
-	print transcript
 	if plugin_wiki_editor:
     	   if not transcript:
         	transcript= w.insert(slug=slug,
