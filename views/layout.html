@@ -57,22 +57,22 @@ jQuery(function () {
 
 
 tinymce.init({
-	selector: "textarea",
-	theme: "modern",
-	plugins: [
-		"advlist autolink lists link image charmap print preview hr anchor pagebreak",
-		"searchreplace wordcount visualblocks visualchars code fullscreen",
-		"insertdatetime media nonbreaking save table contextmenu directionality",
-		"emoticons template paste textcolor colorpicker textpattern "
-	],
-	toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-	toolbar2: "print preview media | forecolor backcolor emoticons",
-	image_advtab: true,
-	templates: [
-		{title: 'Test template 1', content: '<b>Test 1</b>'},
-		{title: 'Test template 2', content: '<em>Test 2</em>'}
-	],
-	autosave_ask_before_unload: false
+  selector: "textarea",
+  theme: "modern",
+  plugins: [
+    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+    "searchreplace wordcount visualblocks visualchars code fullscreen",
+    "insertdatetime media nonbreaking save table contextmenu directionality",
+    "emoticons template paste textcolor colorpicker textpattern "
+  ],
+  toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  toolbar2: "print preview media | forecolor backcolor emoticons",
+  image_advtab: true,
+  templates: [
+    {title: 'Test template 1', content: '<b>Test 1</b>'},
+    {title: 'Test template 2', content: '<em>Test 2</em>'}
+  ],
+  autosave_ask_before_unload: false
 });
 
 </script>
@@ -226,9 +226,9 @@ $(document).ready(function() {
 </div>
 </div>
 <script>
-var el = $('#popupword');
-var elpos_original = el.offset().top;
-$(window).scroll(function(){
+
+
+function scrollWindow(el, elpos_original){
     var elpos = el.offset().top;
     var windowpos = $(window).scrollTop();
     var finaldestination = windowpos;
@@ -238,7 +238,9 @@ $(window).scroll(function(){
     } else {
         el.stop().animate({'top':finaldestination-elpos_original+10},500);
     }
-});
+};
+$(window).scroll(scrollWindow($('#popupword'),$('#popupword').offset().top));
+
 </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->

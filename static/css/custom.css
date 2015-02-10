@@ -10,16 +10,18 @@ body{
     color:#006644;
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-
+.row{
+    margin-left: 0px;
+}
 #popupword{
 
-padding: 5px; position: relative; display: none; margin: 0px; width: 425px; top: 0px; left: 10px; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
+padding: 5px; position: relative; display: none; margin: 0px; width: 225px; top: 0px; left: 10px; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
 background: 0px 0px no-repeat rgb(176, 196, 222);
 }
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
 .business-header {
-    max-height: 250px;
+    max-height: 300px;
     background: url('../images/aboriginal.jpg') center center no-repeat scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;

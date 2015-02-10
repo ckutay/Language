@@ -5,9 +5,8 @@ function setupText(hoverItem){
         hp.style.display="none";
         hp.style.background="transparent 0px 0px no-repeat";
                 hp.style.margin=0;
-          hp.style.width="425px";
           hp.style.top="0px";
-          hp.style.left="100px";
+          hp.style.right="50%";
           hp.style.fontFamily="arial";
           hp.style.fontSize="12px";
         hp.style.backgroundColor="#B0C4DE";
@@ -16,11 +15,16 @@ function setupText(hoverItem){
         hp.style.padding="5px";
         hp.style.visibility="visible";
         hp.style.zIndex="100";
+        hp.style.width="50%";
 }
 function writeAjax(){
 hp = document.getElementById("popupword");
 hp.style.display="block";
-hp.style.width="80%";
+}
+function writeList(){
+  hp = document.getElementById("popuplist");
+  hp.style.display="block";
+  hp.style.float="right";
 }
 function stopText(){
 hp = document.getElementById("popupword");
@@ -53,7 +57,7 @@ hp.style.display="block";
 function DHTMLVideo(vurl){
  hp=document.getElementById("popupword");
 
- hp.innerHTML='<object width="425" height="344"><param name="movie" value="'+vurl+'"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="'+vurl+'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>';
+ hp.innerHTML='<object height="344"><param name="movie" value="'+vurl+'"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="'+vurl+'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" height="344"></embed></object>';
   
  hp.style.display="block";
 }
