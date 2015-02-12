@@ -116,7 +116,7 @@ def contact():
         Field('your_email',requires=IS_EMAIL()),
         Field('question','text', requires=IS_NOT_EMPTY()))
     if form.process().accepted:
-        if mail.send(to ="ckutay@cities.org.au",
+        if mail.send(to ="cat.kutay@gmail.com",
         subject="From %s website" % language,
 	reply_to="%s" % form.vars.your_email,
 	message=form.vars.question):
