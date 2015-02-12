@@ -218,9 +218,7 @@ def page():
 
 def list():
     page_id=request.args(0)
-    print page_id
     wl=wordlist(page_id)
-    print wl
     if wl: words=wl['words'];
     else: wl=None
     return dict(words=words, page_id=page_id)

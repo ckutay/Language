@@ -1,5 +1,5 @@
           <div id="Search">
-                <h2><b class="text1" >Search or translate sentence</b></h2>
+                <h4>Search </h4>
                 <form method="get" id="getparse" action="{{=URL(r=request,c='learning', f='parser')}}">
                     <fieldset>
                     <input type="radio" name="lang" value="English" />English

@@ -2,7 +2,6 @@ def wsread_question(page_body, page):
 	return page
 
 def wordlist(topic_id):
-
     wordlist=None
     try:
         wordlist=db(db.topics.page_id==topic_id).select()

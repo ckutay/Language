@@ -1,54 +1,10 @@
 function setupText(hoverItem){
         hp = document.getElementById("popupword");
-        hp.style.padding="0";
-        hp.style.position="relative";
         hp.style.display="none";
-        hp.style.background="transparent 0px 0px no-repeat";
-                hp.style.margin=0;
-          hp.style.top="0px";
-          hp.style.fontFamily="arial";
-          hp.style.fontSize="12px";
-        hp.style.backgroundColor="#B0C4DE";
-        hp.style.color="#000";
-        hp.style.border="1px solid #000";
-        hp.style.padding="5px";
-        hp.style.visibility="visible";
-        hp.style.zIndex="100";
-        hp.style.width="50%";
  hp = document.getElementById("popupsearch");
-        hp.style.padding="0";
-        hp.style.position="relative";
-        hp.style.display="none";
-        hp.style.background="transparent 0px 0px no-repeat";
-                hp.style.margin=0;
-          hp.style.top="0px";
-          hp.style.fontFamily="arial";
-          hp.style.fontSize="12px";
-        hp.style.backgroundColor="#B0C4DE";
-        hp.style.color="#000";
-        hp.style.border="1px solid #000";
-        hp.style.padding="5px";
-        hp.style.visibility="visible";
-        hp.style.zIndex="100";
-        hp.style.width="50%";
-
+if (hp)        hp.style.display="none";
   hp = document.getElementById("popuplist");
-        hp.style.padding="0";
-        hp.style.position="relative";
-        hp.style.display="none";
-        hp.style.background="transparent 0px 0px no-repeat";
-                hp.style.margin=0;
-          hp.style.top="0px";
-          hp.style.fontFamily="arial";
-          hp.style.fontSize="12px";
-        hp.style.backgroundColor="#B0C4DE";
-        hp.style.color="#000";
-        hp.style.border="1px solid #000";
-        hp.style.padding="5px";
-        hp.style.visibility="visible";
-        hp.style.zIndex="100";
-        hp.style.width="50%";
-
+   if(hp)     hp.style.display="none";
 }
 function writeAjax(){
 hp = document.getElementById("popupword");
@@ -58,7 +14,7 @@ hp.style.float="left";
 function writeList(){
   hp = document.getElementById("popuplist");
   hp.style.display="block";
-  hp.style.float="right";
+  hp.style.left="70%";
 
 }
 function writeSearch(){
