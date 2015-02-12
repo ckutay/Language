@@ -28,6 +28,16 @@ def video():
     print fullpath
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
+def doc():
+    subdirectory = 'uploads/media/doc/'# directory
+    filename = request.args(0)
+    fullpath = os.path.join(subdirectory, filename)
+    if request.args(1):
+            filenameadd = request.args(1)
+            fullpath = os.path.join(fullpath, filenameadd)
+    print fullpath
+    return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
+
 ##generic controller
 @auth.requires_membership('editor')
 def manage():
