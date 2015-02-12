@@ -1,9 +1,6 @@
  {{extend 'layout.html'}}
- {{if start==True:}}
  <!-- Page Content -->
- <div class="col-sm-12">
-
-    <br><br>
+ {{if start==True:}}
 
     <div id="page-title" class="well well-sm">
         <h3>{{=top_message}}</h3>
@@ -17,9 +14,9 @@
     <p>
         <a class="btn btn-default btn-lg" href={{=URL(c="plugin_wiki", f="page", args="usedictionary")}} >More &raquo;</a>
     </p>
-    <hr>
     {{pass}}
-    <div id="search-jumbo" >
+    <hr>
+<div id="search-jumbo" >
 
         <div class="row">
           <div class="col-sm-6"> 
@@ -78,7 +75,6 @@ All dialects{{pass}}
 </p></div>
 </div></div>
 </h4>
-<hr>
 <div id="popupword" ></div>
 <div id="WordList" class="jumbotron">
     <div class="row">
@@ -125,5 +121,4 @@ All dialects{{pass}}
                 {{pass}}
                 <br>
             </div>
-        </div>
 

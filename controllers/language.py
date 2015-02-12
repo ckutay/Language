@@ -52,7 +52,6 @@ def search(orderbys, searchterm,typequery, dialect, extra):
 		query= dblanguage.Bundjalung.Search_English.contains(searchterm)
 	 else:
 	        query= dblanguage.Bundjalung.Language_Word.contains(searchterm)
-
     if dialect!="All":
 	if dialect=="Middle Clarence":
 		query=query&(dblanguage.Bundjalung.Middle_Clarence!="")
@@ -102,7 +101,6 @@ def dictionary():
         numerics=['Exact','Related']	
 	if wordlist==[]:
 		wordlist =search(orderbys, searchterms,sort,dialect,'Related')
-
     else:
     	wordlist=[]
     	if (not(sort)):
