@@ -1,7 +1,0 @@
-{{extend 'layout.html'}}
-<h2>Edit {{=ribs.RIBS}}</h2>
-{{=form}}
-<script>
-jQuery('input[type=submit]').after('<button onclick="document.location=\'{{=URL(c="plugin_gmap", f="rib",args=request.args)}}\';return false">Cancel');
-</script>
-

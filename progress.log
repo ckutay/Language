@@ -1,6 +1,0 @@
-[2014-06-04 11:37:39] START
-[2014-06-04 11:37:39] UPLOAD /home/web2py/applications/Bundjalung/modules/web2py.app.ImageGallery.w2p.py: 545
-[2014-06-04 11:39:12] DELETE Bundjalung/modules/web2py.app.ImageGallery.w2p.py: -545
-[2015-02-03 13:45:42] EDIT Bundjalung/controllers/parser.py: 0
-[2015-02-03 13:55:06] CREATE learning.py: 0
-[2015-02-03 13:59:02] CREATE learning.py: 0
