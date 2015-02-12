@@ -15,7 +15,6 @@ def images():
     if request.args(1):
             filenameadd = request.args(1)
             fullpath = os.path.join(fullpath, filenameadd)
-    print fullpath
     response.stream(os.path.join(request.folder,fullpath))
 
 def video():
@@ -25,17 +24,15 @@ def video():
     if request.args(1):
             filenameadd = request.args(1)
             fullpath = os.path.join(fullpath, filenameadd)
-    print fullpath
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
 def doc():
-    subdirectory = 'uploads/media/doc/'# directory
+    subdirectory = 'uploads/media/docs/'# directory
     filename = request.args(0)
     fullpath = os.path.join(subdirectory, filename)
     if request.args(1):
             filenameadd = request.args(1)
             fullpath = os.path.join(fullpath, filenameadd)
-    print fullpath
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
 ##generic controller

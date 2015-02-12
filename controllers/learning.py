@@ -107,25 +107,20 @@ def parser():
     words=None
     searchterm=request.vars.query
     lang=request.vars.lang
-
 	#null searches
     if not(request.vars):
     	return dict(wordlist=True, words=words)
     elif not(searchterm):
     	redirect (URL(r=request,c="language",f="dictionary"))
-    elif (' ' in searchterm):
-	pass
-    else:
-	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'lang':lang}))
 
 ### add reference to example sentences
     #wordlist=searchterm.split()
     #for word in wordlist:
 #	pass
     if lang=="English":
-                query= dblanguage.BundjalungExamples.English.like('%%%s%%' % searchterm)
+                query= dblanguage.BundjalungExamples.English.like('%% %s %%' % searchterm)
     else:
-                query= dblanguage.BundjalungExamples.Language.like('%%%s%%' % searchterm)
+                query= dblanguage.BundjalungExamples.Language.like('%% %s %%' % searchterm)
     words=dblanguage(query)
     try:
 	words=words.select()
@@ -151,6 +146,8 @@ def parser():
                         lang.append(printed_word[0])
                         english.append(printed_word[1])
                         pos.append(printed_word[2])
+		leng=len(lang)
+
     		words=[lang,english,pos]
     return dict(wordlist=True, words=words, query=request.vars.query)
 
@@ -216,8 +213,19 @@ def page():
     page=wsread_question(page_body, page)
     title=page.title
     page_body=page.body
-	
-    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)
+
+    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug )
+
+def list():
+    page_id=request.args(0)
+    print page_id
+    wl=wordlist(page_id)
+    print wl
+    if wl: words=wl['words'];
+    else: wl=None
+    return dict(words=words, page_id=page_id)
+
+
 
 @auth.requires_login()
 def edit_page():

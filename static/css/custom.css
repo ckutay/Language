@@ -13,11 +13,26 @@ body{
 .row{
     margin-left: 0px;
 }
+
+.formatTable table, .formatTable th, .formatTable td{
+border: 1px solid #003300;
+padding: 10px;
+}
+
 #popupword{
 
-padding: 5px; position: relative; display: none; margin: 0px; width: 225px; top: 0px; left: 10px; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
+padding: 5px; position: relative; display: none; margin: 0px; width: 225px; top: 0px; float: left; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
 background: 0px 0px no-repeat rgb(176, 196, 222);
 }
+
+#popuplist{
+
+padding: 5px; position: relative; display: none; margin: 0px; width: 225px; top: 0px; float: right; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100;
+background: 0px 0px no-repeat rgb(176, 196, 222);
+}
+
+
+
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
 .business-header {

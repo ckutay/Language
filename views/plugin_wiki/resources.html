@@ -1,14 +1,9 @@
 {{extend 'layout.html'}}
 <p></p>
-{{if resource:}}
-<h2><strong>{{=resource.title}}</strong></h2>
-{{else:}}
 <h2><strong>
 Resources on site:
 </strong></h2>
-{{pass}}
 <p></p>
-{{if resources:}}
 {{for resource in resources:}}
 <br>
 {{=resource.title}}
@@ -17,16 +12,3 @@ Collected by {{=resource.Collected_by}}
 <br>
 <a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Listen to file with transcript</a>
 <br>
-{{pass}}
-{{else:}}
-{{=resource.title}}
-<br>
-Collected by {{=resource.Collected_by}}
-<br>
-<audio controls>
-  <source src={{=resource.name}} type="audio/mpeg">
-Your browser does not support the audio element.
-</audio> 
-<br>
-<a href={{=URL(c="default", f="filedownload", args=os.path.join("file", resource.name))}}>Download link</a>
-{{pass}}

@@ -162,12 +162,14 @@ db.define_table('plugin_wiki_attachment',
                 auth.signature,
                 format='%(name)s', migrate=plugin_wiki_migrate)
 
-db.define_table('Resources',
+db.define_table('resources',
                 Field('id', 'integer',writable=False,readable=False),
                 Field('slug','string',length=50),
 
                 Field('name','upload',requires=IS_NOT_EMPTY(),autodelete=True),
                 Field('title','string',length=50),
+                Field('file','string',length=100),
+
                 Field('Collected_by','string',length=100),
 		Field('description','string', length=500),
 		Field('Public','boolean', default=False),

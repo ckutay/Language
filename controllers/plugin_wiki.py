@@ -134,7 +134,7 @@ def edit_resource():
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
-        w = db.Resources
+        w = db.resources
         resource = w(slug=slug)
         if not  resource:
            	redirect(URL(r=request, c='plugin_wiki', f='resources'))
@@ -152,7 +152,7 @@ def edit_resource_transcript():
 	form=None
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
         slug=resource_title.strip().replace(' ','_').lower()
-        resource=db(db.Resources.slug==slug).select().first()
+        resource=db(db.resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
 	if plugin_wiki_editor:
@@ -167,8 +167,8 @@ def edit_resource_transcript():
 	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
 def resources():
-	Resources=db.Resources
-	resources = db(Resources.id>0).select(orderby=Resources.title)            
+	resources=db.resources
+	resources = db(resources.id>0).select(orderby=resources.title)            
         if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
         return dict(resource=None,resources=resources)
 
@@ -176,7 +176,7 @@ def resource():
 	resource_title=request.args(0)
 	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
-        resource=db(db.Resources.slug==slug).select().first()
+        resource=db(db.resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
 	page=db(db.plugin_wiki_transcript.slug==slug)
 	if (page): page=page.select().first()     

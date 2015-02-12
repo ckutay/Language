@@ -6,7 +6,6 @@ function setupText(hoverItem){
         hp.style.background="transparent 0px 0px no-repeat";
                 hp.style.margin=0;
           hp.style.top="0px";
-          hp.style.right="50%";
           hp.style.fontFamily="arial";
           hp.style.fontSize="12px";
         hp.style.backgroundColor="#B0C4DE";
@@ -16,18 +15,61 @@ function setupText(hoverItem){
         hp.style.visibility="visible";
         hp.style.zIndex="100";
         hp.style.width="50%";
+ hp = document.getElementById("popupsearch");
+        hp.style.padding="0";
+        hp.style.position="relative";
+        hp.style.display="none";
+        hp.style.background="transparent 0px 0px no-repeat";
+                hp.style.margin=0;
+          hp.style.top="0px";
+          hp.style.fontFamily="arial";
+          hp.style.fontSize="12px";
+        hp.style.backgroundColor="#B0C4DE";
+        hp.style.color="#000";
+        hp.style.border="1px solid #000";
+        hp.style.padding="5px";
+        hp.style.visibility="visible";
+        hp.style.zIndex="100";
+        hp.style.width="50%";
+
+  hp = document.getElementById("popuplist");
+        hp.style.padding="0";
+        hp.style.position="relative";
+        hp.style.display="none";
+        hp.style.background="transparent 0px 0px no-repeat";
+                hp.style.margin=0;
+          hp.style.top="0px";
+          hp.style.fontFamily="arial";
+          hp.style.fontSize="12px";
+        hp.style.backgroundColor="#B0C4DE";
+        hp.style.color="#000";
+        hp.style.border="1px solid #000";
+        hp.style.padding="5px";
+        hp.style.visibility="visible";
+        hp.style.zIndex="100";
+        hp.style.width="50%";
+
 }
 function writeAjax(){
 hp = document.getElementById("popupword");
 hp.style.display="block";
+hp.style.float="left";
 }
 function writeList(){
   hp = document.getElementById("popuplist");
   hp.style.display="block";
   hp.style.float="right";
+
 }
-function stopText(){
-hp = document.getElementById("popupword");
+function writeSearch(){
+  hp = document.getElementById("popupsearch");
+  hp.style.display="block";
+  hp.style.float="left";
+
+}
+
+function stopText(el){
+hp = document.getElementById(el);
 hp.innerHTML ="test";
 hp.style.display="none";
 }
@@ -36,13 +78,13 @@ function DHTMLSound(surl,text) {
  hp=document.getElementById("popupword");
  if (navigator.appName == "Microsoft Internet Explorer")
 
-    hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText()" href="#"  >Close</a><\div>';
+    hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
 else if (navigator.appName != "Netscape")
 
-hp.innerHTML=text+' '+'<audio controls autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText()" href="#"  >Close</a><\div>';
+hp.innerHTML=text+' '+'<audio controls autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
 else
 
-hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText()" href="#"  >Close</a><\div> ';
+hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div> ';
 
 ///{
 //text= text.concat('<audio autoplay="true" ><src="');
@@ -61,4 +103,3 @@ function DHTMLVideo(vurl){
   
  hp.style.display="block";
 }
-

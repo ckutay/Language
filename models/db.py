@@ -203,7 +203,14 @@ db.define_table('image',
                 Field('title'),
                 Field('file', 'upload')
 )
+db.define_table('topics',
 
+                Field ('id', 'integer'),
+                Field ('page_id', 'integer'),
+                Field ('English', 'string'),
+                Field ('Language', 'string')
+)
+db.topics.page_id.requires = IS_IN_DB(db, 'page.id')
 db.define_table('dialect',
 	Field('id',  'integer' , requires=IS_NOT_EMPTY() ),
 	Field('name'),
