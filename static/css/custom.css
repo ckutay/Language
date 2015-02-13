@@ -48,8 +48,10 @@ background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; backgroun
     margin: 0 auto;
 }
 
-footer {
-    margin: 50px 0;
+footer p{
+    margin-left: auto;
+    margin-right: auto;
+   width: 50%;
 }
 
 /*Navbar personalization*/
