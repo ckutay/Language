@@ -1,0 +1,82 @@
+{{extend 'layout.html'}}
+<p></p>
+<p>
+<div style="clear: both;">
+</div>
+<div id="popupword" ></div>
+</p>
+<font color={{=word.color}}>
+<table id="word" style="border:1px solid {{=word.color}};">
+<tr id="word"><td id="word"><b>English:</b> {{=word.English}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Category:}}
+<b>Category:</b> {{=word.Category}}
+{{pass}}
+</td>
+{{if word.ImageLink:}}
+<td id="word"><div><img height="200" src={{=word.ImageLink}}></div>
+</td>
+{{pass}}
+</tr>
+<tr id="word"><td id="word">
+<b>Bundjalung: </b>
+{{if word.Sound:}}
+<a href="" target="_blank" onMouseOver="DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.Search_English)}}');" >{{=word.Language_Word}} [Hover over to listen]</a>
+
+{{else:}}
+
+{{=word.Language_Word}}
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+<b>Comment:</b> {{=word.Comment}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Gold_Coast_Tweed:}}
+<font color='green'><B>Gold Coast Tweed:</b> {{=word.Gold_Coast_Tweed}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Lower_Richmond:}}
+<font color='blue'><b>Lower Richmond:</b> {{=word.Lower_Richmond}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Middle_Clarence:}}
+<font color='black'><b>South West:</b> {{=word.Middle_Clarence}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Condamine_Upper_Clarence:}}
+<font color='red'><b>Condamine Upper Clarence:</b> {{=word.Condamine_Upper_Clarence}}</font>
+
+{{pass}}
+</td></tr>
+<tr id="word"><td id="word">
+{{if word.Copmanhurst:}}
+<font color='orange'><b>Copmanhurst:</font></b> {{=word.Copmanhurst}}</font>
+
+{{pass}}
+{{for example in exampleSentences:}}
+</td></tr>
+<tr id="word"><td id="word">
+<b>Example:</b>
+<p>{{=language}} :{{=example.Language}}
+</p>
+<p>English: {{=example.English}}
+</p>
+</td></tr>
+{{pass}}
+{{pass}}
+</table>
+</font>
+</p><p>
+<div style="float: right;">
+{{if auth.user:}}
+{{=A('Edit', _href=link)}}
+{{pass}}
+</div>

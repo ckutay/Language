@@ -1,0 +1,1221 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.ImportError'> cannot import name PunktWordTokenizer"
+p3
+sS'layer'
+p4
+S'/usr/local/web2py/applications/Bundjalung/controllers/learning.py'
+p5
+sS'code'
+p6
+S'#################\n#Interface to nltk for languages\n#\n#################\n# -*- coding: utf-8 -*-\n# try something like\n\nimport altk\nfrom altk.dictionary import *\nfrom altk.tagger import *\nfrom altk.stemmer import *\nimport urllib\nimport nltk, re, pprint # NLTK and related modules -- are these all needed?\nfrom nltk.corpus import abc\n\nimport os, sys\nfrom  nltk.tokenize.punkt import PunktWordTokenizer\n\n\ndef translate_word(word, lang, ws, wd):\n                reduced_word = ws.stem(word, hide_suffixes = False, show_translation = True, show_pos=True)\n\n                stem = reduced_word[0]\n                translated_stem = translate_stem(stem, lang, wd)\n\n                translated_suffixes = reduced_word[1]\n                # if translated_stem[0]=="": return (translated_stem, translated_suffixes)\n\n                reduced_word_part = ws.stem(translated_stem[0], hide_suffixes = False, show_translation = True)\n\n                translated_stem = translated_stem + translate_stem(reduced_word_part[0],lang, wd)\n                translated_suffixes = translated_suffixes + reduced_word_part[1]\n\n                return (translated_stem, translated_suffixes)\n\ndef translate_stem(stem, lang, wd):\n\n                if lang!="English":\n\t\t\tif wd.has_word(stem):\n\n\t                        return (stem, wd.getEnglish(stem), wd.getPartEng(stem))\n\t\telse:\t\n\t\t\t\n\t\t\tif wd.has_eng_word(stem):\t\t\n\t\t\t\treturn (stem, wd.getLanguage(stem), wd.getPartLang(stem))\n\t\treturn (stem, stem, \'Unknown\')\n\ndef print_words(words):\n                AboriginalLanguage = ""\n                english = ""\n                pos=""\n                for word in words:\n\n                        printed_word = print_word(word)\n\n                        AboriginalLanguage += printed_word[0] +" "\n                        english +=  printed_word[1] +" "\n                        pos+= printed_word[2]+" "\n\n                return [AboriginalLanguage, english, pos]\n\ndef print_word(word):\n    stem = word[0]\n    suffixes = word[1]\n\n    printed_stem = print_stem(stem)\n    AboriginalLanguage = printed_stem[0]\n    english = printed_stem[1]\n    pos=printed_stem[2]\n    for suffix in suffixes:\n        printed_suffix = print_suffix(suffix)\n        AboriginalLanguage +=  printed_suffix[0]\n        english += printed_suffix[1]\n        pos+=printed_suffix[2]\n    return [AboriginalLanguage, english,pos]\n\ndef print_stem(stem):\n\n                AboriginalLanguage = stem[0]\n                english = stem[1]\n                 #create array\n                pos=stem[2]\n                w_length = len(AboriginalLanguage)\n                e_length = len(english)\n\n                length = max(w_length, e_length)\n                AboriginalLanguage = AboriginalLanguage.center(length)\n                english = english.center(length)\n                if pos: pos = pos.center(length)\n                return [AboriginalLanguage, english, pos]\n\ndef print_suffix(suffix):\n                AboriginalLanguage = "-" + suffix[0]\n                english = " " + suffix[1]\n                pos = " "+suffix[2]\n                w_length = len(AboriginalLanguage)\n                e_length = len(english)\n\n                length = max(w_length, e_length)\n                AboriginalLanguage = AboriginalLanguage.center(length)\n                english = english.center(length)\n                pos= pos.center(length)\n                return [AboriginalLanguage, english, pos]\n\n\ndef parser():\n    words=None\n    searchterm=request.vars.query\n    lang=request.vars.lang\n\t#null searches\n    if not(request.vars):\n    \treturn dict(wordlist=True, words=words)\n    elif not(searchterm):\n    \tredirect (URL(r=request,c="language",f="dictionary"))\n\n### add reference to example sentences\n    #wordlist=searchterm.split()\n    #for word in wordlist:\n#\tpass\n    if lang=="English":\n                query= dblanguage.BundjalungExamples.English.like(\'%% %s %%\' % searchterm)\n    else:\n                query= dblanguage.BundjalungExamples.Language.like(\'%% %s %%\' % searchterm)\n    words=dblanguage(query)\n    try:\n\twords=words.select()\n    except:\n\tredirect (URL(r=request,c="language",f="dictionary",vars={\'query\':searchterm, \'lang\':lang}))\n##else load dictionary\n    wd = dictionary.AboriginalLanguageDictionary()\n    ws = stemmer.AboriginalLanguageStemmer()\n\n    if (words):\n\treturn dict(wordlist=False, words=words, query=searchterm)\n    else:\n\t\tnewwords = PunktWordTokenizer().tokenize(searchterm)\n\t\twords = []\n\t\n                for word in newwords:\n                \twords+= [translate_word(word, lang, ws, wd)]   \n    \t\tlang=[]\n    \t\tenglish=[]\n    \t\tpos=[]\n    \t\tfor word in words:\n                        printed_word = print_word(word)\n                        lang.append(printed_word[0])\n                        english.append(printed_word[1])\n                        pos.append(printed_word[2])\n\t\tleng=len(lang)\n\n    \t\twords=[lang,english,pos]\n    return dict(wordlist=True, words=words, query=request.vars.query)\n\n\ndef pages():\n    w = db.plugin_wiki_page\n    t=db.plugin_wiki_tag\n    taglist=db(t.id>0).select(orderby=t.id)\n    words=None\n    if plugin_wiki_editor:\n            pages = db(w.worksheet==True).select(orderby=w.title)\n    else:\n                pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)\n\n    if plugin_wiki_editor:\n                form=SQLFORM.factory(Field(\'title\',requires=db.plugin_wiki_page.title.requires),\n                             Field(\'from_template\',requires=IS_EMPTY_OR(IS_IN_DB(db,db.plugin_wiki_page.title))))\n                if form.accepts(request.vars):\n                        title=request.vars.title\n                        page =db(w.title==title).select().first()\n                        if not page:\n                                page = w.insert(slug=title.replace(\' \',\'_\'),\n                                title=title,\n                                body=request.vars.template and w(slug=request.vars.template).body or \'\')\n                        redirect(URL(r=request,f=\'edit_page\',args=form.vars.title,vars=dict(template=request.vars.from_template or \'\')))\n    else:\n                form=\'\'\n    return dict(query=request.vars.query, taglist=taglist, pages=pages, form=form)\n\ndef page():\n    """\n    shows a page\n    """\n    slug= request.args(0)\n    import re\n    if slug=="Index" or slug==None:\n        redirect(URL(r=request, c=\'plugin_wiki\', f=\'index.html\'))\n    if slug=="Admin_Help" and not auth.user:\n        redirect(URL(r=request, c=\'plugin_wiki\', f=\'pages\'))\n\n\n    w = db.plugin_wiki_page\n    page = w(slug=slug)\n    #for template\n    if (not page or not page.is_public or not page.is_active):\n         if plugin_wiki_editor:\n                redirect(URL(r=request, c=\'plugin_wiki\', f=\'edit_page\', args=request.args))\n         if (session):session.flash=T("Page not available")\n\n         redirect(URL(r=request, c=\'plugin_wiki\', f=\'pages\'))\n    elif page and page.role and not auth.has_membership(page.role):\n        raise HTTP(404)\n        # parse pages. First History\n    if page.worksheet:\n        page.questions=[]\n    page.attachments=[]\n    a=db.plugin_wiki_attachment\n    query = (a.tablename=="page")&(a.record_id==page.id)\n    page.attachments=db(query).select()\n    page_body=page.body\n    if (page.worksheet):\n\tpage_body = wsread_page(page)\n\t#   page=wsread_question(page_body, page)\n    else:\n\tpage_body=page.body\n    title=page.title\n\n    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)\n\ndef list():\n    page_id=request.args(0)\n    wl=wordlist(page_id)\n    if wl: words=wl[\'words\'];\n    else: wl=None\n    return dict(words=words, page_id=page_id)\n\n\n\n@auth.requires_login()\ndef edit_page():\n    """\n    edit a page\n    """\n    slug = request.args(0) or \'Index\'\n    tags=""\n    if request.args(1): tags=\'|\'+request.args(1)+\'|\'\n    slug=slug.replace(\' \',\'_\')\n    w = db.plugin_wiki_page\n    w.role.writable = w.role.readable = plugin_wiki_level>1\n    page = w(slug=slug)\n    """\n    db.plugin_wiki_page.tag.default=""\n    db.plugin_wiki_page.update.tags=db.plugin_wiki_page.tags\n    """\n    if not page:\n        db.plugin_wiki_page.tags.default=tags\n\n        page = w.insert(slug=slug,\n                        title=slug.replace(\'_\',\' \'),\n                        tags=tags,\n                        body=request.vars.template and w(slug=request.vars.template).body or \'\')\n    else:\n        tags = page.tags #in practice \'xyz\' would be a variable\n    if page.title=="Index":\n        form = crud.update(w, page, deletable=True, onaccept=crud.archive,\n                       next=URL(r=request, c=\'plugin_wiki\', f=\'index\'))\n    else:\n                form = crud.update(w, page, deletable=True, onaccept=crud.archive,\n                next=URL(r=request,c=\'learning\', f=\'page\',args=slug))\n\n    return dict(form=form,page=page,tags=tags)\n\n\nresponse._vars=response._caller(page)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__hash__'
+p12
+S"<method-wrapper '__hash__' of exceptions.ImportError object>"
+p13
+sS'__setattr__'
+p14
+S"<method-wrapper '__setattr__' of exceptions.ImportError object>"
+p15
+sS'__reduce_ex__'
+p16
+S'<built-in method __reduce_ex__ of exceptions.ImportError object>'
+p17
+sS'__getslice__'
+p18
+S"<method-wrapper '__getslice__' of exceptions.ImportError object>"
+p19
+sS'__getitem__'
+p20
+S"<method-wrapper '__getitem__' of exceptions.ImportError object>"
+p21
+sS'__setstate__'
+p22
+S'<built-in method __setstate__ of exceptions.ImportError object>'
+p23
+sS'args'
+p24
+S"('cannot import name PunktWordTokenizer',)"
+p25
+sS'__reduce__'
+p26
+S'<built-in method __reduce__ of exceptions.ImportError object>'
+p27
+sS'__str__'
+p28
+S"<method-wrapper '__str__' of exceptions.ImportError object>"
+p29
+sS'__format__'
+p30
+S'<built-in method __format__ of exceptions.ImportError object>'
+p31
+sS'__getattribute__'
+p32
+S"<method-wrapper '__getattribute__' of exceptions.ImportError object>"
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.ImportError'>"
+p35
+sS'__unicode__'
+p36
+S'<built-in method __unicode__ of exceptions.ImportError object>'
+p37
+sS'__delattr__'
+p38
+S"<method-wrapper '__delattr__' of exceptions.ImportError object>"
+p39
+sS'__subclasshook__'
+p40
+S'<built-in method __subclasshook__ of type object>'
+p41
+sS'__repr__'
+p42
+S"<method-wrapper '__repr__' of exceptions.ImportError object>"
+p43
+sS'__dict__'
+p44
+S'{}'
+p45
+sS'__sizeof__'
+p46
+S'<built-in method __sizeof__ of exceptions.ImportError object>'
+p47
+sS'__doc__'
+p48
+S'"Import can\'t find module, or can\'t find name in module."'
+p49
+sS'__init__'
+p50
+S"<method-wrapper '__init__' of exceptions.ImportError object>"
+p51
+sS'__new__'
+p52
+S'<built-in method __new__ of type object>'
+p53
+ssS'evalue'
+p54
+S'cannot import name PunktWordTokenizer'
+p55
+sS'request'
+p56
+cgluon.html
+XML_unpickle
+p57
+(S's\x82l\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>58.173.119.87</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>58.173.119.87-cd3a3ae8-7719-4ec9-9a73-cefbb032b659<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_bundjalung</td><td style="vertical-align:top;">:</td><td><div>35109:59f9b294-42ea-4f08-8b54-09638865e004<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTEXT_DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTEXT_PREFIX</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">GATEWAY_INTERFACE</td><td style="vertical-align:top;">:</td><td><div>CGI/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,es;q=0.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CACHE_CONTROL</td><td style="vertical-align:top;">:</td><td><div>max-age=0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>session_id_admin=58.173.119.87-cd3a3ae8-7719-4ec9-9a73-cefbb032b659; session_id_bundjalung=&quot;35109:59f9b294-42ea-4f08-8b54-09638865e004&quot;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>http://bundjalung.dalang.com.au/learning/pages</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_TRANSLATED</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>58.173.119.87</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>41906</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_SCHEME</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_FILENAME</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_NAME</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_ADDR</td><td style="vertical-align:top;">:</td><td><div>129.94.172.214</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_ADMIN</td><td style="vertical-align:top;">:</td><td><div>cat.kutay@gmail.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SIGNATURE</td><td style="vertical-align:top;">:</td><td><div>&lt;address&gt;Apache/2.4.7 (Ubuntu) Server at bundjalung.dalang.com.au Port 80&lt;/address&gt;\n</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>Apache/2.4.7 (Ubuntu)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/usr/local/web2py/applications/Dharug/&#x27;, &#x27;/usr/local/web2py/applications/Language/&#x27;, &#x27;/usr/local/web2py/applications/admin/&#x27;, &#x27;/usr/local/web2py/applications/Bundjalung/&#x27;, &#x27;/usr/local/web2py/applications/kinship/&#x27;, &#x27;/usr/local/web2py/applications/Wiradjuri/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">context_document_root</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">context_prefix</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;Bundjalung&#x27;, &#x27;kinship&#x27;, &#x27;Language&#x27;, &#x27;Dharug&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_application</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_controller</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_function</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gateway_interface</td><td style="vertical-align:top;">:</td><td><div>CGI/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8,es;q=0.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cache_control</td><td style="vertical-align:top;">:</td><td><div>max-age=0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>session_id_admin=58.173.119.87-cd3a3ae8-7719-4ec9-9a73-cefbb032b659; session_id_bundjalung=&quot;35109:59f9b294-42ea-4f08-8b54-09638865e004&quot;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>http://bundjalung.dalang.com.au/learning/pages</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td><div>129.94.172.214</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>mindalgali</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>mindalgali.cse.unsw.EDU.AU</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.application_group</td><td style="vertical-align:top;">:</td><td><div>dalang.com.au|</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.callable_object</td><td style="vertical-align:top;">:</td><td><div>application</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.enable_sendfile</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.handler_script</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.input_chunked</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.listener_host</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.listener_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.process_group</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.queue_start</td><td style="vertical-align:top;">:</td><td><div>1437143065801060</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.request_handler</td><td style="vertical-align:top;">:</td><td><div>wsgi-script</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.script_reloading</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>3</div></td></tr><tr><td><div>4</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_application_group</td><td style="vertical-align:top;">:</td><td><div>dalang.com.au|</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_callable_object</td><td style="vertical-align:top;">:</td><td><div>application</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_enable_sendfile</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_handler_script</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_input_chunked</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_listener_host</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_listener_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_process_group</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_queue_start</td><td style="vertical-align:top;">:</td><td><div>1437143065801060</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_request_handler</td><td style="vertical-align:top;">:</td><td><div>wsgi-script</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_script_reloading</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>3</div></td></tr><tr><td><div>4</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_translated</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>58.173.119.87</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>41906</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/Bundjalung/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_filename</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_addr</td><td style="vertical-align:top;">:</td><td><div>129.94.172.214</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_admin</td><td style="vertical-align:top;">:</td><td><div>cat.kutay@gmail.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_signature</td><td style="vertical-align:top;">:</td><td><div>&lt;address&gt;Apache/2.4.7 (Ubuntu) Server at bundjalung.dalang.com.au Port 80&lt;/address&gt;\n</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>Apache/2.4.7 (Ubuntu)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_crontype</td><td style="vertical-align:top;">:</td><td><div>soft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_original_uri</td><td style="vertical-align:top;">:</td><td><div>/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Log object at 0x7f54b4c31a70&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in method file_wrapper of mod_wsgi.Adapter object at 0x7f54b6209d50&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Input object at 0x7f54b4c31bb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Log object at 0x7f54b4c31a70&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in method file_wrapper of mod_wsgi.Adapter object at 0x7f54b6209d50&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Input object at 0x7f54b4c31bb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/applications/Bundjalung/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>page</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/usr/local/web2py/applications/Dharug/&#x27;, &#x27;/usr/local/web2py/applications/Language/&#x27;, &#x27;/usr/local/web2py/applications/admin/&#x27;, &#x27;/usr/local/web2py/applications/Bundjalung/&#x27;, &#x27;/usr/local/web2py/applications/kinship/&#x27;, &#x27;/usr/local/web2py/applications/Wiradjuri/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;Bundjalung&#x27;, &#x27;kinship&#x27;, &#x27;Language&#x27;, &#x27;Dharug&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td><div>129.94.172.214</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>mindalgali</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>mindalgali.cse.unsw.EDU.AU</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_crontype</td><td style="vertical-align:top;">:</td><td><div>soft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 7, 18, 0, 24, 25, 802443)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/learning/page/BundjalungWahlubal_using_pictures_for_language_learning</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 7, 17, 14, 24, 25, 802503)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>Bundjalung/58.173.119.87.2015-07-18.00-24-25.aa401d15-dee9-4e00-82b7-382ab4ad8ffa</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7f54b4c31b10&gt;</div></td></tr></table></div>'
+tRp58
+sS'frames'
+p59
+(lp60
+(dp61
+S'file'
+p62
+S'/usr/local/web2py/gluon/restricted.py'
+p63
+sS'dump'
+p64
+(dp65
+S'environment'
+p66
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AboriginalLanguageDictionary': <class applications.Bundjalung.modules.altk.dictionary.AboriginalLanguageDictionary>, 'AboriginalLanguageStemmer': <class 'applications.Bundjalung.modules.altk.stemmer.AboriginalLanguageStemmer'>, 'AboriginalLanguageTagger': <class applications.Bundjalung.modules.altk.tagger.AboriginalLanguageTagger>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, ...}"
+p67
+sS'ccode'
+p68
+S'<code object <module> at 0x7f54a7540ab0, file "/...ions/Bundjalung/controllers/learning.py", line 8>'
+p69
+ssS'lnum'
+p70
+I224
+sS'lines'
+p71
+(dp72
+I224
+S'        exec ccode in environment'
+p73
+sI225
+S'    except HTTP:'
+p74
+sI226
+S'        raise'
+p75
+sI227
+S'    except RestrictedError:'
+p76
+sI228
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p77
+sI219
+S'    try:'
+p78
+sI220
+S'        if isinstance(code, types.CodeType):'
+p79
+sI221
+S'            ccode = code'
+p80
+sI222
+S'        else:'
+p81
+sI223
+S'            ccode = compile2(code, layer)'
+p82
+ssS'call'
+p83
+S"(code='#################\\n#Interface to nltk for languag...gs=tags)\\n\\n\\nresponse._vars=response._caller(page)\\n', environment={'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AboriginalLanguageDictionary': <class applications.Bundjalung.modules.altk.dictionary.AboriginalLanguageDictionary>, 'AboriginalLanguageStemmer': <class 'applications.Bundjalung.modules.altk.stemmer.AboriginalLanguageStemmer'>, 'AboriginalLanguageTagger': <class applications.Bundjalung.modules.altk.tagger.AboriginalLanguageTagger>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, ...}, layer='/usr/local/web2py/applications/Bundjalung/controllers/learning.py')"
+p84
+sS'func'
+p85
+S'restricted'
+p86
+sa(dp87
+g62
+S'/usr/local/web2py/applications/Bundjalung/controllers/learning.py'
+p88
+sg64
+(dp89
+S'PunktWordTokenizer'
+p90
+S'undefined'
+p91
+sS'nltk.tokenize.punkt'
+p92
+S"<module 'nltk.tokenize.punkt' from '/usr/local/lib/python2.7/dist-packages/nltk/tokenize/punkt.pyc'>"
+p93
+sS'nltk'
+p94
+S"<module 'nltk' from '/usr/local/lib/python2.7/dist-packages/nltk/__init__.pyc'>"
+p95
+sS'nltk.tokenize'
+p96
+S"<module 'nltk.tokenize' from '/usr/local/lib/python2.7/dist-packages/nltk/tokenize/__init__.pyc'>"
+p97
+ssg70
+I17
+sg71
+(dp98
+I12
+S'import urllib'
+p99
+sI13
+S'import nltk, re, pprint # NLTK and related modules -- are these all needed?'
+p100
+sI14
+S'from nltk.corpus import abc'
+p101
+sI15
+S''
+sI16
+S'import os, sys'
+p102
+sI17
+S'from  nltk.tokenize.punkt import PunktWordTokenizer'
+p103
+sI18
+S''
+sI19
+S''
+sI20
+S'def translate_word(word, lang, ws, wd):'
+p104
+sI21
+S'                reduced_word = ws.stem(word, hide_suffixes = False, show_translation = True, show_pos=True)'
+p105
+ssg83
+S'()'
+p106
+sg85
+S'<module>'
+p107
+sasS'pyver'
+p108
+S'Python 2.7.6: /usr/bin/python (prefix: /usr)'
+p109
+sS'session'
+p110
+g57
+(S's\x00\n\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>e6550083-c3ca-47f3-8d25-0a300a607f17</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 7, 18, 0, 22, 57, 872811)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">Role_Name</td><td style="vertical-align:top;">:</td><td><div>teacher</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>ckutay@cities.org.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>Cat</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>1L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div>Kutay</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div>0L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">username</td><td style="vertical-align:top;">:</td><td><div>cat.kutay</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">1</td><td style="vertical-align:top;">:</td><td><div>developer</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp111
+sS'etype'
+p112
+S"<type 'exceptions.ImportError'>"
+p113
+sS'date'
+p114
+S'Sat Jul 18 00:24:25 2015'
+p115
+sS'response'
+p116
+g57
+(S's-0\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7f54b60a07a0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_bundjalung</td><td style="vertical-align:top;">:</td><td><div>35109:59f9b294-42ea-4f08-8b54-09638865e004<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.dimensions.js</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.multiselect.js</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.multiselect.css</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div>: </div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>table3cols</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>*</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuAbout</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>People</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/people</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Traditional country</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/traditional_country</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Language background</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/language_background</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Outline of the language</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/outline_of_the_language</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Outline of resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/outline_of_resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>History of the project</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/history</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuLogin</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Logout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/user/logout</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuResource</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Dictionary Book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/dictionary</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Language Resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Written examples</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/written_examples_of_the_language</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Work Sheets</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/learning/pages</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuTop</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/index.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>About Us</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/about_us</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Dictionary</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/language/dictionary</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Accept Regos</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/appadmin/update/db.auth_user/registration_key/pending</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Change Password</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/user/change_password</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Contact</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/contact</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu_edit</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Edit</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/design/Bundjalung</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Controller</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/controllers/default.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>View</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/views/learning/page.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Layout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/views/layout.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Stylesheet</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/static/base.css</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>DB Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/models/db.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Menu Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/models/menu.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/appadmin</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu_spread</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Index</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_spreadsheet</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^learning/\\w+\\.py$</div></td></tr><tr><td><div>^learning/page/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>58.173.119.87</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_record_id</td><td style="vertical-align:top;">:</td><td><div>35109L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_table</td><td style="vertical-align:top;">:</td><td><div>&lt;Table web2py_session_Bundjalung (id,locked,client_ip,created_datetime,modified_datetime,unique_key,session_data)&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_unique_key</td><td style="vertical-align:top;">:</td><td><div>59f9b294-42ea-4f08-8b54-09638865e004</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>6dd1b1109851d69bd9ff061e78156ced</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>35109:59f9b294-42ea-4f08-8b54-09638865e004</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>db</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">start</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Bundjalung-Yugambeh Dictionary</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>learning/page.html</div></td></tr></table></div>'
+tRp117
+sS'locals'
+p118
+(dp119
+S'TH'
+p120
+S"<class 'gluon.html.TH'>"
+p121
+sS'Service'
+p122
+S"<class 'gluon.tools.Service'>"
+p123
+sS'plugin_gmaps'
+p124
+S"<Storage {'color': <function <lambda> at 0x7f54a...address': <function <lambda> at 0x7f54a7542e60>}>"
+p125
+sS'OBJECT'
+p126
+S"<class 'gluon.html.OBJECT'>"
+p127
+sS'track_changes'
+p128
+S'<function track_changes>'
+p129
+sS'SQLDB'
+p130
+S"<class 'gluon.dal.base.DAL'>"
+p131
+sg110
+S"<Storage {'_auth_next': None, 'flash': None, 'au...437eb', '7cfc92aa-cd62-4c14-a9a6-b0b05581f658']}>"
+p132
+sS'reverse_geocode'
+p133
+S'<function reverse_geocode>'
+p134
+sS'Auth'
+p135
+S"<class 'gluon.tools.Auth'>"
+p136
+sS'BR'
+p137
+S"<class 'gluon.html.BR'>"
+p138
+sS'local_import'
+p139
+S'<function <lambda>>'
+p140
+sS'OPTGROUP'
+p141
+S"<class 'gluon.html.OPTGROUP'>"
+p142
+sS'LI'
+p143
+S"<class 'gluon.html.LI'>"
+p144
+sS'WikiLinkResolver'
+p145
+S'<class __restricted__.WikiLinkResolver>'
+p146
+sS'plugin_multiselect_include'
+p147
+S'<function plugin_multiselect_include>'
+p148
+sS'redirect'
+p149
+S'<function redirect>'
+p150
+sS'IS_INT_IN_RANGE'
+p151
+S"<class 'gluon.validators.IS_INT_IN_RANGE'>"
+p152
+sS'uuid'
+p153
+S"<module 'uuid' from '/usr/lib/python2.7/uuid.pyc'>"
+p154
+sS'IS_LOWER'
+p155
+S"<class 'gluon.validators.IS_LOWER'>"
+p156
+sS'IS_STRONG'
+p157
+S"<class 'gluon.validators.IS_STRONG'>"
+p158
+sS'SlugValidator'
+p159
+S"<class '__restricted__.SlugValidator'>"
+p160
+sS'Recaptcha'
+p161
+S"<class 'gluon.tools.Recaptcha'>"
+p162
+sS'pprint'
+p163
+S"<module 'pprint' from '/usr/lib/python2.7/pprint.pyc'>"
+p164
+sS'IS_EQUAL_TO'
+p165
+S"<class 'gluon.validators.IS_EQUAL_TO'>"
+p166
+sS'TOP_MESSAGE'
+p167
+S"'Contact form'"
+p168
+sS'IS_IN_DB'
+p169
+S"<class 'gluon.validators.IS_IN_DB'>"
+p170
+sS'TAG'
+p171
+S'<gluon.html.__TAG__ object>'
+p172
+sS'combine'
+p173
+S'<function combine>'
+p174
+sS'__name__'
+p175
+S"'__restricted__'"
+p176
+sS'SQLField'
+p177
+S"<class 'gluon.dal.objects.Field'>"
+p178
+sS'sample_verbs'
+p179
+S'[]'
+p180
+sS'nodes'
+p181
+S"<module 'docutils.nodes' from '/usr/local/lib/py...ages/docutils-0.12-py2.7.egg/docutils/nodes.pyc'>"
+p182
+sS'RECAPTCHA_PRIVATE_KEY'
+p183
+S"'6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'"
+p184
+sS'noun_patterns'
+p185
+S'[]'
+p186
+sS'BODY'
+p187
+S"<class 'gluon.html.BODY'>"
+p188
+sS'IS_DATE_IN_RANGE'
+p189
+S"<class 'gluon.validators.IS_DATE_IN_RANGE'>"
+p190
+sS'stemmer'
+p191
+S"<module 'applications.Bundjalung.modules.altk.st...pplications/Bundjalung/modules/altk/stemmer.pyc'>"
+p192
+sS'get'
+p193
+S'<function get>'
+p194
+sS'URL'
+p195
+S'<function URL>'
+p196
+sS'__file__'
+p197
+S"'/usr/local/web2py/applications/Bundjalung/controllers/learning.py'"
+p198
+sS'IS_FLOAT_IN_RANGE'
+p199
+S"<class 'gluon.validators.IS_FLOAT_IN_RANGE'>"
+p200
+sS'db'
+p201
+S'<DAL uri="mysql:******@localhost/Bundjalung">'
+p202
+sS'auth'
+p203
+S'<gluon.tools.Auth object>'
+p204
+sS'IS_EMPTY_OR'
+p205
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p206
+sS'P'
+S"<class 'gluon.html.P'>"
+p207
+sS'T'
+S'<gluon.languages.translator object>'
+p208
+sS'plugin_wiki_theme'
+p209
+S"'cupertino'"
+p210
+sS'XHTML'
+p211
+S"<class 'gluon.html.XHTML'>"
+p212
+sS'now'
+p213
+S'datetime.datetime(2015, 7, 18, 0, 24, 25, 802443)'
+p214
+sS'RECAPTCHA_PUBLIC_KEY'
+p215
+S"'6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'"
+p216
+sS'ON'
+p217
+S'True'
+p218
+sS'OL'
+p219
+S"<class 'gluon.html.OL'>"
+p220
+sS'TEXTAREA'
+p221
+S"<class 'gluon.html.TEXTAREA'>"
+p222
+sS'MENU'
+p223
+S"<class 'gluon.html.MENU'>"
+p224
+sS'IS_IPADDRESS'
+p225
+S"<class 'gluon.validators.IS_IPADDRESS'>"
+p226
+sS'plugin_wiki_widgets'
+p227
+S"'all'"
+p228
+sS'wsread_page'
+p229
+S'<function wsread_page>'
+p230
+sS'IS_IMAGE'
+p231
+S"<class 'gluon.validators.IS_IMAGE'>"
+p232
+sS'LINK'
+p233
+S"<class 'gluon.html.LINK'>"
+p234
+sS'WikiLink'
+p235
+S'<class __restricted__.WikiLink>'
+p236
+sS'plugin_wiki'
+p237
+S'<__restricted__.PluginWiki object>'
+p238
+sS'EM'
+p239
+S"<class 'gluon.html.EM'>"
+p240
+sS'CODE'
+p241
+S"<class 'gluon.html.CODE'>"
+p242
+sS'HTTP'
+p243
+S"<class 'gluon.http.HTTP'>"
+p244
+sS'core'
+p245
+S"<module 'docutils.core' from '/usr/local/lib/pyt...kages/docutils-0.12-py2.7.egg/docutils/core.pyc'>"
+p246
+sS'HR'
+p247
+S"<class 'gluon.html.HR'>"
+p248
+sS'IS_DATETIME'
+p249
+S"<class 'gluon.validators.IS_DATETIME'>"
+p250
+sS'Storage'
+p251
+S"<class 'gluon.storage.Storage'>"
+p252
+sS'HEAD'
+p253
+S"<class 'gluon.html.HEAD'>"
+p254
+sS'LABEL'
+p255
+S"<class 'gluon.html.LABEL'>"
+p256
+sS'verb_patterns'
+p257
+S"[('.*ni$', 'VER+PRS'), ('.*nyun$', 'V+S'), ('.*ye$', 'V+POT'), ('.*n$', 'V+NOM')]"
+p258
+sS'CLEANUP'
+p259
+S"<class 'gluon.validators.CLEANUP'>"
+p260
+sS'HTMLParser'
+p261
+S'<class HTMLParser.HTMLParser>'
+p262
+sS'PluginWikiWidgets'
+p263
+S"<class '__restricted__.PluginWikiWidgets'>"
+p264
+sS'plugins'
+p265
+S'<gluon.tools.PluginManager object>'
+p266
+sS'SELECT'
+p267
+S"<class 'gluon.html.SELECT'>"
+p268
+sS'represent_email'
+p269
+S'<function represent_email>'
+p270
+sS'abc'
+p271
+S"<PlaintextCorpusReader in u'.../corpora/abc' (not loaded yet)>"
+p272
+sS'CENTER'
+p273
+S"<class 'gluon.html.CENTER'>"
+p274
+sS'prettydate'
+p275
+S'<function prettydate>'
+p276
+sS'MARKUP'
+p277
+S'<gluon.html.XML object>'
+p278
+sS'Crud'
+p279
+S"<class 'gluon.tools.Crud'>"
+p280
+sS'urllib'
+p281
+S"<module 'urllib' from '/usr/lib/python2.7/urllib.pyc'>"
+p282
+sS'renderHtml'
+p283
+S'<function renderHtml>'
+p284
+sS'current'
+p285
+S'<thread._local object>'
+p286
+sS're'
+p287
+S"<module 're' from '/usr/lib/python2.7/re.pyc'>"
+p288
+sS'HTML'
+p289
+S"<class 'gluon.html.HTML'>"
+p290
+sS'PunktSentenceTokenizer'
+p291
+S"<class 'nltk.tokenize.punkt.PunktSentenceTokenizer'>"
+p292
+sS'SQLFORM'
+p293
+S"<class 'gluon.sqlhtml.SQLFORM'>"
+p294
+sS'EMAIL_SERVER'
+p295
+S"'cities.org.au:25'"
+p296
+sS'languageList'
+p297
+S'None'
+p298
+sS'LOAD'
+p299
+S'<function LOAD>'
+p300
+sS'PRE'
+p301
+S"<class 'gluon.html.PRE'>"
+p302
+sS'represent_author'
+p303
+S'<function represent_author>'
+p304
+sS'FIELDSET'
+p305
+S"<class 'gluon.html.FIELDSET'>"
+p306
+sS'goto'
+p307
+S'<function goto>'
+p308
+sS'dictionary'
+p309
+S"<module 'applications.Bundjalung.modules.altk.di...ications/Bundjalung/modules/altk/dictionary.pyc'>"
+p310
+sS'__builtins__'
+p311
+S"{'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'BufferError': <type 'exceptions.BufferError'>, 'BytesWarning': <type 'exceptions.BytesWarning'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, ...}"
+p312
+sS'embed64'
+p313
+S'<function embed64>'
+p314
+sS'Validator'
+p315
+S"<class 'gluon.validators.Validator'>"
+p316
+sS'IS_LIST_OF'
+p317
+S"<class 'gluon.validators.IS_LIST_OF'>"
+p318
+sS'INPUT'
+p319
+S"<class 'gluon.html.INPUT'>"
+p320
+sS'EMBED'
+p321
+S"<class 'gluon.html.EMBED'>"
+p322
+sS'slug'
+p323
+S'<function slug>'
+p324
+sS'_'
+S'<function _>'
+p325
+sS'PluginWiki'
+p326
+S"<class '__restricted__.PluginWiki'>"
+p327
+sS'altk'
+p328
+S"<module 'applications.Bundjalung.modules.altk' f...plications/Bundjalung/modules/altk/__init__.pyc'>"
+p329
+sS'language'
+p330
+S"'Bundjalung'"
+p331
+sS'standalone'
+p332
+S"<module 'docutils.readers.standalone' from '/usr...-0.12-py2.7.egg/docutils/readers/standalone.pyc'>"
+p333
+sS'H2'
+p334
+S"<class 'gluon.html.H2'>"
+p335
+sS'H3'
+p336
+S"<class 'gluon.html.H3'>"
+p337
+sS'BUTTON'
+p338
+S"<class 'gluon.html.BUTTON'>"
+p339
+sS'H1'
+p340
+S"<class 'gluon.html.H1'>"
+p341
+sS'plugin_gmap'
+p342
+S"<Storage {'represent': <function <lambda> at 0x7...8>, 'id': <function <lambda> at 0x7f54a7542ed8>}>"
+p343
+sS'stem_rr'
+p344
+S"['yuwar']"
+p345
+sS'plugin_wiki_level'
+p346
+S'3'
+sS'H5'
+p347
+S"<class 'gluon.html.H5'>"
+p348
+sS'UL'
+p349
+S"<class 'gluon.html.UL'>"
+p350
+sS'IS_UPPER'
+p351
+S"<class 'gluon.validators.IS_UPPER'>"
+p352
+sS'xmlescape'
+p353
+S'<function xmlescape>'
+p354
+sS'TT'
+p355
+S"<class 'gluon.html.TT'>"
+p356
+sS'IS_TIME'
+p357
+S"<class 'gluon.validators.IS_TIME'>"
+p358
+sS'os'
+p359
+S"<module 'os' from '/usr/lib/python2.7/os.pyc'>"
+p360
+sS'AboriginalLanguageDictionary'
+p361
+S'<class applications.Bundjalung.modules.altk.dictionary.AboriginalLanguageDictionary>'
+p362
+sS'cache'
+p363
+S'<gluon.cache.Cache object>'
+p364
+sS'OPTION'
+p365
+S"<class 'gluon.html.OPTION'>"
+p366
+sS'wsread_question'
+p367
+S'<function wsread_question>'
+p368
+sS'TITLE'
+p369
+S"<class 'gluon.html.TITLE'>"
+p370
+sS'DEFAULT'
+p371
+S"{'authorize_attachments': False, 'editor': True, 'level': 3, 'migrate': False, 'mode': 'html', 'theme': 'cupertino', 'widgets': 'all'}"
+p372
+sS'CRYPT'
+p373
+S"<class 'gluon.validators.CRYPT'>"
+p374
+sS'parser'
+p375
+S'<__restricted__.langHTMLParser instance>'
+p376
+sS'Transform'
+p377
+S'<class docutils.transforms.Transform>'
+p378
+sS'MARKMIN'
+p379
+S"<class 'gluon.html.MARKMIN'>"
+p380
+sS'noun_and_adj_cases'
+p381
+S"[('-duradhu', 0, '', 'using', []), ('-gu', 1, '', 'for/of', []), ('aa-dhi', 3, 'y', '(from)', []), ('a-dhi', 2, '', '(from)', ['ngadhi', ['yurrugadhi']]), ('a-dhi', 2, 'y', '(from)', ['ngadhi']), ('r-ri', 2, '', '(from)', ['yuwarri', '-girri', 'mirri']), ('r-ri', 2, 'r', '(from)', ['-girri', 'mirri']), ('n-dhi', 2, '', '(from)', []), ('-li', 1, 'l', '(from)', ['bali', 'bamali', 'garingali', 'gulambali', 'wandaayali', 'widyali', 'yali', 'yurali']), ('aa-ri', 3, '', '(from)', []), ('i-dyi', 2, '', '(from)', []), ('ny-dyi', 3, '', '(from)', []), ('n-dhi', 2, 'g', '(from)', []), ('u-dyi', 2, '', '(from)', []), ('aa-dha', 3, 'y', '(at/near/in)', []), ('a-dha', 2, '', '(at/near/in)', ['yurrugadha']), ('a-dha', 2, 'y', '(at/near/in)', []), ('r-ra', 2, '', '(at/near/in)', ['yuwarra', 'bubadyarra', 'dhandarra', 'ganhawaadharra', 'garra', 'gidharra', 'marra', 'murun_garra', 'ngarra', 'bannawirra', 'birra', 'birra', 'birrabirra', 'gadhawirra', 'gadhawirra', 'girragirra', 'mirra', 'mirralbirra', 'ngandabirra']), ('r-ra', 2, 'r', '(at/near/in)', ['bubadyarra', 'dhandarra', 'ganhawaadharra', 'garra', 'gidharra', 'marra', 'murun_garra', 'ngarra', 'bannawirra', 'birra', 'birra', 'birrabirra', 'gadhawirra', 'gadhawirra', 'girragirra', 'mirra', 'mirralbirra', 'ngandabirra']), ('n-dha', 2, '', '(at/near/in)', []), ...]"
+p382
+sS'Reader'
+p383
+S'<class __restricted__.Reader>'
+p384
+sS'STRONG'
+p385
+S"<class 'gluon.html.STRONG'>"
+p386
+sS'COL'
+p387
+S"<class 'gluon.html.COL'>"
+p388
+sS'service'
+p389
+S'<gluon.tools.Service object>'
+p390
+sS'SCRIPT'
+p391
+S"<class 'gluon.html.SCRIPT'>"
+p392
+sS'wordlist'
+p393
+S'<function wordlist>'
+p394
+sS'GOOGLEMAP_KEY'
+p395
+S"'ABQIAAAAgmnPur4uFr3tfb2KjkqXHxRUlOG9qJIroEAuogNlnP0txuwBIxQxpGXF06NPhGKQ0uBcy_OLlgghdA'"
+p396
+sS'geocode'
+p397
+S'<function geocode>'
+p398
+sS'email_all_user'
+p399
+S'<function email_all_user>'
+p400
+sS'ANY_OF'
+p401
+S"<class 'gluon.validators.ANY_OF'>"
+p402
+sS'TABLE'
+p403
+S"<class 'gluon.html.TABLE'>"
+p404
+sS'wsimage'
+p405
+S'<function wsimage>'
+p406
+sS'IS_IPV4'
+p407
+S"<class 'gluon.validators.IS_IPV4'>"
+p408
+sS'IS_LENGTH'
+p409
+S"<class 'gluon.validators.IS_LENGTH'>"
+p410
+sS'IS_IPV6'
+p411
+S"<class 'gluon.validators.IS_IPV6'>"
+p412
+sS'XML'
+p413
+S"<class 'gluon.html.XML'>"
+p414
+sS'quantifiers_and_numbers'
+p415
+S"[('bula-ngunbaay', 1, '', 'three', []), ('-ngunbay', 1, '', 'one/single', []), ('-bula', 1, '', 'two/pair', ['bungubulabula', 'galgambula', 'gulambula']), ('-bunggu', 1, '', 'four or more', []), ('-bung', 1, '', 'many', ['marambungiiy', 'nanhaybungarra']), ('-girbang', 1, '', 'several', ['balaagangirbang', 'balugirbang']), ('-gir', 1, '', 'all', []), ('-ngunbaaymarrang', 1, '', 'some', []), ('-ngunbaayngunbaay', 1, '', 'a few', []), ('-galang', 1, '', 'many', ['winhangalang', 'ngunhangalang', 'magalang']), ('-bunggubunggu', 1, '', 'very many', [])]"
+p416
+sS'B'
+S"<class 'gluon.html.B'>"
+p417
+sS'IMG'
+p418
+S"<class 'gluon.html.IMG'>"
+p419
+sS'custom_auth_table'
+p420
+S'<Table auth_user (id,first_name,last_name,userna...ey,registration_id,reset_password_key,Role_Name)>'
+p421
+sS'SQLTABLE'
+p422
+S"<class 'gluon.sqlhtml.SQLTABLE'>"
+p423
+sS'menu_rec'
+p424
+S'<function menu_rec>'
+p425
+sS'slideshow'
+p426
+S'<function slideshow>'
+p427
+sS'mail'
+p428
+S'<gluon.tools.Mail object>'
+p429
+sS'logging'
+p430
+S"<module 'logging' from '/usr/lib/python2.7/logging/__init__.pyc'>"
+p431
+sS'AboriginalLanguageStemmer'
+p432
+S"<class 'applications.Bundjalung.modules.altk.stemmer.AboriginalLanguageStemmer'>"
+p433
+sS'conjunctions'
+p434
+S"[('-bu', 0, '', 'and', [])]"
+p435
+sS'AboriginalLanguageTagger'
+p436
+S'<class applications.Bundjalung.modules.altk.tagger.AboriginalLanguageTagger>'
+p437
+sS'logger'
+p438
+S'<logging.Logger object>'
+p439
+sS'SPAN'
+p440
+S"<class 'gluon.html.SPAN'>"
+p441
+sS'IS_JSON'
+p442
+S"<class 'gluon.validators.IS_JSON'>"
+p443
+sS'default'
+p444
+S'1L'
+p445
+sS'plugin_wiki_editor'
+p446
+g218
+sS'IS_SLUG'
+p447
+S"<class 'gluon.validators.IS_SLUG'>"
+p448
+sS'BEAUTIFY'
+p449
+S"<class 'gluon.html.BEAUTIFY'>"
+p450
+sS'META'
+p451
+S"<class 'gluon.html.META'>"
+p452
+sS'verb_sense_patterns'
+p453
+S"[('-ndhu', 2, '', 'you', ['nhindhu']), ('-dhu', 2, '', 'I', ['nhadhu']), ('-nhiin', 2, '', 'he/she/it', []), ('-nhal', 2, '', 'to me', ['nganhal']), ('-nyal', 2, '', 'to you', ['nginyal']), ('-ngin', 2, '', 'to him/her/it', []), ('-dhi', 2, '', 'mine', ['ngadhi']), ('-nhu', 2, '', 'your', []), ('a-nha', 2, '', 'do/does', []), ('u-nha', 2, '', 'do/does', []), ('i-nya', 2, '', 'do/does', []), ('a-rra', 2, '', 'do/does', ['yuwarra', 'bubadyarra', 'dhandarra', 'ganhawaadharra', 'garra', 'gidharra', 'marra', 'murun_garra', 'ngarra']), ('i-rra', 2, '', 'do/does', ['yuwarra', 'bannawirra', 'birra', 'birra', 'birrabirra', 'gadhawirra', 'gadhawirra', 'girragirra', 'mirra', 'mirralbirra', 'ngandabirra']), ('a-nhi', 2, '', 'did', []), ('u-nhi', 2, '', 'did', []), ('i-nyi', 2, '', 'did', []), ('a-yi', 2, '', 'did', []), ('i-yi', 2, '', 'did', []), ('a-girri', 2, '', 'will', []), ('u-nggirri', 2, '', 'will', []), ...]"
+p454
+sS'error'
+p455
+S'<function error>'
+p456
+sS'plugin_wiki_migrate'
+p457
+S'False'
+p458
+sS'fetch'
+p459
+S'<function fetch>'
+p460
+sS'WIKI'
+p461
+S'<function <lambda>>'
+p462
+sS'IS_DATE'
+p463
+S"<class 'gluon.validators.IS_DATE'>"
+p464
+sS'IS_EMAIL'
+p465
+S"<class 'gluon.validators.IS_EMAIL'>"
+p466
+sS'misc_patterns'
+p467
+S"[('[^A-Za-z0-9]', 'PCT'), ('^-?[0-9]+(.[0-9]+)?$', 'CN')]"
+p468
+sS'IS_NOT_EMPTY'
+p469
+S"<class 'gluon.validators.IS_NOT_EMPTY'>"
+p470
+sS'H6'
+p471
+S"<class 'gluon.html.H6'>"
+p472
+sS'Writer'
+p473
+S'<class docutils.writers.html4css1.Writer>'
+p474
+sS'TBODY'
+p475
+S"<class 'gluon.html.TBODY'>"
+p476
+sS'CAT'
+p477
+S"<class 'gluon.html.CAT'>"
+p478
+sS'Field'
+p479
+S"<class 'gluon.dal.objects.Field'>"
+p480
+sS'tag'
+p481
+S'None'
+p482
+sS'H4'
+p483
+S"<class 'gluon.html.H4'>"
+p484
+sS'IS_LIST_OF_EMAILS'
+p485
+S"<class 'gluon.validators.IS_LIST_OF_EMAILS'>"
+p486
+sg56
+S"<Storage {'_vars': None, 'function': 'page', 'co...': '/usr/local/web2py/applications/Bundjalung/'}>"
+p487
+sS'Mail'
+p488
+S"<class 'gluon.tools.Mail'>"
+p489
+sS'DIV'
+p490
+S"<class 'gluon.html.DIV'>"
+p491
+sS'LEGEND'
+p492
+S"<class 'gluon.html.LEGEND'>"
+p493
+sS'EMAIL_AUTH'
+p494
+S"'ckutay@cities.org.au:AK131391'"
+p495
+sS'usernames'
+p496
+S"{None: 'Anonymous', 0: 'Anonymous', 1L: 'Cat Kutay', 2L: 'Cat Kutay', 3L: 'Margaret Sharpe', 4L: 'Ana Ash', 5L: 'Karyn Silva de Azevedo', 19L: 'Cat Kutay', 21L: 'John Patten', 22L: 'Chris Brooker', ...}"
+p497
+sS'email_user'
+p498
+S'<function email_user>'
+p499
+sS'dblanguage'
+p500
+S'<DAL uri="mysql:******@localhost/language">'
+p501
+sS'COLGROUP'
+p502
+S"<class 'gluon.html.COLGROUP'>"
+p503
+sS'DAL'
+p504
+S"<class 'gluon.dal.base.DAL'>"
+p505
+sS'ASSIGNJS'
+p506
+S'<function ASSIGNJS>'
+p507
+sS'TR'
+p508
+S"<class 'gluon.html.TR'>"
+p509
+sS'plugin_wiki_authorize_attachments'
+p510
+g458
+sS'__package__'
+p511
+S'None'
+p512
+sS'StemmerI'
+p513
+S"<class 'nltk.stem.api.StemmerI'>"
+p514
+sS'IFRAME'
+p515
+S"<class 'gluon.html.IFRAME'>"
+p516
+sS'answer'
+p517
+S'<function answer>'
+p518
+sS'TD'
+p519
+S"<class 'gluon.html.TD'>"
+p520
+sS'PluginManager'
+p521
+S"<class 'gluon.tools.PluginManager'>"
+p522
+sS'IS_URL'
+p523
+S"<class 'gluon.validators.IS_URL'>"
+p524
+sS'IS_MATCH'
+p525
+S"<class 'gluon.validators.IS_MATCH'>"
+p526
+sS'A'
+S"<class 'gluon.html.A'>"
+p527
+sS'STYLE'
+p528
+S"<class 'gluon.html.STYLE'>"
+p529
+sS'IS_DATETIME_IN_RANGE'
+p530
+S"<class 'gluon.validators.IS_DATETIME_IN_RANGE'>"
+p531
+sS'users'
+p532
+S'<Rows (58)>'
+p533
+sS'FORM'
+p534
+S"<class 'gluon.html.FORM'>"
+p535
+sS'I'
+S"<class 'gluon.html.I'>"
+p536
+sS'crud'
+p537
+S'<gluon.tools.Crud object>'
+p538
+sS'who'
+p539
+S'1L'
+p540
+sS'use_janrain'
+p541
+S'<function use_janrain>'
+p542
+sS'VALUE'
+p543
+S"''"
+p544
+sS'IS_ALPHANUMERIC'
+p545
+S"<class 'gluon.validators.IS_ALPHANUMERIC'>"
+p546
+sS'sys'
+p547
+S"<module 'sys' (built-in)>"
+p548
+sS'IS_NOT_IN_DB'
+p549
+S"<class 'gluon.validators.IS_NOT_IN_DB'>"
+p550
+sg116
+S"<Storage {'body': <cStringIO.StringO object at 0...ey,session_data)>, 'view': 'learning/page.html'}>"
+p551
+sS'THEAD'
+p552
+S"<class 'gluon.html.THEAD'>"
+p553
+sS'Wiki'
+p554
+S"<class 'gluon.tools.Wiki'>"
+p555
+sS'plugin_multiselect'
+p556
+S'<function plugin_multiselect>'
+p557
+sS'IS_NULL_OR'
+p558
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p559
+sS'plugin_wiki_mode'
+p560
+S"'html'"
+p561
+sS'url'
+p562
+S'<function url>'
+p563
+sS'langHTMLParser'
+p564
+S'<class __restricted__.langHTMLParser>'
+p565
+sS'name2codepoint'
+p566
+S"{'AElig': 198, 'Aacute': 193, 'Acirc': 194, 'Agrave': 192, 'Alpha': 913, 'Aring': 197, 'Atilde': 195, 'Auml': 196, 'Beta': 914, 'Ccedil': 199, ...}"
+p567
+sS'multiselect_widget'
+p568
+S'<function multiselect_widget>'
+p569
+sS'IS_EXPR'
+p570
+S"<class 'gluon.validators.IS_EXPR'>"
+p571
+sS'PhoneticStemmer'
+p572
+S"<class 'applications.Bundjalung.modules.altk.stemmer.PhoneticStemmer'>"
+p573
+sS'stem_ay'
+p574
+S"['yurruga']"
+p575
+sS'EMAIL_SENDER'
+p576
+S"'ckutay@cities.org.au'"
+p577
+sS'HTMLTranslator'
+p578
+S'<class docutils.writers.html4css1.HTMLTranslator>'
+p579
+sS'IS_IN_SET'
+p580
+S"<class 'gluon.validators.IS_IN_SET'>"
+p581
+sS'u'
+S"<Row {'first_name': 'Editor', 'last_name': 'Muur...8839105073571bee1b1f', 'registration_key': None}>"
+p582
+sS'IS_UPLOAD_FILENAME'
+p583
+S"<class 'gluon.validators.IS_UPLOAD_FILENAME'>"
+p584
+sS'IS_DECIMAL_IN_RANGE'
+p585
+S"<class 'gluon.validators.IS_DECIMAL_IN_RANGE'>"
+p586
+sS'nltk'
+p587
+S"<module 'nltk' from '/usr/local/lib/python2.7/dist-packages/nltk/__init__.pyc'>"
+p588
+sS'TFOOT'
+p589
+S"<class 'gluon.html.TFOOT'>"
+p590
+sssS'traceback'
+p591
+S'Traceback (most recent call last):\n  File "/usr/local/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/usr/local/web2py/applications/Bundjalung/controllers/learning.py", line 17, in <module>\n    from  nltk.tokenize.punkt import PunktWordTokenizer\nImportError: cannot import name PunktWordTokenizer\n'
+p592
+s.

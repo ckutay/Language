@@ -1,0 +1,1161 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.NameError'> name 'os' is not defined"
+p3
+sS'layer'
+p4
+S'/usr/local/web2py/applications/Bundjalung/views/plugin_wiki/edit_resource_transcript.html'
+p5
+sS'code'
+p6
+S'response.write(\'<!DOCTYPE html>\\n<html class="no-js" lang="\', escape=False)\nresponse.write(T.accepted_language or \'en\')\nresponse.write(\'"> <!--<![endif]-->\\n<head>\\n<title>\', escape=False)\nresponse.write(response.title or request.application)\nresponse.write(\'</title>\\n  <!--[if !HTML5]>\\n      <meta http-equiv="X-UA-Compatible" content="IE=edge\', escape=False)\nresponse.write(not request.is_local and \',chrome=1\' or \'\')\nresponse.write(\'">\\n  <![endif]-->\\n  <!-- www.phpied.com/conditional-comments-block-downloads/ -->\\n  <!-- Always force latest IE rendering engine\\n       (even in intranet) & Chrome Frame\\n       Remove this if you use the .htaccess -->\\n\\n  <meta charset="utf-8" />\\n\\n  <!-- http://dev.w3.org/html5/markup/meta.name.html -->\\n  <meta name="application-name" content="\', escape=False)\nresponse.write(request.application)\nresponse.write(\'" />\\n\\n  <!-- Speaking of Google, don\\\'t forget to set your site up:\\n       http://google.com/webmasters -->\\n  <meta name="google-site-verification" content="" />\\n\\n  <!--  Mobile Viewport Fix\\n        j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag\\n        device-width: Occupy full width of the screen in its current orientation\\n        initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height\\n        user-scalable = yes allows the user to zoom in -->\\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\\n\\n  <link rel="shortcut icon" href="\', escape=False)\nresponse.write(URL(\'static\',\'images/favicon.ico\'))\nresponse.write(\'" type="image/x-icon">\\n  <link rel="apple-touch-icon" href="\', escape=False)\nresponse.write(URL(\'static\',\'images/favicon.png\'))\nresponse.write(\'">\\n\\n  <!-- All JavaScript at the bottom, except for Modernizr which enables\\n       HTML5 elements & feature detects -->\\n  <script src="\', escape=False)\nresponse.write(URL(\'static\',\'js/modernizr.custom.js\'))\nresponse.write(\'"></script>\\n  <script src="\', escape=False)\nresponse.write(URL(\'static\',\'js/DHTML.js\'))\nresponse.write(\'"></script>\\n\\n  <!-- include stylesheets -->\\n  <!--bootstrap css minified-->\\n<link rel="stylesheet" href="http://tinymce.cachefly.net/4.1/skins/lightgray/skin.min.css">\\n  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">\\n <!-- Custom CSS -->\\n \', escape=False)\nresponse.files.insert(0,URL(\'static\',\'css/custom.css\'))\nresponse.write(\'\\n\\n  \', escape=False)\nresponse.write(\'<script type="text/javascript"><!--\\n    // These variables are used by the web2py_ajax_init function in web2py_ajax.js (which is loaded below).\\n    var w2p_ajax_confirm_message = "\', escape=False)\nresponse.write(T(\'Are you sure you want to delete this object?\'))\nresponse.write(\'";\\n    var w2p_ajax_disable_with_message = "\', escape=False)\nresponse.write(T(\'Working...\'))\nresponse.write(\'";\\n    var w2p_ajax_date_format = "\', escape=False)\nresponse.write(T(\'%Y-%m-%d\'))\nresponse.write(\'";\\n    var w2p_ajax_datetime_format = "\', escape=False)\nresponse.write(T(\'%Y-%m-%d %H:%M:%S\'))\nresponse.write(\'";\\n    var ajax_error_500 = \\\'\', escape=False)\nresponse.write(T.M(\'An error occured, please [[reload %s]] the page\') % URL(args=request.args, vars=request.get_vars))\nresponse.write("\'\\n    //--></script>\\n", escape=False)\nresponse.files.insert(0,URL(\'static\',\'js/jquery-1.11.2.min.js\'))\nresponse.files.insert(1,URL(\'static\',\'css/calendar.css\'))\nresponse.files.insert(2,URL(\'static\',\'js/calendar.js\'))\nresponse.files.insert(3,URL(\'static\',\'js/web2py.js\'))\nresponse.files.insert(4,URL(\'static\',\'css/jquery-ui.css\'))\nresponse.files.insert(5,URL(\'static\',\'js/jquery-ui.min.js\'))\nresponse.files.insert(6,URL(\'static\',\'plugin_multiselect/jquery.multiselect.js\'))\nresponse.include_meta()\nresponse.include_files()\nresponse.write(\'\\n\', escape=False)\nresponse.write(\'\\n<script src="\', escape=False)\nresponse.write(URL(c=\'static\',f=\'/js/jquery.imageLens.js\'))\nresponse.write(\'" type="text/javascript"></script>\\n<script>\\njQuery(function () {\\n  jQuery("#zoomLyr").imageLens({imageSrc: "\', escape=False)\nresponse.write(URL(c=\'static\',f=\'/images/Bundjalung-big.png\'))\nresponse.write(\'", lensSize:300 });\\n});\\n</script>\\n\\n  <noscript><link href="\', escape=False)\nresponse.write(URL(\'static\', \'css/web2py_bootstrap_nojs.css\'))\nresponse.write(\'" rel="stylesheet" type="text/css" /></noscript>\\n<script src="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/tinymce/js/tinymce/tinymce.min.js\'))\nresponse.write(\'"></script>\\n<script>\\n\\n\\ntinymce.init({\\n\\tselector: "textarea",\\n\\ttheme: "modern",\\n\\tplugins: [\\n\\t\\t"advlist autolink lists link image charmap print preview hr anchor pagebreak",\\n\\t\\t"searchreplace wordcount visualblocks visualchars code fullscreen",\\n\\t\\t"insertdatetime media nonbreaking save table contextmenu directionality",\\n\\t\\t"emoticons template paste textcolor colorpicker textpattern "\\n\\t],\\n\\ttoolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",\\n\\ttoolbar2: "print preview media | forecolor backcolor emoticons",\\n\\timage_advtab: true,\\n\\ttemplates: [\\n\\t\\t{title: \\\'Test template 1\\\', content: \\\'<b>Test 1</b>\\\'},\\n\\t\\t{title: \\\'Test template 2\\\', content: \\\'<em>Test 2</em>\\\'}\\n\\t],\\n\\tautosave_ask_before_unload: false\\n});\\n\\n</script>\\n  \', escape=False)\nresponse.write(\'\\n\\n<script>\\n$(document).ready(function() {\\n    $("#navbar li").on("click", function() {\\n        $("#navbar li").removeClass("active");\\n        $(this).addClass("active");\\n    });\\n\\n$(document).ready(function() {\\n   $(\\\'#page_body\\\').attr(\\\'cols\\\',80).attr(\\\'rows\\\',20);\\n   $(\\\'#comment_body\\\').attr(\\\'cols\\\',60).attr(\\\'rows\\\',5);\\n   $(\\\'#page_tags\\\').multiSelect({selectAll:false});\\n   $("#datepicker").datepicker();\\n});\\n});    \\n  </script>\\n  <style type="text/css" media="screen">\\n  /* (Index) Page Tab Navigation \\\'ON\\\' States (determined by ID identifier on li tag) */\\n  #subnav #video a                {background-position: 50 50px; border-width: 0;}\\n  #subnav #video a span   {background-position: 100% -24px; color: #000;}\\n\\n  li#video, li#spacer1 {display:none}\\n\\n  #tabnav #allvideo a             {background-position: 50 50px; border-width: 0;}\\n  #tabnav #allvideo a span        {background-position: 100% -24px; color: #fff;}\\n\\n  #sectiontab {padding-bottom:-10px; background-color:none;}\\n  div.tabfull {width:600px;}\\n\\n  ul li#navmap a {color:#B83000;}\\n\\n  #zoomLyr {float:right; cursor:crosshair; }\\n  </style>\\n</head>\\n\\n<body onLoad="setupText(this);">\\n<!-- start header -->\\n <!-- Navigation -->\\n  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">\\n    <div class="container">\\n     <!-- Brand and toggle get grouped for better mobile display -->\\n      <div class="navbar-header">\\n        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\\n          <span class="sr-only">Toggle navigation</span>\\n          <span class="icon-bar"></span>\\n          <span class="icon-bar"></span>\\n          <span class="icon-bar"></span>\\n        </button>\\n      </div>\\n      <!-- Collect the nav links, forms, and other content for toggling -->\\n      <div id="navbar" class="navbar-collapse collapse">\\n        <ul class="nav navbar-nav">\\n        \', escape=False)\nfor _name,_active,_link in response.menuTop :\n    response.write(\'\\n  \', escape=False)\n    if _name==\'About Us\'  :\n        response.write(\'\\n      <li class ="dropdown">\\n        <a href="\', escape=False)\n        response.write(_link)\n        response.write(\'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">\', escape=False)\n        response.write(_name)\n        response.write(\'<span class="caret"></span></a>\\n          <ul class="dropdown-menu" role="menu">\\n          \', escape=False)\n        for _name,_active,_link in response.menuAbout :\n            response.write(\'\\n            <li><a href="\', escape=False)\n            response.write(_link)\n            response.write(\'">\', escape=False)\n            response.write(_name)\n            response.write(\'</a></li>\\n          \', escape=False)\n            pass\n        response.write(\'\\n        </ul>\\n        </li>\\n  \', escape=False)\n    elif _name=="Resources" :\n        response.write(\'\\n\\n    <li class ="dropdown">\\n        <a href="\', escape=False)\n        response.write(_link)\n        response.write(\'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">\', escape=False)\n        response.write(_name)\n        response.write(\'<span class="caret"></span></a>\\n          <ul class="dropdown-menu" role="menu">\\n          \', escape=False)\n        for _name,_active,_link in response.menuResource:\n            response.write(\'\\n            <li><a href="\', escape=False)\n            response.write(_link)\n            response.write(\'">\', escape=False)\n            response.write(_name)\n            response.write(\'</a></li>\\n          \', escape=False)\n            pass\n        response.write(\'\\n        </ul>\\n        </li>\\n\\n\\n\\n  \', escape=False)\n    else:\n        response.write(\'\\n      <li><a href="\', escape=False)\n        response.write(_link)\n        response.write(\'" >\', escape=False)\n        response.write(_name)\n        response.write(\'</a></li>\\n   \', escape=False)\n        pass\n    response.write(\'\\n\', escape=False)\n    pass\nresponse.write(\'\\n</ul>\\n<ul class="nav navbar-nav navbar-right">\\n             \', escape=False)\nif auth.is_logged_in() :\n    response.write(\'\\n<li class="dropdown" id="menuLogin">\\n<a class="" href="\', escape=False)\n    response.write(URL(r=request, c=\'default\', f=\'user\', args=\'logout\'))\n    response.write(\'" role="button" id="navLogin">Logout<span class="caret"></span></a></li>\\n\', escape=False)\nelse:\n    response.write(\'\\n<li class="" id="menuLogin">\\n<a class="" href="\', escape=False)\n    response.write(URL(r=request, c=\'default\', f=\'user\', args=\'login\'))\n    response.write(\'" role="button" id="navLogin">Login<span class="caret"></span></a></li>\\n<li class="" id="menuLogin">\\n<a class="" href="\', escape=False)\n    response.write(URL(r=request, c=\'default\', f=\'user\', args=\'register\'))\n    response.write(\'" role="button" id="navLogin">Register<span class="caret"></span></a></li>\\n\\n\', escape=False)\n    pass\nresponse.write(\'\\n\\n      <!-- /.navbar-collapse -->\\n    </div>\\n<div id="popupForm" ></div>\\n        <!-- /.container -->\\n  </nav>\\n\\n    <!-- Image Background Page Header -->\\n    <!-- Note: The background image is set within the business-casual.css file. -->\\n  <header class="business-header">\\n      <div class="container">\\n        <div class="row">\\n          <div class="col-sm-4">\\n            <img class="img-responsive" id="circle-img-first" src="/Bundjalung/static/images/img_first.png" >\\n          </div>\\n          <div class="col-sm-8">\\n            <a href="\', escape=False)\nresponse.write(URL(r=request, c=\'plugin_wiki\',f=\'page\'))\nresponse.write(\'"> <h1 id="title" class="tagline">\', escape=False)\nresponse.write(response.title)\nresponse.write(\'</h1></a>\\n          </div>\\n        </div>\\n      </div>\\n  </header>\\n  \\n    <!-- Page Content -->\\n<div class="container">\\n<div id="page">\\n\', escape=False)\nif response.flash:\n    response.write(\'\\n    <div class="flash">\', escape=False)\n    response.write(response.flash)\n    response.write(\'</div>\\n\', escape=False)\n    pass\nresponse.write(\'\\n<div id="popupword" ></div>\\n    <div class="container">\\n\\n        <div class="row">\\n\\n\', escape=False)\nresponse.write(\'\\n<div id="hidden">\\n<script type="text/javascript" src="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/markitup/jquery.markitup.pack.js\'))\nresponse.write(\'"></script>\\n<script type="text/javascript" src="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/markitup/sets/markmin/set.js\'))\nresponse.write(\'"></script>\\n<link rel="stylesheet" type="text/css" href="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/markitup/skins/markitup/style.css\'))\nresponse.write(\'" />\\n<link rel="stylesheet" type="text/css" href="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/markitup/sets/markmin/style.css\'))\nresponse.write(\'" />\\n<link rel="stylesheet" type="text/css" href="\', escape=False)\nresponse.write(URL(\'static\',\'js/jqueryMultiSelect.css\'))\nresponse.write(\'" />\\n<script src="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/elrte-1.3/js/elrte.min.js\'))\nresponse.write(\'" type="text/javascript" charset="utf-8"></script>\\n<link rel="stylesheet" href="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/elrte-1.3/css/elrte.full.css\'))\nresponse.write(\'" type="text/css" media="screen" charset="utf-8">\\n<link rel="stylesheet" href="\', escape=False)\nresponse.write(URL(\'static\',\'plugin_wiki/elrte-1.3/js/ui-themes/base/jquery-ui.css\'))\nresponse.write(\'" type="text/css" media="screen" charset="utf-8">\\n\\n</div>\\n\', escape=False)\nif resource:\n    response.write(\'\\n<h3>\', escape=False)\n    response.write(resource.title)\n    response.write(\'</h3>\\n\', escape=False)\n    pass\nresponse.write(\'\\n<br>\\n<audio controls>\\n  <source src=\', escape=False)\nresponse.write(URL(c="default", f="filedownload", args=os.path.join("file", resource.name)))\nresponse.write(\' type="audio/mpeg">\\nYour browser does not support the audio element.\\n</audio>\\n<p></p>\\n<br>\\n<h3>Edit Transcript </h3>\\n\\n<div id="plugin_wiki_form">\\n\', escape=False)\nresponse.write(form.custom.begin)\nresponse.write(\'\\n<b>Page Unique Identifier (no spaces):</b> \', escape=False)\nresponse.write(form.custom.widget.slug)\nresponse.write(\'\\n<br><b>Title:</b> \', escape=False)\nresponse.write(form.custom.widget.title)\nresponse.write(\'<br/>\\n<b>Active:</b> \', escape=False)\nresponse.write(form.custom.widget.is_active)\nresponse.write(\'\\n<b>Public:</b> \', escape=False)\nresponse.write(form.custom.widget.is_public)\nresponse.write(\'\\n\', escape=False)\nresponse.write(form.custom.widget.body)\nresponse.write(\'<br/>\\n<div> \\n<b>Changelog:</b> \', escape=False)\nresponse.write(form.custom.widget.changelog)\nresponse.write(\' \\n<b>Delete?</b> \', escape=False)\nresponse.write(form.custom.deletable)\nresponse.write(\'<b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\', escape=False)\nresponse.write(form.custom.submit)\nresponse.write(\'</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\n<script>\\njQuery(\\\'input[type=submit]\\\').after(\\\'<button onclick="document.location=\\\\\\\'\', escape=False)\nresponse.write(URL(c="plugin_wiki", f="transcript",args=request.args))\nresponse.write(\'\\\\\\\';return false">Cancel\\\');\\n</script>\\n</b>\', escape=False)\nresponse.write(form.custom.end)\nresponse.write(\'\\n<br>\\n\', escape=False)\nif request.extension==\'html\':\n    response.write(\' \\n<script>\\njQuery(document).ready(function() {\\n\', escape=False)\n    if plugin_wiki_mode==\'html\':\n        response.write("\\n  elRTE.prototype.options.panels.web2pyPanel = [\\n     \'bold\', \'italic\', \'underline\', \'forecolor\', \'justifyleft\', \'justifyright\',\\n     \'justifycenter\', \'justifyfull\', \'formatblock\', \'insertorderedlist\', \'insertunorderedlist\',\\n     \'link\', \'image\', \'flash\'];\\n  elRTE.prototype.options.toolbars.web2pyToolbar = [\'web2pyPanel\', \'tables\'];\\n  var opts = { toolbar  : \'web2pyToolbar\' }\\n  jQuery(\'#plugin_wiki_transcript_body\').elrte(opts);\\n", escape=False)\n    else:\n        response.write("\\n  jQuery(\'#plugin_wiki_transcript_body\').css(\'width\',\'700px\').css(\'height\',\'400px\').markItUp(mySettings);\\n", escape=False)\n        pass\n    response.write(\'\\n});\\n</script>\\n</div>\\n\', escape=False)\n    pass\nresponse.write(\'\\n</script>\\n\', escape=False)\npass\nresponse.write(\'\\n\\n\', escape=False)\nresponse.write(\'\\n</div>\\n</div>\\n</div>\\n</div>\\n    <hr>\\n       <div class="container">\\n\\n        <div class="row">\\n\\n \\n        <footer>\\n          <div class="row">\\n      <div class="col-lg-4"></div>\\n            <div class="col-lg-4">\\n              <p> This project is an initiative of:\\n              <a href="http://www.muurrbay.org.au/">\\n              <img src="/Bundjalung/static/images/muurrbay.png" height="40px"></a>\\n              <p>Copyright &copy; Muurrbay Aboriginal Language and Culture Cooperative</p></a>\\n            </div>\\n          </div>\\n        </footer>\\n      </div>\\n</div>\\n</div>\\n<script>\\nvar el = $(\\\'#popupword\\\');\\nvar elpos_original = el.offset().top;\\n$(window).scroll(function(){\\n    var elpos = el.offset().top;\\n    var windowpos = $(window).scrollTop();\\n    var finaldestination = windowpos;\\n    if(windowpos<elpos_original) {\\n        finaldestination = elpos_original;\\n        el.stop().css({\\\'top\\\':10});\\n    } else {\\n        el.stop().animate({\\\'top\\\':finaldestination-elpos_original+10},500);\\n    }\\n});\\n</script>\\n    <!-- Bootstrap core JavaScript\\n    ================================================== -->\\n    <!-- Placed at the end of the document so the pages load faster -->\\n    <script src="\', escape=False)\nresponse.write(URL(\'static\',\'/js/bootstrap.min.js\'))\nresponse.write(\'"></script>\\n</body>\\n</html>\\n\', escape=False)'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__hash__'
+p12
+S"<method-wrapper '__hash__' of exceptions.NameError object>"
+p13
+sS'__setattr__'
+p14
+S"<method-wrapper '__setattr__' of exceptions.NameError object>"
+p15
+sS'__reduce_ex__'
+p16
+S'<built-in method __reduce_ex__ of exceptions.NameError object>'
+p17
+sS'__getslice__'
+p18
+S"<method-wrapper '__getslice__' of exceptions.NameError object>"
+p19
+sS'__getitem__'
+p20
+S"<method-wrapper '__getitem__' of exceptions.NameError object>"
+p21
+sS'__setstate__'
+p22
+S'<built-in method __setstate__ of exceptions.NameError object>'
+p23
+sS'args'
+p24
+S'("name \'os\' is not defined",)'
+p25
+sS'__reduce__'
+p26
+S'<built-in method __reduce__ of exceptions.NameError object>'
+p27
+sS'__str__'
+p28
+S"<method-wrapper '__str__' of exceptions.NameError object>"
+p29
+sS'__format__'
+p30
+S'<built-in method __format__ of exceptions.NameError object>'
+p31
+sS'__getattribute__'
+p32
+S"<method-wrapper '__getattribute__' of exceptions.NameError object>"
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.NameError'>"
+p35
+sS'__unicode__'
+p36
+S'<built-in method __unicode__ of exceptions.NameError object>'
+p37
+sS'__delattr__'
+p38
+S"<method-wrapper '__delattr__' of exceptions.NameError object>"
+p39
+sS'__subclasshook__'
+p40
+S'<built-in method __subclasshook__ of type object>'
+p41
+sS'__repr__'
+p42
+S"<method-wrapper '__repr__' of exceptions.NameError object>"
+p43
+sS'__dict__'
+p44
+S'{}'
+p45
+sS'__sizeof__'
+p46
+S'<built-in method __sizeof__ of exceptions.NameError object>'
+p47
+sS'__doc__'
+p48
+S"'Name not found globally.'"
+p49
+sS'__init__'
+p50
+S"<method-wrapper '__init__' of exceptions.NameError object>"
+p51
+sS'__new__'
+p52
+S'<built-in method __new__ of type object>'
+p53
+ssS'evalue'
+p54
+S"name 'os' is not defined"
+p55
+sS'request'
+p56
+cgluon.html
+XML_unpickle
+p57
+(S's\xe8f\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>Calley</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>113.197.9.114</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>plugin_wiki</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_bundjalung</td><td style="vertical-align:top;">:</td><td><div>479:1b016cb8-e977-408e-b3b4-670bc6728052<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTEXT_DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTEXT_PREFIX</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">DOCUMENT_ROOT</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">GATEWAY_INTERFACE</td><td style="vertical-align:top;">:</td><td><div>CGI/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CACHE_CONTROL</td><td style="vertical-align:top;">:</td><td><div>max-age=0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>Keep-Alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>session_id_bundjalung=&quot;479:1b016cb8-e977-408e-b3b4-670bc6728052&quot;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>http://bundjalung.dalang.com.au/user/login</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_X_BLUECOAT_VIA</td><td style="vertical-align:top;">:</td><td><div>6e75dbeedd61bf16</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_TRANSLATED</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>113.197.9.114</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>21085</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_SCHEME</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_URI</td><td style="vertical-align:top;">:</td><td><div>/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_FILENAME</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_NAME</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_ADDR</td><td style="vertical-align:top;">:</td><td><div>129.94.172.253</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_ADMIN</td><td style="vertical-align:top;">:</td><td><div>ckutay@cities.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SIGNATURE</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>Apache/2.4.6 (Fedora) PHP/5.4.23 mod_wsgi/3.4 Python/2.7.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">UNIQUE_ID</td><td style="vertical-align:top;">:</td><td><div>VNgUOrVvbkvjMpw025vZ@AAAAAk</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/usr/local/web2py/applications/Dharug/&#x27;, &#x27;/usr/local/web2py/applications/Language/&#x27;, &#x27;/usr/local/web2py/applications/Bundjalung/&#x27;, &#x27;/usr/local/web2py/applications/Wiradjuri/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">context_document_root</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">context_prefix</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;Bundjalung&#x27;, &#x27;Language&#x27;, &#x27;Dharug&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">document_root</td><td style="vertical-align:top;">:</td><td><div>/home/Language/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_application</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_controller</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain_function</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gateway_interface</td><td style="vertical-align:top;">:</td><td><div>CGI/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate, sdch</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cache_control</td><td style="vertical-align:top;">:</td><td><div>max-age=0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>Keep-Alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>session_id_bundjalung=&quot;479:1b016cb8-e977-408e-b3b4-670bc6728052&quot;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>http://bundjalung.dalang.com.au/user/login</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.94 Safari/537.36</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_x_bluecoat_via</td><td style="vertical-align:top;">:</td><td><div>6e75dbeedd61bf16</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>129.94.172.253</div></td></tr><tr><td><div>djurumin.cse.unsw.EDU.AU</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>dharug.dalang.com.au</div></td></tr><tr><td><div>djurumin.cities.org.au</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.application_group</td><td style="vertical-align:top;">:</td><td><div>dalang.com.au|</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.callable_object</td><td style="vertical-align:top;">:</td><td><div>application</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.enable_sendfile</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.handler_script</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.input_chunked</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.listener_host</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.listener_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.process_group</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.queue_start</td><td style="vertical-align:top;">:</td><td><div>1423447098329474</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.request_handler</td><td style="vertical-align:top;">:</td><td><div>wsgi-script</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.script_reloading</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>3</div></td></tr><tr><td><div>4</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_application_group</td><td style="vertical-align:top;">:</td><td><div>dalang.com.au|</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_callable_object</td><td style="vertical-align:top;">:</td><td><div>application</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_enable_sendfile</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_handler_script</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_input_chunked</td><td style="vertical-align:top;">:</td><td><div>0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_listener_host</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_listener_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_process_group</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_queue_start</td><td style="vertical-align:top;">:</td><td><div>1423447098329474</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_request_handler</td><td style="vertical-align:top;">:</td><td><div>wsgi-script</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_script_reloading</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">mod_wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>3</div></td></tr><tr><td><div>4</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_translated</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>113.197.9.114</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>21085</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>GET</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/Bundjalung/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_filename</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/wsgihandler.py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_addr</td><td style="vertical-align:top;">:</td><td><div>129.94.172.253</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_admin</td><td style="vertical-align:top;">:</td><td><div>ckutay@cities.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>bundjalung.dalang.com.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>80</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_signature</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>Apache/2.4.6 (Fedora) PHP/5.4.23 mod_wsgi/3.4 Python/2.7.3</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">unique_id</td><td style="vertical-align:top;">:</td><td><div>VNgUOrVvbkvjMpw025vZ@AAAAAk</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_crontype</td><td style="vertical-align:top;">:</td><td><div>soft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_original_uri</td><td style="vertical-align:top;">:</td><td><div>/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Log object at 0x7fdc74b8ab70&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in method file_wrapper of mod_wsgi.Adapter object at 0x7fdc78834cd8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Input object at 0x7fdc74b8abb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Log object at 0x7fdc74b8ab70&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;built-in method file_wrapper of mod_wsgi.Adapter object at 0x7fdc78834cd8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;mod_wsgi.Input object at 0x7fdc74b8abb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py/applications/Bundjalung/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>edit_resource_transcript</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/usr/local/web2py/applications/Dharug/&#x27;, &#x27;/usr/local/web2py/applications/Language/&#x27;, &#x27;/usr/local/web2py/applications/Bundjalung/&#x27;, &#x27;/usr/local/web2py/applications/Wiradjuri/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;Bundjalung&#x27;, &#x27;Language&#x27;, &#x27;Dharug&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/usr/local/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>129.94.172.253</div></td></tr><tr><td><div>djurumin.cse.unsw.EDU.AU</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>dharug.dalang.com.au</div></td></tr><tr><td><div>djurumin.cities.org.au</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_crontype</td><td style="vertical-align:top;">:</td><td><div>soft</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.9.12-stable+timestamp.2015.01.17.06.11.03</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 9, 12, 58, 18, 330331)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/plugin_wiki/edit_resource_transcript/Calley</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 9, 1, 58, 18, 330362)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">uuid</td><td style="vertical-align:top;">:</td><td><div>Bundjalung/113.197.9.114.2015-02-09.12-58-18.365667e5-ae3d-45e0-b36c-aada2f3821e1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7fdc74b8ae10&gt;</div></td></tr></table></div>'
+tRp58
+sS'frames'
+p59
+(lp60
+(dp61
+S'file'
+p62
+S'/usr/local/web2py/gluon/restricted.py'
+p63
+sS'dump'
+p64
+(dp65
+S'environment'
+p66
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}"
+p67
+sS'ccode'
+p68
+S'<code object <module> at 0x7fdc792385b0, file "/...ugin_wiki/edit_resource_transcript.html", line 1>'
+p69
+ssS'lnum'
+p70
+I224
+sS'lines'
+p71
+(dp72
+I224
+S'        exec ccode in environment'
+p73
+sI225
+S'    except HTTP:'
+p74
+sI226
+S'        raise'
+p75
+sI227
+S'    except RestrictedError:'
+p76
+sI228
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p77
+sI219
+S'    try:'
+p78
+sI220
+S'        if isinstance(code, types.CodeType):'
+p79
+sI221
+S'            ccode = code'
+p80
+sI222
+S'        else:'
+p81
+sI223
+S'            ccode = compile2(code, layer)'
+p82
+ssS'call'
+p83
+S'(code=\'response.write(\\\'<!DOCTYPE html>\\\\n<html class="no...(\\\'"></script>\\\\n</body>\\\\n</html>\\\\n\\\', escape=False)\', environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, \'CAT\': <class \'gluon.html.CAT\'>, ...}, layer=\'/usr/local/web2py/applications/Bundjalung/views/plugin_wiki/edit_resource_transcript.html\')'
+p84
+sS'func'
+p85
+S'restricted'
+p86
+sa(dp87
+g62
+S'/usr/local/web2py/applications/Bundjalung/views/plugin_wiki/edit_resource_transcript.html'
+p88
+sg64
+(dp89
+sg70
+I136
+sg71
+(dp90
+I128
+S"response.write(URL('static','plugin_wiki/elrte-1.3/js/ui-themes/base/jquery-ui.css'))"
+p91
+sI129
+S'response.write(\'" type="text/css" media="screen" charset="utf-8">\\n\\n</div>\\n\', escape=False)'
+p92
+sI130
+S'if resource:'
+p93
+sI131
+S"    response.write('\\n<h3>', escape=False)"
+p94
+sI132
+S'    response.write(resource.title)'
+p95
+sI133
+S"    response.write('</h3>\\n', escape=False)"
+p96
+sI134
+S'    pass'
+p97
+sI135
+S"response.write('\\n<br>\\n<audio controls>\\n  <source src=', escape=False)"
+p98
+sI136
+S'response.write(URL(c="default", f="filedownload", args=os.path.join("file", resource.name)))'
+p99
+sI137
+S'response.write(\' type="audio/mpeg">\\nYour browser does not support the audio element.\\n</audio>\\n<p></p>\\n<br>\\n<h3>Edit Transcript </h3>\\n\\n<div id="plugin_wiki_form">\\n\', escape=False)'
+p100
+sI138
+S'response.write(form.custom.begin)'
+p101
+sI139
+S"response.write('\\n<b>Page Unique Identifier (no spaces):</b> ', escape=False)"
+p102
+sI140
+S'response.write(form.custom.widget.slug)'
+p103
+sI141
+S"response.write('\\n<br><b>Title:</b> ', escape=False)"
+p104
+sI142
+S'response.write(form.custom.widget.title)'
+p105
+sI143
+S"response.write('<br/>\\n<b>Active:</b> ', escape=False)"
+p106
+sI144
+S'response.write(form.custom.widget.is_active)'
+p107
+sI145
+S"response.write('\\n<b>Public:</b> ', escape=False)"
+p108
+sI146
+S'response.write(form.custom.widget.is_public)'
+p109
+sI127
+S'response.write(\'" type="text/css" media="screen" charset="utf-8">\\n<link rel="stylesheet" href="\', escape=False)'
+p110
+ssg83
+S'()'
+p111
+sg85
+S'<module>'
+p112
+sasS'pyver'
+p113
+S'Python 2.7.3: /usr/bin/python (prefix: /usr)'
+p114
+sS'session'
+p115
+g57
+(S's\x00\n\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>f52a2fa8-be3e-45f6-a1db-d4b16e504f43</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 2, 9, 12, 58, 17, 355723)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">Role_Name</td><td style="vertical-align:top;">:</td><td><div>teacher</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>ckutay@cities.org.au</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>Cat</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>1L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div>Kutay</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div>0L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">username</td><td style="vertical-align:top;">:</td><td><div>cat.kutay</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">1</td><td style="vertical-align:top;">:</td><td><div>developer</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp116
+sS'etype'
+p117
+S"<type 'exceptions.NameError'>"
+p118
+sS'date'
+p119
+S'Mon Feb  9 12:58:18 2015'
+p120
+sS'response'
+p121
+g57
+(S's\x922\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7fdc8e4091b8&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_bundjalung</td><td style="vertical-align:top;">:</td><td><div>479:1b016cb8-e977-408e-b3b4-670bc6728052<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>/Bundjalung/static/js/jquery-1.11.2.min.js</div></td></tr><tr><td><div>/Bundjalung/static/css/calendar.css</div></td></tr><tr><td><div>/Bundjalung/static/js/calendar.js</div></td></tr><tr><td><div>/Bundjalung/static/js/web2py.js</div></td></tr><tr><td><div>/Bundjalung/static/css/jquery-ui.css</div></td></tr><tr><td><div>/Bundjalung/static/js/jquery-ui.min.js</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.multiselect.js</div></td></tr><tr><td><div>/Bundjalung/static/css/custom.css</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.dimensions.js</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.multiselect.js</div></td></tr><tr><td><div>/Bundjalung/static/plugin_multiselect/jquery.multiselect.css</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>Logged in</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div>: </div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>table3cols</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>*</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuAbout</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>People</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/people</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Traditional country</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/traditional_country</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Language background</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/language_background</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Outline of the language</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/outline_of_the_language</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Outline of resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/outline_of_resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>History of the project</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/history</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuLogin</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Logout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/user/logout</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuResource</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Dictionary Book</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/dictionary</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Language Resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Written examples</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/written_examples_of_the_language</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>WorkSheets</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/learning/pages</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menuTop</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/index.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>About Us</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/page/about_us</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Dictionary</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/language/dictionary</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Resources</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/resources</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Accept Regos</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/appadmin/update/db.auth_user/registration_key/pending</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Change Password</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/user/change_password</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Contact</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_wiki/contact</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu_edit</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Edit</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/design/Bundjalung</div></td></tr><tr><td><div><table><tr><td><div><table><tr><td><div>Controller</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/controllers/default.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>View</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/views/plugin_wiki/edit_resource_transcript.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Layout</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/views/layout.html</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Stylesheet</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/static/base.css</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>DB Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/models/db.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Menu Model</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/admin/edit/Bundjalung/models/menu.py</div></td></tr></table></div></td></tr><tr><td><div><table><tr><td><div>Database</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/appadmin</div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu_spread</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Index</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/plugin_spreadsheet</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^plugin_wiki/\\w+\\.py$</div></td></tr><tr><td><div>^plugin_wiki/edit_resource_transcript/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>113.197.9.114</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_record_id</td><td style="vertical-align:top;">:</td><td><div>479L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_table</td><td style="vertical-align:top;">:</td><td><div>&lt;Table web2py_session_Bundjalung (id,locked,client_ip,created_datetime,modified_datetime,unique_key,session_data)&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_db_unique_key</td><td style="vertical-align:top;">:</td><td><div>1b016cb8-e977-408e-b3b4-670bc6728052</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>485b4fffa50e32a0887312728f4f1b0f</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>479:1b016cb8-e977-408e-b3b4-670bc6728052</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>Bundjalung</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>db</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">start</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Bundjalung-Yugambeh Dictionary</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>plugin_wiki/edit_resource_transcript.html</div></td></tr></table></div>'
+tRp122
+sS'locals'
+p123
+(dp124
+S'Service'
+p125
+S"<class 'gluon.tools.Service'>"
+p126
+sS'plugin_gmaps'
+p127
+S"<Storage {'color': <function <lambda> at 0x7fdc7...address': <function <lambda> at 0x7fdc8e840050>}>"
+p128
+sS'OBJECT'
+p129
+S"<class 'gluon.html.OBJECT'>"
+p130
+sS'track_changes'
+p131
+S'<function track_changes>'
+p132
+sS'SQLDB'
+p133
+S"<class 'gluon.dal.base.DAL'>"
+p134
+sg115
+S"<Storage {'_auth_next': None, 'flash': None, 'au...0c8cc310:ca26b337-2d18-4816-8e71-220299d5913f']}>"
+p135
+sS'reverse_geocode'
+p136
+S'<function reverse_geocode>'
+p137
+sS'BR'
+p138
+S"<class 'gluon.html.BR'>"
+p139
+sS'local_import'
+p140
+S'<function <lambda>>'
+p141
+sS'OPTGROUP'
+p142
+S"<class 'gluon.html.OPTGROUP'>"
+p143
+sS'__package__'
+p144
+S'None'
+p145
+sS'redirect'
+p146
+S'<function redirect>'
+p147
+sS'IS_INT_IN_RANGE'
+p148
+S"<class 'gluon.validators.IS_INT_IN_RANGE'>"
+p149
+sS'uuid'
+p150
+S"<module 'uuid' from '/usr/lib64/python2.7/uuid.pyc'>"
+p151
+sS'IS_LOWER'
+p152
+S"<class 'gluon.validators.IS_LOWER'>"
+p153
+sS'IS_STRONG'
+p154
+S"<class 'gluon.validators.IS_STRONG'>"
+p155
+sS'SlugValidator'
+p156
+S"<class '__restricted__.SlugValidator'>"
+p157
+sS'Recaptcha'
+p158
+S"<class 'gluon.tools.Recaptcha'>"
+p159
+sS'pprint'
+p160
+S"<module 'pprint' from '/usr/lib64/python2.7/pprint.pyc'>"
+p161
+sS'_link'
+p162
+S"'/plugin_wiki/contact'"
+p163
+sS'IS_IN_DB'
+p164
+S"<class 'gluon.validators.IS_IN_DB'>"
+p165
+sS'TAG'
+p166
+S'<gluon.html.__TAG__ object>'
+p167
+sS'__name__'
+p168
+S"'__restricted__'"
+p169
+sS'SQLField'
+p170
+S"<class 'gluon.dal.objects.Field'>"
+p171
+sS'_f'
+p172
+S"'plugin_wiki/kendo/js/kendo.all.min.js'"
+p173
+sS'nodes'
+p174
+S"<module 'docutils.nodes' from '/usr/lib/python2.7/site-packages/docutils/nodes.pyc'>"
+p175
+sS'RECAPTCHA_PRIVATE_KEY'
+p176
+S"'6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'"
+p177
+sS'BODY'
+p178
+S"<class 'gluon.html.BODY'>"
+p179
+sS'IS_DATE_IN_RANGE'
+p180
+S"<class 'gluon.validators.IS_DATE_IN_RANGE'>"
+p181
+sS'IFRAME'
+p182
+S"<class 'gluon.html.IFRAME'>"
+p183
+sS'get'
+p184
+S'<function get>'
+p185
+sS'URL'
+p186
+S'<function URL>'
+p187
+sS'__file__'
+p188
+S"'/usr/local/web2py/applications/Bundjalung/views/plugin_wiki/edit_resource_transcript.html'"
+p189
+sS'db'
+p190
+S'<DAL uri="mysql:******@localhost/Bundjalung">'
+p191
+sS'auth'
+p192
+S'<gluon.tools.Auth object>'
+p193
+sS'Transform'
+p194
+S'<class docutils.transforms.Transform>'
+p195
+sS'P'
+S"<class 'gluon.html.P'>"
+p196
+sS'T'
+S'<gluon.languages.translator object>'
+p197
+sS'plugin_wiki_theme'
+p198
+S"'cupertino'"
+p199
+sS'XHTML'
+p200
+S"<class 'gluon.html.XHTML'>"
+p201
+sS'now'
+p202
+S'datetime.datetime(2015, 2, 9, 12, 58, 18, 330331)'
+p203
+sS'RECAPTCHA_PUBLIC_KEY'
+p204
+S"'6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'"
+p205
+sS'ON'
+p206
+S'True'
+p207
+sS'OL'
+p208
+S"<class 'gluon.html.OL'>"
+p209
+sS'resource'
+p210
+S"<Row {'name': 'calley_m01_01178_a6da482255.mp3',...Calley', 'Public': False, 'id': 1L, 'desc': ' '}>"
+p211
+sS'TEXTAREA'
+p212
+S"<class 'gluon.html.TEXTAREA'>"
+p213
+sS'MENU'
+p214
+S"<class 'gluon.html.MENU'>"
+p215
+sS'STYLE'
+p216
+S"<class 'gluon.html.STYLE'>"
+p217
+sS'default'
+p218
+S'1L'
+p219
+sS'plugin_wiki_widgets'
+p220
+S"'all'"
+p221
+sS'wsread_page'
+p222
+S'<function wsread_page>'
+p223
+sS'LINK'
+p224
+S"<class 'gluon.html.LINK'>"
+p225
+sS'WikiLink'
+p226
+S'<class __restricted__.WikiLink>'
+p227
+sS'LOAD'
+p228
+S'<function LOAD>'
+p229
+sS'CODE'
+p230
+S"<class 'gluon.html.CODE'>"
+p231
+sS'HTTP'
+p232
+S"<class 'gluon.http.HTTP'>"
+p233
+sS'HR'
+p234
+S"<class 'gluon.html.HR'>"
+p235
+sS'IS_DATETIME'
+p236
+S"<class 'gluon.validators.IS_DATETIME'>"
+p237
+sS'Storage'
+p238
+S"<class 'gluon.storage.Storage'>"
+p239
+sg56
+S"<Storage {'_vars': <Storage {}>, 'function': 'ed...': '/usr/local/web2py/applications/Bundjalung/'}>"
+p240
+sS'LABEL'
+p241
+S"<class 'gluon.html.LABEL'>"
+p242
+sS'CLEANUP'
+p243
+S"<class 'gluon.validators.CLEANUP'>"
+p244
+sS'PluginWikiWidgets'
+p245
+S"<class '__restricted__.PluginWikiWidgets'>"
+p246
+sS'plugins'
+p247
+S'<gluon.tools.PluginManager object>'
+p248
+sS'SELECT'
+p249
+S"<class 'gluon.html.SELECT'>"
+p250
+sS'represent_email'
+p251
+S'<function represent_email>'
+p252
+sS'CENTER'
+p253
+S"<class 'gluon.html.CENTER'>"
+p254
+sS'prettydate'
+p255
+S'<function prettydate>'
+p256
+sS'MARKUP'
+p257
+S'<gluon.html.XML object>'
+p258
+sS'Crud'
+p259
+S"<class 'gluon.tools.Crud'>"
+p260
+sS'Auth'
+p261
+S"<class 'gluon.tools.Auth'>"
+p262
+sS'COL'
+p263
+S"<class 'gluon.html.COL'>"
+p264
+sS'current'
+p265
+S'<thread._local object>'
+p266
+sS're'
+p267
+S"<module 're' from '/usr/lib64/python2.7/re.pyc'>"
+p268
+sS'HTML'
+p269
+S"<class 'gluon.html.HTML'>"
+p270
+sS'SQLFORM'
+p271
+S"<class 'gluon.sqlhtml.SQLFORM'>"
+p272
+sS'EMAIL_SERVER'
+p273
+S"'cities.org.au:25'"
+p274
+sS'languageList'
+p275
+S'None'
+p276
+sS'EM'
+p277
+S"<class 'gluon.html.EM'>"
+p278
+sS'core'
+p279
+S"<module 'docutils.core' from '/usr/lib/python2.7/site-packages/docutils/core.pyc'>"
+p280
+sS'represent_author'
+p281
+S'<function represent_author>'
+p282
+sS'FIELDSET'
+p283
+S"<class 'gluon.html.FIELDSET'>"
+p284
+sS'goto'
+p285
+S'<function goto>'
+p286
+sS'IS_EQUAL_TO'
+p287
+S"<class 'gluon.validators.IS_EQUAL_TO'>"
+p288
+sS'embed64'
+p289
+S'<function embed64>'
+p290
+sS'Validator'
+p291
+S"<class 'gluon.validators.Validator'>"
+p292
+sS'IS_LIST_OF'
+p293
+S"<class 'gluon.validators.IS_LIST_OF'>"
+p294
+sS'INPUT'
+p295
+S"<class 'gluon.html.INPUT'>"
+p296
+sS'EMBED'
+p297
+S"<class 'gluon.html.EMBED'>"
+p298
+sS'slug'
+p299
+S'<function slug>'
+p300
+sS'_'
+S'<function _>'
+p301
+sS'PluginWiki'
+p302
+S"<class '__restricted__.PluginWiki'>"
+p303
+sS'FORM'
+p304
+S"<class 'gluon.html.FORM'>"
+p305
+sS'logging'
+p306
+S"<module 'logging' from '/usr/lib64/python2.7/logging/__init__.pyc'>"
+p307
+sS'language'
+p308
+S"'Bundjalung'"
+p309
+sS'standalone'
+p310
+S"<module 'docutils.readers.standalone' from '/usr...7/site-packages/docutils/readers/standalone.pyc'>"
+p311
+sS'H2'
+p312
+S"<class 'gluon.html.H2'>"
+p313
+sS'H3'
+p314
+S"<class 'gluon.html.H3'>"
+p315
+sS'BUTTON'
+p316
+S"<class 'gluon.html.BUTTON'>"
+p317
+sS'H1'
+p318
+S"<class 'gluon.html.H1'>"
+p319
+sS'plugin_gmap'
+p320
+S"<Storage {'represent': <function <lambda> at 0x7...0>, 'id': <function <lambda> at 0x7fdc8e8400c8>}>"
+p321
+sS'plugin_wiki_level'
+p322
+S'3'
+sS'H5'
+p323
+S"<class 'gluon.html.H5'>"
+p324
+sS'UL'
+p325
+S"<class 'gluon.html.UL'>"
+p326
+sS'IS_UPPER'
+p327
+S"<class 'gluon.validators.IS_UPPER'>"
+p328
+sS'xmlescape'
+p329
+S'<function xmlescape>'
+p330
+sS'IS_TIME'
+p331
+S"<class 'gluon.validators.IS_TIME'>"
+p332
+sS'email_user'
+p333
+S'<function email_user>'
+p334
+sS'cache'
+p335
+S'<gluon.cache.Cache object>'
+p336
+sS'OPTION'
+p337
+S"<class 'gluon.html.OPTION'>"
+p338
+sS'wsread_question'
+p339
+S'<function wsread_question>'
+p340
+sS'TITLE'
+p341
+S"<class 'gluon.html.TITLE'>"
+p342
+sS'DEFAULT'
+p343
+S"{'authorize_attachments': False, 'editor': True, 'level': 3, 'migrate': False, 'mode': 'html', 'theme': 'cupertino', 'widgets': 'all'}"
+p344
+sS'CRYPT'
+p345
+S"<class 'gluon.validators.CRYPT'>"
+p346
+sS'tag'
+p347
+S'None'
+p348
+sS'IS_EMPTY_OR'
+p349
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p350
+sS'MARKMIN'
+p351
+S"<class 'gluon.html.MARKMIN'>"
+p352
+sS'ASSIGNJS'
+p353
+S'<function ASSIGNJS>'
+p354
+sS'Reader'
+p355
+S'<class __restricted__.Reader>'
+p356
+sS'STRONG'
+p357
+S"<class 'gluon.html.STRONG'>"
+p358
+sS'renderHtml'
+p359
+S'<function renderHtml>'
+p360
+sS'service'
+p361
+S'<gluon.tools.Service object>'
+p362
+sS'SCRIPT'
+p363
+S"<class 'gluon.html.SCRIPT'>"
+p364
+sS'IS_NOT_EMPTY'
+p365
+S"<class 'gluon.validators.IS_NOT_EMPTY'>"
+p366
+sS'geocode'
+p367
+S'<function geocode>'
+p368
+sS'email_all_user'
+p369
+S'<function email_all_user>'
+p370
+sS'multiselect_widget'
+p371
+S'<function multiselect_widget>'
+p372
+sS'TABLE'
+p373
+S"<class 'gluon.html.TABLE'>"
+p374
+sS'wsimage'
+p375
+S'<function wsimage>'
+p376
+sS'IS_IPV4'
+p377
+S"<class 'gluon.validators.IS_IPV4'>"
+p378
+sS'IS_LENGTH'
+p379
+S"<class 'gluon.validators.IS_LENGTH'>"
+p380
+sS'IS_IPV6'
+p381
+S"<class 'gluon.validators.IS_IPV6'>"
+p382
+sS'XML'
+p383
+S"<class 'gluon.html.XML'>"
+p384
+sS'Wiki'
+p385
+S"<class 'gluon.tools.Wiki'>"
+p386
+sS'plugin_wiki'
+p387
+S'<__restricted__.PluginWiki object>'
+p388
+sS'IMG'
+p389
+S"<class 'gluon.html.IMG'>"
+p390
+sS'SQLTABLE'
+p391
+S"<class 'gluon.sqlhtml.SQLTABLE'>"
+p392
+sS'menu_rec'
+p393
+S'<function menu_rec>'
+p394
+sS'slideshow'
+p395
+S'<function slideshow>'
+p396
+sS'mail'
+p397
+S'<gluon.tools.Mail object>'
+p398
+sS'WikiLinkResolver'
+p399
+S'<class __restricted__.WikiLinkResolver>'
+p400
+sS'logger'
+p401
+S'<logging.Logger object>'
+p402
+sS'PunktWordTokenizer'
+p403
+S"<class 'nltk.tokenize.punkt.PunktWordTokenizer'>"
+p404
+sS'SPAN'
+p405
+S"<class 'gluon.html.SPAN'>"
+p406
+sS'IS_JSON'
+p407
+S"<class 'gluon.validators.IS_JSON'>"
+p408
+sS'IS_IPADDRESS'
+p409
+S"<class 'gluon.validators.IS_IPADDRESS'>"
+p410
+sS'plugin_wiki_editor'
+p411
+g207
+sS'IS_SLUG'
+p412
+S"<class 'gluon.validators.IS_SLUG'>"
+p413
+sS'BEAUTIFY'
+p414
+S"<class 'gluon.html.BEAUTIFY'>"
+p415
+sS'META'
+p416
+S"<class 'gluon.html.META'>"
+p417
+sS'resources'
+p418
+S'None'
+p419
+sS'error'
+p420
+S'<function error>'
+p421
+sS'plugin_wiki_migrate'
+p422
+S'False'
+p423
+sS'IS_URL'
+p424
+S"<class 'gluon.validators.IS_URL'>"
+p425
+sS'fetch'
+p426
+S'<function fetch>'
+p427
+sS'WIKI'
+p428
+S'<function <lambda>>'
+p429
+sS'IS_DATE'
+p430
+S"<class 'gluon.validators.IS_DATE'>"
+p431
+sS'IS_EMAIL'
+p432
+S"<class 'gluon.validators.IS_EMAIL'>"
+p433
+sS'GOOGLEMAP_KEY'
+p434
+S"'ABQIAAAAgmnPur4uFr3tfb2KjkqXHxRUlOG9qJIroEAuogNlnP0txuwBIxQxpGXF06NPhGKQ0uBcy_OLlgghdA'"
+p435
+sS'H6'
+p436
+S"<class 'gluon.html.H6'>"
+p437
+sS'Writer'
+p438
+S'<class docutils.writers.html4css1.Writer>'
+p439
+sS'TBODY'
+p440
+S"<class 'gluon.html.TBODY'>"
+p441
+sS'CAT'
+p442
+S"<class 'gluon.html.CAT'>"
+p443
+sS'Field'
+p444
+S"<class 'gluon.dal.objects.Field'>"
+p445
+sS'B'
+S"<class 'gluon.html.B'>"
+p446
+sS'H4'
+p447
+S"<class 'gluon.html.H4'>"
+p448
+sS'IS_LIST_OF_EMAILS'
+p449
+S"<class 'gluon.validators.IS_LIST_OF_EMAILS'>"
+p450
+sS'Mail'
+p451
+S"<class 'gluon.tools.Mail'>"
+p452
+sS'DIV'
+p453
+S"<class 'gluon.html.DIV'>"
+p454
+sS'_name'
+p455
+S"'Contact'"
+p456
+sS'LEGEND'
+p457
+S"<class 'gluon.html.LEGEND'>"
+p458
+sS'EMAIL_AUTH'
+p459
+S"'ckutay@cities.org.au:AK131391'"
+p460
+sS'usernames'
+p461
+S"{None: 'Anonymous', 0: 'Anonymous', 1L: 'Cat Kutay', 2L: 'Cat Kutay', 3L: 'Margaret Sharpe', 4L: 'Ana Ash', 5L: 'Karyn Silva de Azevedo', 19L: 'Cat Kutay'}"
+p462
+sS'answer'
+p463
+S'<function answer>'
+p464
+sS'form'
+p465
+S'<gluon.sqlhtml.SQLFORM object>'
+p466
+sS'COLGROUP'
+p467
+S"<class 'gluon.html.COLGROUP'>"
+p468
+sS'DAL'
+p469
+S"<class 'gluon.dal.base.DAL'>"
+p470
+sS'TT'
+p471
+S"<class 'gluon.html.TT'>"
+p472
+sS'TR'
+p473
+S"<class 'gluon.html.TR'>"
+p474
+sS'IS_IN_SET'
+p475
+S"<class 'gluon.validators.IS_IN_SET'>"
+p476
+sS'LI'
+p477
+S"<class 'gluon.html.LI'>"
+p478
+sS'TOP_MESSAGE'
+p479
+S"'Contact form'"
+p480
+sS'TH'
+p481
+S"<class 'gluon.html.TH'>"
+p482
+sS'dblanguage'
+p483
+S'<DAL uri="mysql:******@localhost/language">'
+p484
+sS'TD'
+p485
+S"<class 'gluon.html.TD'>"
+p486
+sS'PluginManager'
+p487
+S"<class 'gluon.tools.PluginManager'>"
+p488
+sS'plugin_multiselect_include'
+p489
+S'<function plugin_multiselect_include>'
+p490
+sS'IS_MATCH'
+p491
+S"<class 'gluon.validators.IS_MATCH'>"
+p492
+sS'A'
+S"<class 'gluon.html.A'>"
+p493
+sS'HEAD'
+p494
+S"<class 'gluon.html.HEAD'>"
+p495
+sS'IS_DATETIME_IN_RANGE'
+p496
+S"<class 'gluon.validators.IS_DATETIME_IN_RANGE'>"
+p497
+sS'users'
+p498
+S'<Rows (6)>'
+p499
+sS'IS_IMAGE'
+p500
+S"<class 'gluon.validators.IS_IMAGE'>"
+p501
+sS'I'
+S"<class 'gluon.html.I'>"
+p502
+sS'crud'
+p503
+S'<gluon.tools.Crud object>'
+p504
+sS'who'
+p505
+S'1L'
+p506
+sS'__builtins__'
+p507
+S"{'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'BufferError': <type 'exceptions.BufferError'>, 'BytesWarning': <type 'exceptions.BytesWarning'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, ...}"
+p508
+sS'use_janrain'
+p509
+S'<function use_janrain>'
+p510
+sS'VALUE'
+p511
+S"''"
+p512
+sS'IS_ALPHANUMERIC'
+p513
+S"<class 'gluon.validators.IS_ALPHANUMERIC'>"
+p514
+sS'sys'
+p515
+S"<module 'sys' (built-in)>"
+p516
+sS'IS_NOT_IN_DB'
+p517
+S"<class 'gluon.validators.IS_NOT_IN_DB'>"
+p518
+sS'PRE'
+p519
+S"<class 'gluon.html.PRE'>"
+p520
+sS'transcript'
+p521
+S"<Row {'body': '', 'modified_by': 1L, 'changelog'...15, 2, 23), 'is_public': True, 'slug': 'calley'}>"
+p522
+sg121
+S"<Storage {'body': <cStringIO.StringO object at 0...w': 'plugin_wiki/edit_resource_transcript.html'}>"
+p523
+sS'THEAD'
+p524
+S"<class 'gluon.html.THEAD'>"
+p525
+sS'ANY_OF'
+p526
+S"<class 'gluon.validators.ANY_OF'>"
+p527
+sS'plugin_multiselect'
+p528
+S'<function plugin_multiselect>'
+p529
+sS'IS_NULL_OR'
+p530
+S"<class 'gluon.validators.IS_EMPTY_OR'>"
+p531
+sS'plugin_wiki_mode'
+p532
+S"'html'"
+p533
+sS'url'
+p534
+S'<function url>'
+p535
+sS'TFOOT'
+p536
+S"<class 'gluon.html.TFOOT'>"
+p537
+sS'_active'
+p538
+g423
+sS'IS_FLOAT_IN_RANGE'
+p539
+S"<class 'gluon.validators.IS_FLOAT_IN_RANGE'>"
+p540
+sS'IS_EXPR'
+p541
+S"<class 'gluon.validators.IS_EXPR'>"
+p542
+sS'nltk'
+p543
+S"<module 'nltk' from '/usr/lib/python2.7/site-packages/nltk/__init__.pyc'>"
+p544
+sS'EMAIL_SENDER'
+p545
+S"'ckutay@cities.org.au'"
+p546
+sS'HTMLTranslator'
+p547
+S'<class docutils.writers.html4css1.HTMLTranslator>'
+p548
+sS'plugin_wiki_authorize_attachments'
+p549
+g423
+sS'u'
+S"<Row {'first_name': 'Cat', 'last_name': 'Kutay',...d15cacb120a68f9818db', 'registration_key': None}>"
+p550
+sS'IS_UPLOAD_FILENAME'
+p551
+S"<class 'gluon.validators.IS_UPLOAD_FILENAME'>"
+p552
+sS'custom_auth_table'
+p553
+S'<Table auth_user (id,first_name,last_name,userna...ey,registration_id,reset_password_key,Role_Name)>'
+p554
+sS'IS_DECIMAL_IN_RANGE'
+p555
+S"<class 'gluon.validators.IS_DECIMAL_IN_RANGE'>"
+p556
+sssS'traceback'
+p557
+S'Traceback (most recent call last):\n  File "/usr/local/web2py/gluon/restricted.py", line 224, in restricted\n    exec ccode in environment\n  File "/usr/local/web2py/applications/Bundjalung/views/plugin_wiki/edit_resource_transcript.html", line 136, in <module>\nNameError: name \'os\' is not defined\n'
+p558
+s.

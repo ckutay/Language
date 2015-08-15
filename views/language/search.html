@@ -1,0 +1,52 @@
+{{if not request.vars:}}
+          <div id="search">
+                <h2><b class="text1" >Search</b></h2>
+                <form method="get" action="{{=URL(r=request,c='plugin_wiki', f='search')}}">
+                    <fieldset>
+                    <input type="radio" name="type" value="English" />English
+                    <input type="radio" name="type" value={{=language}} checked 
+/>{{=language}}
+
+                    <input type="text" id="s" name="query" value="" />
+                    <input type="submit" id="x" value="Search" />
+
+        </fieldset>
+                </form>
+{{else:}}
+<h2>Search result for {{=query}}</h2>
+{{pass}}
+{{if words:}}
+<h2>Words</h2>
+<table>
+<tr><td><strong>{{=language}}</td><td><i>English</i></td><td></td></strong></tr>
+
+{{for word in words:}}
+	<tr>
+    <td>{{=word.Language_Word}}</td>
+    <td>{{=word.English}}</td>
+
+    <td>[{{=A('more',_href=URL(r=request,c='language',f='view_word_popup',args=word.id))}}]</td>
+
+  </tr>
+  {{pass}}
+
+</table>
+{{pass}}
+{{if pages:}}
+<table>
+<tr><td><strong>Title</td><td><i>Summary</i></td><td></td></strong></tr>
+
+  {{for page in pages:}}
+<tr>
+    <td>{{=A(page.title,_href=URL(r=request,f='page',args=page.slug))}}</td>
+   <td>{{=A(page.summary,_href=URL(r=request,f='page',args=page.slug))}}</td>
+
+{{pass}}
+{{if auth.is_logged_in() :}}
+
+    <td>[{{=A('edit',_href=URL(r=request,f='edit_page',args=page.slug))}}]</td>
+{{pass}}
+  </tr>
+  {{pass}}
+</table>
+{{pass}}

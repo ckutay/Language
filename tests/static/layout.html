@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<head>
+<title>{{=response.title or request.application}}</title>
+  <!--[if !HTML5]>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+  <![endif]-->
+  <!-- www.phpied.com/conditional-comments-block-downloads/ -->
+  <!-- Always force latest IE rendering engine
+       (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+
+  <meta charset="utf-8" />
+
+  <!-- http://dev.w3.org/html5/markup/meta.name.html -->
+  <meta name="application-name" content="{{=request.application}}" />
+
+  <!-- Speaking of Google, don't forget to set your site up:
+       http://google.com/webmasters -->
+  <meta name="google-site-verification" content="" />
+
+  <!--  Mobile Viewport Fix
+        j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+        device-width: Occupy full width of the screen in its current orientation
+        initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+        user-scalable = yes allows the user to zoom in -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
+  <!-- All JavaScript at the bottom, except for Modernizr which enables
+       HTML5 elements & feature detects -->
+  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+  <script src="{{=URL('static','js/DHTML.js')}}"></script>
+
+  <!-- include stylesheets -->
+  <!--bootstrap css minified-->
+<link rel="stylesheet" href="http://tinymce.cachefly.net/4.1/skins/lightgray/skin.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+ <!-- Custom CSS -->
+ {{
+  response.files.insert(0,URL('static','css/custom.css'))
+	  response.files.insert(0,URL('static','css/business-frontpage2.css'))
+  }}
+
+  {{include 'web2py_ajax.html'}}
+
+  <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
+<script src="{{=URL('static','plugin_wiki/tinymce/js/tinymce/tinymce.min.js')}}"></script>
+<script>
+
+
+tinymce.init({
+	selector: "textarea",
+	theme: "modern",
+	plugins: [
+		"advlist autolink lists link image charmap print preview hr anchor pagebreak",
+		"searchreplace wordcount visualblocks visualchars code fullscreen",
+		"insertdatetime media nonbreaking save table contextmenu directionality",
+		"emoticons template paste textcolor colorpicker textpattern "
+	],
+	toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	toolbar2: "print preview media | forecolor backcolor emoticons",
+	image_advtab: true,
+	templates: [
+		{title: 'Test template 1', content: '<b>Test 1</b>'},
+		{title: 'Test template 2', content: '<em>Test 2</em>'}
+	],
+	autosave_ask_before_unload: false
+});
+
+</script>
+  {{block head}}{{end}}
+
+<script>
+$(document).ready(function() {
+    $("#navbar li").on("click", function() {
+        $("#navbar li").removeClass("active");
+        $(this).addClass("active");
+    });
+
+$(document).ready(function() {
+   $('#page_body').attr('cols',80).attr('rows',20);
+   $('#comment_body').attr('cols',60).attr('rows',5);
+   $('#page_tags').multiSelect({selectAll:false});
+   $("#datepicker").datepicker();
+});
+});    
+  </script>
+  <style type="text/css" media="screen">
+  /* (Index) Page Tab Navigation 'ON' States (determined by ID identifier on li tag) */
+  #subnav #video a                {background-position: 50 50px; border-width: 0;}
+  #subnav #video a span   {background-position: 100% -24px; color: #000;}
+
+  li#video, li#spacer1 {display:none}
+
+  #tabnav #allvideo a             {background-position: 50 50px; border-width: 0;}
+  #tabnav #allvideo a span        {background-position: 100% -24px; color: #fff;}
+
+  #sectiontab {padding-bottom:-10px; background-color:none;}
+  div.tabfull {width:600px;}
+
+  ul li#navmap a {color:#B83000;}
+
+  #zoomLyr {float:right; cursor:crosshair; }
+  </style>
+</head>
+
+<body onLoad="setupText(this);">
+<!-- start header -->
+ <!-- Navigation -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+     <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+{{for _name,_active,_link in response.menuTop :}}
+     <li><a href="{{=_link}}" >{{=_name}}</a></li>
+<!-- onmouseover={{_active=True}} onmouseout={{_active=False}}>{{=_name}}</a></li>
+-->
+   {{pass}}
+<!--
+<li  >{{=A("Home", _href=URL(r=request, c='plugin_wiki', f='index.html'), cid='page')}}</li>
+          <li   class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li  ><a href="#">People</a></li>
+              <li  ><a href="#">History of the project</a></li>
+              <li  ><a href="#">Bundjalung</a></li>
+              <li class="divider"></li>
+              <li  ><a href="#">Separated</a></li>
+            </ul>
+          </li>
+          <li  >
+		{{=A("Dictionary", _href=URL(r=request, c='language', f='dictionary'), cid='page')}}
+          </li>
+          <li  >
+            <a href="#">Contact</a>
+          </li>
+-->
+        </ul>
+ <ul class="nav navbar-nav navbar-right">
+             {{if auth.is_logged_in() :}}
+<li class="dropdown" id="menuLogin">
+<a class="" href="{{=URL(r=request, c='default', f='user', args='logout')}}" role="button" id="navLogin">Logout<span class="caret"></span></a></li>
+{{else:}}
+<li class="" id="menuLogin">
+<a class="" href="{{=URL(r=request, c='default', f='user', args='login')}}" role="button" id="navLogin">Login<span class="caret"></span></a></li>
+<li class="" id="menuLogin">
+<a class="" href="{{=URL(r=request, c='default', f='user', args='register')}}" role="button" id="navLogin">Register<span class="caret"></span></a></li>
+
+{{pass}}
+
+      <!-- /.navbar-collapse -->
+    </div>
+<div id="popupForm" ></div>
+        <!-- /.container -->
+  </nav>
+
+    <!-- Image Background Page Header -->
+    <!-- Note: The background image is set within the business-casual.css file. -->
+  <header class="business-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <br><br>
+            <img src="/Bundjalung/static/images/img_first.png" height="250px">
+          </div>
+          <div class="col-lg-8">
+            <br><br>
+            <br><br><br><br>
+            <a href="{{=URL(r=request, c='plugin_wiki',f='page')}}"> <h1 class="tagline">{{=response.title}}</h1></a>
+          </div>
+        </div>
+      </div>
+  </header>
+  
+    <!-- Page Content -->
+<div class="container">
+<div id="page">
+{{if response.flash:}}
+    <div class="flash">{{=response.flash}}</div>
+{{pass}}
+<div id="popupword" ></div>
+    <div class="container">
+
+        <div class="row">
+
+{{include}}
+</div>
+</div>
+</div>
+</div>
+    <hr>
+       <div class="container">
+
+        <div class="row">
+
+ 
+        <footer>
+          <div class="row">
+      <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+              <p> This project is an initiative of:
+              <a href="http://www.muurrbay.org.au/">
+              <img src="/Bundjalung/static/images/muurrbay.png" height="40px"></a>
+              <p>Copyright &copy; Muurrbay Aboriginal Language and Culture Cooperative</p></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+</div>
+</div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{=URL('static','/js/bootstrap.min.js')}}"></script>
+<script src="{{=URL(c='static',f='/js/jquery.js')}}" type="text/javascript"></script>
+<script src="{{=URL(c='static',f='/js/jquery.imageLens.js')}}" type="text/javascript"></script>
+<script>
+jQuery(function () {
+  jQuery("#zoomLyr").imageLens({imageSrc: "{{=URL(c='static',f='/images/Bundjalung-big.png')}}", lensSize:300 });
+});   
+</script>
+</body>
+</html>

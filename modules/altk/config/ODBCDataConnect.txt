@@ -1,0 +1,7 @@
+dbType ODBC
+dbHost 
+wiradjuri_user_password 
+dbName Language
+wiki_path "C:/Program Files/CITIES/LanguageWiki/"
+python_path "C:/Python25/python.exe"
+audacity_path "c:/Program Files/Audacity/audacity.exe"

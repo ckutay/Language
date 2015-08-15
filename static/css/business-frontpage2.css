@@ -1,0 +1,143 @@
+/*!
+ * Start Bootstrap - Business Frontpage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body{
+    min-height: 2000px;
+    background-color: #cccc99;
+    color:#006644;
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+.business-header {
+    height: 150px;
+    background: url('../images/aboriginal.jpg') center center no-repeat scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Customize the text color and shadow color and to optimize text legibility. */
+
+.tagline {
+    text-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+/*Navbar personalization*/
+    /* navbar background and border */
+    .navbar{
+        background-color: #006644;
+        border-color: none;
+    }
+    /*navbar text */
+    .navbar-default .navbar-nav > li > a {
+        color: #8FE5B0 ;/*45E5B0;*/
+    }
+    /*navbar text color mouse over*/
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+        color: #00E599;
+    }
+    /*navbar active item color*/
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        color: #49E5AF;
+        background-color: #127F58;
+    }
+    /*navbar box around link of dropdown*/
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+        color: #49E5AF;
+        background-color: #008C5D;/*99cc99*/
+    }
+    /*box that comes from dropdown link*/
+    .navbar-nav>li>.dropdown-menu {
+        background-color: #007F55 ;/*009966*/
+    }
+    /*box that comes from dropdown link letter color*/
+    .dropdown-menu>li>a{
+        color:#49E5AF;
+    }
+    /*box that comes from dropdown link hover highlight */
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:active{
+        background-color: #006644;
+    }
+    /*when toggled, color of little menu box on navbar*/
+    .navbar-default .navbar-toggle {
+    border-color: #003300;
+    }
+    /*when toggled, color of littlemenu box on navbar clicked */
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #00E599;
+    }
+    /*when toggled, color of the little menu box on navbar lines*/
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #003300;
+    }
+    /*border color*/
+    .navbar-default .navbar-collapse,.navbar-default .navbar-form {
+        border-color: #003300;
+    }
+    @media (max-width: 767px) {
+        /*When toggled, define the font color of submenus*/
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+            color: #003300;
+        }
+        /*when toggled, define the font color of dropdown menus when mouse over*/
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #669966;
+        }
+        /*Nao sei nao =P*/
+        .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+            color: #000;
+            background-color: #fff;
+        }
+    }
+/*Login details*/
+    /*Changes apperance of login button*/
+    #btnLogin{
+        background-color: #006644;
+        color: #8FE5B0;
+    }
+    /*creates spaces between fields on the login box*/
+    #username{
+        margin-bottom: 10px;
+    }
+    #password{
+        margin-bottom: 10px;
+    }
+
+#page-title{
+    border: transparent;
+    background:#cccc99 url('../images/img-title.jpg') no-repeat;
+    padding-left: 50px;
+    box-shadow: none;
+    width:100%;
+}
+
+.in.collapse+a.btn.showdetails:before
+{
+    content:'Advanced search «';
+}
+.collapse+a.btn.showdetails:before
+{
+    content:'Advanced search »';
+}
+/**/
+#search-jumbo{
+    background:#cccc99 url('../images/bg-jumbo.png') center center no-repeat scroll;
+    width:100%;
+    padding: 10px;
+    padding-left: 40px;
+}

@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+<h2>Create CLW</h2>
+{{=form}}
+<script>
+jQuery('input[type=submit]').after('<button onclick="document.location=\'{{=URL(c="plugin_gmap", f="ribs",args=request.args)}}\';return false">Cancel');
+</script>

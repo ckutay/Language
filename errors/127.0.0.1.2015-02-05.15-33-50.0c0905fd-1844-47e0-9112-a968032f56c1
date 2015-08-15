@@ -1,0 +1,219 @@
+(dp1
+S'output'
+p2
+S'Unable to open included view file: /usr/local/web2py/applications/Bundjalung/views/parser.html'
+p3
+sS'layer'
+p4
+S'ParserContainer'
+p5
+sS'code'
+p6
+S'{{extend \'layout.html\'}}\n   <!-- Page Content -->\n            <div class="col-sm-12">\n\n                <br><br>\n\n<div id="page-title" class="well well-sm">\n<h3>{{=title}}</h3>\n</div>\n<p>\n{{if page.worksheet:}}\n{{include \'parser.html\'}}\n\n{{pass}}\n<strong>{{=plugin_wiki.render(page.summary)}}</strong>\n</p><p>\n{{=plugin_wiki.render(page_body)}}\n</p>\n{{if page.attachments:}}\n<strong> Attachments:</strong>\n{{for attachment in page.attachments:}}\n<a href="{{=URL(\'plugin_wiki\', \'attachment\', args=attachment.id)}}">{{=attachment.name}}</a>\n<br>\n{{pass}}\n{{pass}}\n<p>\n{{if form:}}\n{{=form}}\n</p><p>\n{{pass}}\n<hr>\n{{if plugin_wiki_editor:}}\n<div class="plugin_wiki_info">Last modified by {{=db.plugin_wiki_page.modified_by.represent(page.modified_by)}} {{=prettydate(page.modified_on)}} \n\n[<a href="{{=URL(r=request,f=\'page_history\',args=page.slug)}}">history</a>]\n[<a href="{{=URL(r=request,f=\'edit_page\',args=page.slug)}}">edit</a>]</div>\n{{pass}}\n</div>\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.IOError object>"
+p13
+sS'__str__'
+p14
+S"<method-wrapper '__str__' of exceptions.IOError object>"
+p15
+sS'__reduce__'
+p16
+S'<built-in method __reduce__ of exceptions.IOError object>'
+p17
+sS'__dict__'
+p18
+S'{}'
+p19
+sS'__sizeof__'
+p20
+S'<built-in method __sizeof__ of exceptions.IOError object>'
+p21
+sS'__init__'
+p22
+S"<method-wrapper '__init__' of exceptions.IOError object>"
+p23
+sS'__setattr__'
+p24
+S"<method-wrapper '__setattr__' of exceptions.IOError object>"
+p25
+sS'__reduce_ex__'
+p26
+S'<built-in method __reduce_ex__ of exceptions.IOError object>'
+p27
+sS'__new__'
+p28
+S'<built-in method __new__ of type object>'
+p29
+sS'errno'
+p30
+S'2'
+sS'__format__'
+p31
+S'<built-in method __format__ of exceptions.IOError object>'
+p32
+sS'__class__'
+p33
+S"<type 'exceptions.IOError'>"
+p34
+sS'filename'
+p35
+S"'/usr/local/web2py/applications/Bundjalung/views/parser.html'"
+p36
+sS'__doc__'
+p37
+S"'I/O operation failed.'"
+p38
+sS'__getitem__'
+p39
+S"<method-wrapper '__getitem__' of exceptions.IOError object>"
+p40
+sS'__setstate__'
+p41
+S'<built-in method __setstate__ of exceptions.IOError object>'
+p42
+sS'__getattribute__'
+p43
+S"<method-wrapper '__getattribute__' of exceptions.IOError object>"
+p44
+sS'args'
+p45
+S"(2, 'No such file or directory')"
+p46
+sS'__subclasshook__'
+p47
+S'<built-in method __subclasshook__ of type object>'
+p48
+sS'__unicode__'
+p49
+S'<built-in method __unicode__ of exceptions.IOError object>'
+p50
+sS'strerror'
+p51
+S"'No such file or directory'"
+p52
+sS'__delattr__'
+p53
+S"<method-wrapper '__delattr__' of exceptions.IOError object>"
+p54
+sS'__repr__'
+p55
+S"<method-wrapper '__repr__' of exceptions.IOError object>"
+p56
+sS'__hash__'
+p57
+S"<method-wrapper '__hash__' of exceptions.IOError object>"
+p58
+ssS'evalue'
+p59
+S"[Errno 2] No such file or directory: '/usr/local/web2py/applications/Bundjalung/views/parser.html'"
+p60
+sS'frames'
+p61
+(lp62
+(dp63
+S'file'
+p64
+S'/usr/local/web2py/gluon/template.py'
+p65
+sS'dump'
+p66
+(dp67
+S'builtinopen'
+p68
+S'<built-in function open>'
+p69
+sS'fileobj'
+p70
+S'undefined'
+p71
+sS'filepath'
+p72
+S"'/usr/local/web2py/applications/Bundjalung/views/parser.html'"
+p73
+ssS'lnum'
+p74
+I450
+sS'lines'
+p75
+(dp76
+I448
+S'        # try to read the text.'
+p77
+sI449
+S'        try:'
+p78
+sI450
+S"            fileobj = open(filepath, 'rb')"
+p79
+sI451
+S'            text = fileobj.read()'
+p80
+sI452
+S'            fileobj.close()'
+p81
+sI453
+S'        except IOError:'
+p82
+sI454
+S"            self._raise_error('Unable to open included view file: ' + filepath)"
+p83
+sI445
+S'        # Get the path of the file on the system.'
+p84
+sI446
+S'        filepath = self.path and os.path.join(self.path, filename) or filename'
+p85
+sI447
+S''
+ssS'call'
+p86
+S"(self=<gluon.template.TemplateParser object>, filename='parser.html')"
+p87
+sS'func'
+p88
+S'_get_file_text'
+p89
+sasS'pyver'
+p90
+S'Python 2.7.3: /bin/python (prefix: /usr)'
+p91
+sS'etype'
+p92
+S"<type 'exceptions.IOError'>"
+p93
+sS'date'
+p94
+S'Thu Feb  5 15:33:58 2015'
+p95
+sS'locals'
+p96
+(dp97
+S'self'
+p98
+S'<gluon.template.TemplateParser object>'
+p99
+sS'filepath'
+p100
+S"'/usr/local/web2py/applications/Bundjalung/views/parser.html'"
+p101
+sS'context'
+p102
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, ...}"
+p103
+sg35
+S"'parser.html'"
+p104
+sssS'traceback'
+p105
+S'Traceback (most recent call last):\n  File "/usr/local/web2py/gluon/template.py", line 450, in _get_file_text\n    fileobj = open(filepath, \'rb\')\nIOError: [Errno 2] No such file or directory: \'/usr/local/web2py/applications/Bundjalung/views/parser.html\'\n'
+p106
+s.

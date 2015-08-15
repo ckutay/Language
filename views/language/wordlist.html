@@ -1,0 +1,47 @@
+    <div class="row">
+<div class="col-md-11 " >
+<h3>Word List 
+</h3>
+<table class="table table-condensed text-left">
+<tr><td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category'))}}
+<td>{{=A(language,_href=URL(r=request, c='language', f='dictionary', args=language))}}</td>
+<td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English'))}}</td>
+<td>Dialect</td>
+<td></td>
+<td></td>
+</tr>
+{{for word in words:}}
+
+<tr class="text-left">
+<td>{{=T(word.Category)}}</td>
+<td>{{=T(word.Language_Word)}}</td>
+<td>{{=T(word.English)}}</td>
+<td>{{=T(word.dialect)}}</td>
+{{if word.Sound!=None:}}
+<td >
+<a href={{=URL(r=request, c='language',f='view_word',args=word.id)}}" target="_blank" onMouseOver="DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.English)}}');" >Listen</a></td>
+{{else:}}
+<td ></td>
+{{pass}}
+{{if auth.is_logged_in() :}}
+        <td>[{{=A('edit',_href=URL(r=request,c='language', f='edit_word',args=word.id))}}]</td>
+{{else:}}
+ <td>[{{=A('more',_href=URL(r=request,c='language', f='view_word',args=word.id))}}]</td>
+{{pass}}
+ </tr>
+  {{pass}}
+{{if auth.is_logged_in() :}}
+[{{=A(T('Enter new word'), _href=URL(r=request, f='enter_word '))}}]
+{{pass}}
+</table>
+</div>
+
+<div class="col-md-1 ">
+<b>Select more</b>
+<br>
+{{for num in numerics:}}
+<br>{{=A(num, _href=URL(r=request, c='language', f='dictionary', vars={'type': sort, 'numeric':num, 'query':query, 'dialect':dialect}))}}
+{{pass}}
+<br>
+</div>
+

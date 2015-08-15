@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+ <!-- Page Content -->
+            <div class="col-sm-12">
+
+                <br><br>
+
+<div id="page-title" class="well well-sm">
+<h3>translate</h3>
+</div>
+
+ <form action="#" enctype="multipart/form-data" method="post">
+<input class="string" id="text_input" name="text_input" type="text" value="" />
+<input type="submit" value="Submit" />
+</form>
+{{if string:}}
+String: {{=string}}
+Translate:{{=translate}}
+{{pass}}
+</div>
+

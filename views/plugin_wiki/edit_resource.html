@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+{{if resource:}}
+<h3>{{=resource.title}}</h3>
+{{pass}}
+<p></p>
+{{=form}}
+<br>
+<audio controls>
+  <source src={{=URL(c="default", f="filedown", args=resource_name)}} type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<br>
+{{if transcript:}}
+<br>
+Transcript:
+<br>
+{{=XML(plugin_wiki.render(transcript.body))}}
+<br>
+
+<a href={{=URL(c="plugin_wiki", f="edit_resource_transcript", args=resource.title)}}>Edit Transcript</a>
+
+{{pass}}
+<p>

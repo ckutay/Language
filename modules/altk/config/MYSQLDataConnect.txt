@@ -1,0 +1,7 @@
+dbType MYSQL
+dbHost localhost
+wiradjuri_user_password bumalgirri
+dbName Language
+wiki_path "C:/Program Files/CITIES/LanguageWiki/"
+python_path "C:/Python25/python.exe"
+audacity_path "c:/Program Files/Audacity/audacity.exe"

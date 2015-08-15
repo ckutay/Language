@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+
+
+
+<h1>Page Tags</h1>
+
+<p>
+<table>
+{{for tag in tags:}}
+ {{=TR(A(tag.name, _href=URL(r=request, f='_edit_tag', args=tag.id)))}}
+{{pass}}
+</table>
+</p>
+<br/><br/>
+
+<h2>New tag</h2>
+
+<p>
+{{=form}}
+</p>
