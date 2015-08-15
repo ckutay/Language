@@ -13,6 +13,7 @@ body{
 .row{
     margin-left: 0px;
 }
+<<<<<<< HEAD
 
 .formatTable table, .formatTable th, .formatTable td{
 border: 1px solid #003300;
@@ -32,7 +33,21 @@ margin: 30px 30px; width: 40%;
 }
 #popuplist{
 left: 80%;
+=======
+
+.formatTable table, .formatTable th, .formatTable td{
+border: 1px solid #003300;
+padding: 10px;
 }
+
+#popupword, #popuplist, #popupsearch{
+
+padding: 5px; display: none; margin: 0px; width: 35%; top: 0px; position: absolute; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
+background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; background-color : rgba(00,127,85, 0.3);
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
+}
+
+
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
 .business-header {

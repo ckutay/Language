@@ -21,11 +21,19 @@
  <input type="radio" name="lang" value="English" />English
                     <input type="radio" name="lang" value={{=language}} checked />{{=language}}
 
+<<<<<<< HEAD
 <a style="float:right;"  onclick=stopText('popuplist') href="#"  >Close</a>
  </fieldset>
                 </form>
 {{else:}}
 <a style="float:right;"  onclick=stopText('popuplist') href="#"  >Close</a>
+=======
+<a style="float:right;"  onclick=stopText('popupword') href="#"  >Close</a>
+ </fieldset>
+                </form>
+{{else:}}
+<a style="float:right;"  onclick=stopText('popupword') href="#"  >Close</a>
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 {{pass}}
 <script>
 

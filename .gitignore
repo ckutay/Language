@@ -1,3 +1,6 @@
 databases
 uploads
 errors
+tests/*
+cache/*
+

@@ -210,12 +210,20 @@ def page():
     page_body=page.body
     if (page.worksheet):
 	page_body = wsread_page(page)
+<<<<<<< HEAD
 	#   page=wsread_question(page_body, page)
     else:
 	page_body=page.body
     title=page.title
 
     return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)
+=======
+    page=wsread_question(page_body, page)
+    title=page.title
+    page_body=page.body
+
+    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug )
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
 def list():
     page_id=request.args(0)

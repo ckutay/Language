@@ -1,6 +1,7 @@
 function setupText(hoverItem){
         hp = document.getElementById("popupword");
         hp.style.display="none";
+<<<<<<< HEAD
  	hp = document.getElementById("popupsearch");
 	if (hp)        hp.style.display="none";
   	hp = document.getElementById("popuplist");
@@ -11,10 +12,25 @@ hp = document.getElementById("popupword");
       hp.style.display="visible";
         hp.style.display="block";
         hp.style.float="left";
+=======
+ hp = document.getElementById("popupsearch");
+if (hp)        hp.style.display="none";
+  hp = document.getElementById("popuplist");
+   if(hp)     hp.style.display="none";
+}
+function writeAjax(){
+hp = document.getElementById("popupword");
+hp.style.display="block";
+hp.style.float="left";
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 }
 function writeList(){
   hp = document.getElementById("popuplist");
   hp.style.display="block";
+<<<<<<< HEAD
+=======
+  hp.style.left="70%";
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
 }
 function writeSearch(){
@@ -26,6 +42,10 @@ function writeSearch(){
 
 function stopText(el){
 hp = document.getElementById(el);
+<<<<<<< HEAD
+=======
+hp.innerHTML ="test";
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 hp.style.display="none";
 }
 function DHTMLText(text){
@@ -57,6 +77,7 @@ function DHTMLSound(surl,text) {
 	}
   if (navigator.appName == "Microsoft Internet Explorer")
 
+<<<<<<< HEAD
     	hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
   else if (navigator.appName != "Netscape")
 
@@ -64,6 +85,15 @@ function DHTMLSound(surl,text) {
   else
 
 	hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div> ';
+=======
+    hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+else if (navigator.appName != "Netscape")
+
+hp.innerHTML=text+' '+'<audio controls autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+else
+
+hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div> ';
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
 }
 

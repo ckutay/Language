@@ -166,7 +166,10 @@ def edit_resource_transcript():
         resource_name=os.path.join('file',resource.name)
 	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
+<<<<<<< HEAD
 @auth.requires_login()
+=======
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 def resources():
 	resources=db.resources
 	resources = db(resources.id>0).select(orderby=resources.title)            
@@ -433,12 +436,19 @@ def edit_page():
 	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:	
+<<<<<<< HEAD
 	if page.worksheet:
 		images=dblanguage(dblanguage.images.id>0).select()
 	else:
 		images=[]
 	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
         next=URL(r=request,c='plugin_wiki', f='page',args=slug))
+=======
+		images=dblanguage(dblanguage.images.id>0).select()
+		
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+                next=URL(r=request,c='plugin_wiki', f='page',args=slug))
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
     return dict(images=images, form=form,page=page,tags=tags)
 

@@ -59,8 +59,11 @@ jQuery(function () {
 tinymce.init({
   selector: "textarea",
   theme: "modern",
+<<<<<<< HEAD
    external_plugins: {"nanospell": "nanospell/plugin.js"},
    nanospell_server: "java",
+=======
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
   plugins: [
     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
     "searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -78,7 +81,11 @@ tinymce.init({
 });
 
 </script>
+<<<<<<< HEAD
 <script src="{{=URL(c='static',f='js', args='video.js')}}"></script>
+=======
+<script src="{{=URL('static',f='js/video.js')}}"></script>
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
   {{block head}}{{end}}
 
 <script>
@@ -213,14 +220,23 @@ $(document).ready(function() {
 </div>
     <hr>
 
+<<<<<<< HEAD
 <div is="footer"> 
+=======
+ 
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
  <div class="container">
 
         <div class="row">
 <div class="col-sm-2">
 </div>
 
+<<<<<<< HEAD
             <div class="col-sm-8" style="text-align:center">
+=======
+      <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
               <p> This project is an initiative of:
               <a href="http://www.muurrbay.org.au/">
               <img src="/Bundjalung/static/images/muurrbay.png" height="60px"></a>
@@ -231,7 +247,6 @@ and
             </div>
       <div class="col-sm-4">    </div>
       </div>
-</div>
 </div>
 <script>
 var el=$('#popupword');
@@ -245,9 +260,15 @@ $(window).scroll(function (){
     if (el){
 	if(windowpos<elpos_original) {
         	finaldestination = elpos_original;
+<<<<<<< HEAD
         	el.stop().css({'top':100});
     	} else {
         	el.stop().animate({'top':finaldestination-elpos_original+100},500);
+=======
+        	el.stop().css({'top':10});
+    	} else {
+        	el.stop().animate({'top':finaldestination-elpos_original+10},500);
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
     	}
     }
 });

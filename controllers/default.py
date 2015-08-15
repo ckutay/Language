@@ -26,6 +26,7 @@ def video():
             fullpath = os.path.join(fullpath, filenameadd)
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
+<<<<<<< HEAD
 def sounds():
     subdirectory = 'uploads/media/sounds/'# directory
     filename = request.args(0)
@@ -36,6 +37,8 @@ def sounds():
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
 
+=======
+>>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 def doc():
     subdirectory = 'uploads/media/docs/'# directory
     filename = request.args(0)
