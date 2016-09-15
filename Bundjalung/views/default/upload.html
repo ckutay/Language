@@ -1,0 +1,102 @@
+{{extend 'layout.html'}}
+<h1>Sound Files</h1>
+
+<p>
+{{if auth.user.Role_Name!='student':}}
+<h3>Upload {{=type[:-1]}} file</h1>
+Filename should match language words matched to the file (.mp3/.wav)
+<br>
+<form action={{=URL(r=request, c='default', f='upload', args=type)}} method='POST' enctype='multipart/form-data'>
+    <input type='file' name='file'><br>
+
+<b> Type: </b><select name="type">
+{{for option in options:}}
+<option value={{=option}}>{{=option}}</option>>
+{{pass}}
+</select>
+<br>
+    <input type='submit' name='upload_btn' value='Upload'>
+</form>
+
+{{pass}}
+</p>
+<p>
+{{if type=="sounds":}}
+<table><tbody>
+{{for item in list:}}
+<tr><td>
+{{=item['name']}}
+</td>
+<td>
+<audio controls>
+<source src={{=URL(r=request,c='default',f=type, args=item['path'])}} type="audio/wav">
+</audio>
+</tr>
+{{pass}}
+</tbody></table>
+{{elif type=="images":}}
+{{index=1}}
+
+<div class="col-sm-12" style="height:1000px;">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height:200px;">
+{{for directory in directories:}}
+{{heading="heading"+str(index)}}
+{{collapse="collapse"+str(index)}}
+{{hcollapse="#"+collapse}}
+{{if index==1:}}
+ <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id={{=heading}}>
+                    <h4 class="panel-title">
+                        <span data-toggle="collapse" data-parent="#accordion" href={{=hcollapse}} aria-expanded="false" aria-controls={{=collapse}}>{{=directory}}</span>
+                    </h4>
+		</div>
+                <div id={{=collapse}} class="panel-collapse collapse" role="tabpanel" aria-labelledby={{=heading}}>
+                    <div class="panel-body">
+                   
+                {{for item in list:}}
+                {{if item['category']==directory:}}
+{{=item['name']}}
+                        <img src={{=URL(r=request, c="default",f="images",args=item['path'])}} height="50" />
+
+{{pass}}
+{{pass}}
+ </div>
+            </div>
+</div>
+
+ {{else:}}
+ 	<div class="panel panel-default">
+                <div class="panel-heading" role="tab" id={{=heading}}>
+                    <h4 class="panel-title">
+                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href={{=hcollapse}} aria-expanded="false" aria-controls={{=collapse}}>{{=directory}}</span>
+                    </h4>
+</div>
+                <div id={{=collapse}} class="panel-collapse collapse" role="tabpanel" aria-labelledby={{=heading}}>
+                    <div class="panel-body">
+    </h4>
+                {{for item in list:}}
+                {{if item['category']==directory:}}
+{{=item['name']}}
+                        <img src={{=URL(r=request, c="default",f="images",args=item['path'])}} height="50" />
+{{pass}}
+{{pass}}
+
+                    </div>
+            </div>
+</div>
+{{pass}}
+{{index+=1}}
+{{pass}}
+
+    </div>
+{{pass}}
+<br>
+{{if page_number>1:}}
+i<h5>{{=A('Back',_href=URL(c='default',f='upload',args=['sounds',page_number-1]))}}</h5>
+{{pass}}
+{{if type!="images" and page_number*10<len(list)-1:}}
+<h5>{{=A('More',_href=URL(c='default',f='upload',args=['sounds',page_number+1]))}}</h5>
+<br>
+{{pass}}
+
+

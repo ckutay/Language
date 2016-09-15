@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+<h1>Pages</h1>
+<p>
+<table width="100%">
+{{for page in pages:}}
+ <tr>
+  <td>{{=A(page.title, _href=URL(r=request,c='plugin_wiki', f='page', args=page.slug))}}</td>
+ </tr>
+{{pass}}
+</table>
+</p>
+<p>
+{{if auth.is_logged_in():}}
+[{{=A('create new page', _href=URL(r=request, c='plugin_wiki', f='edit_page', args='New Page'))}}]
+{{else:}}
+{{=A("Register/Login", _href=URL(r=request, f='user'))}}
+to edit pages.
+
+{{pass}}
+</p>
+

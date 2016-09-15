@@ -1,0 +1,44 @@
+{{extend 'layout.html'}}
+</p>
+{{if pages:}}
+<div class='col-xs-4'><p><strong>{{=title}}</strong>
+<br>
+{{for page in pages:}}
+    {{if auth.is_logged_in() :}}
+[{{=A('edit', _href=URL(r=request, c='plugin_wiki', f='edit_page', args=page.slug))}}]
+    {{pass}}
+    {{=A(page.title, _href=URL(r=request, c='plugin_wiki', f='page', args=page.slug))}}
+<br >
+{{=plugin_wiki.render(page.summary)}}
+<br>
+{{pass}}
+<p></p>
+<p>
+{{pass}}
+</div>
+
+{{ if page!=None:}}
+<div class='col-xs-8'>
+<strong>{{=page.title}}</strong>
+
+{{=plugin_wiki.render(page.summary)}}
+{{=plugin_wiki.render(page_body)}}
+<br>
+<p>{{if plugin_wiki_editor:}}
+<div class="plugin_wiki_info">Last modified by {{=db.plugin_wiki_page.modified_by.represent(page.modified_by)}} {{=prettydate(page.modified_on)}} {{if plugin_wiki_editor:}}[<a href="{{=URL(r=request,f='page_history',args=page.slug)}}">history</a>]{{pass}}[<a href="{{=URL(r=request,f='edit_page',args=page.slug)}}">edit</a>]</div>{{pass}}
+</p>{{pass}}
+{{pass}}
+</div>
+{{pass}}
+
+{{if form:}}
+{{=form}}
+</p><p>
+{{pass}}
+</p>
+<br>
+<p>
+{{if not auth.is_logged_in() :}}
+{{=A("Register/Login", _href=URL(r=request, f='user'))}} to edit pages.
+{{pass}}
+</p>

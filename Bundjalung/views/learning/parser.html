@@ -1,0 +1,56 @@
+          <div id="Search">
+                <h2><b class="text1" >Search or translate sentence</b></h2>
+                <form method="get" id="getparse" action="{{=URL(r=request,c='learning', f='parser')}}">
+                    <fieldset>
+                    <input type="radio" name="lang" value="English" />English
+                    <input type="radio" name="lang" value={{=language}} checked />{{=language}}
+
+          
+          <input size="50" type="text" id="s" name="query" value="" />
+<input type="submit" value="Search" />
+<a onclick=stopText('popupsearch') href="#"  >Close</a>
+</fieldset>
+                </form>
+{{if request.vars:}}
+	<h2>Search result for {{=query}}</h2>
+
+{{if words:}}
+		<h2>Translation:</h2>
+		<table>
+
+	{{if wordlist:}}
+		<tr>
+		   {{for word in words[0]:}}
+			<td>{{=word}}</td>
+		   {{pass}}
+
+		</tr><tr>
+
+			{{for word in words[1]:}}
+                        <td>{{=word}}</td>
+                   {{pass}}
+                </tr><tr>
+
+                        {{for word in words[2]:}}
+                        <td>{{=word}}</td>
+                   {{pass}}
+		</tr><tr>
+
+	{{else:}}
+		<tr><td><strong>{{=language}}</td><td><i>English</i></td><td></td></strong></tr>
+
+	    {{for word in words:}}
+<tr>		    <td>{{=word.Language}}</td>
+	    <td>{{=word.English}}</td></tr>
+
+	
+	  	{{pass}}
+	{{pass}}
+	</table>
+{{pass}}
+{{pass}}
+
+<script>
+jQuery('#getparse').submit(function(){
+ajax('{{=URL(r=request,c="learning",f="parser")}}',['lang', 'query'],'popupsearch')});
+</script>

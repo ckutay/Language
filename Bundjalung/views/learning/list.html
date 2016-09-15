@@ -1,0 +1,23 @@
+<h3>Wordlist</h3>
+<table>
+<tr><td width=200px>English</td><td>Language</td></tr>{{for word in words:}}
+<tr><td>
+{{=word.English}}
+</td><td>
+{{=word.Language}}
+</td>
+</tr>
+{{pass}}
+</table>
+
+<form method="get" action="{{=URL(r=request,c='learning', f='list', args=page_id)}}">
+                    <fieldset>
+                    <input type="radio" name="lang" value="English" />English
+                    <input type="radio" name="lang" value={{=language}} checked />{{=language}}
+
+                    <input size="50" type="text" id="word" name="word" value="" />
+<INPUT type="Submit"
+<a onclick=stopText('popuplist') href="#"  >Close</a>
+ </fieldset>
+                </form>
+

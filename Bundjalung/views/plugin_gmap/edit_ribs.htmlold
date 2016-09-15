@@ -1,0 +1,18 @@
+{{extend 'layout.html'}}
+
+<h1>Edit RIBS {{=(data.RIBS)}}</h1>
+<p>
+{{=plugin_wiki.widget("update",table='RIBS', record_id=data.id,message='Updated RIBS', next='rimos',   readonly_fields='',hidden_fields='archive',default_fields='')}}
+</p>
+<br><p>
+{{if auth.has_membership(auth.id_group('rimo')):}}
+</p>
+<p>
+[{{=A('create new ribs', _href=URL(r=request, f='create_data'))}}]
+{{else:}}
+{{=A("Register/Login", _href=URL(r=request, f='_user'))}}
+to edit pages.
+{{pass}}
+</p>
+
+

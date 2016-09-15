@@ -1,0 +1,48 @@
+{{extend 'layout.html'}}
+
+<link href="{{=URL(r=request,c='static',f='plugin_spreadsheet.css')}}" rel="stylesheet" type="text/css" media="screen" charset="utf-8" />
+
+<form>
+  <div class="sheet">
+  <table>
+    <tr>
+      <td class="colhead" id="selected_cell"></td>
+      <td colspan="{{=sheet.cols}}">
+	<input readonly id="formula" size="{{=6*sheet.cols}}px"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="colhead"></td>
+      {{for c in xrange(sheet.cols):}}
+      <td class="colhead">c{{=c}}</td>
+      {{pass}}
+    </tr>
+    {{for r in xrange(sheet.rows):}}
+    <tr>
+      <td class="rowhead">r{{=r}}</td>
+      {{for c in xrange(sheet.cols):}}
+      <td class="cells">
+	{{=XML(sheet.nodes['r%sc%s'%(r,c)].xml())}}
+      </td>
+      {{pass}}
+    </tr>
+    {{pass}}
+  </table>
+  </div>
+</form>
+
+<script>
+  function update_formula(t) { 
+     if(t) {
+      jQuery('#selected_cell').html(jQuery(t).attr('id'));
+      jQuery('#formula').val(jQuery(t).val());
+     } else {
+      jQuery('#selected_cell').html('');
+      jQuery('#formula').val('');
+     }
+  };
+  jQuery('.cells input').focus(function(){update_formula(this);});
+  jQuery('.cells input').keyup(function(){update_formula(this);});
+  jQuery('.cells input').blur(function(){update_formula(null);});
+</script>
+

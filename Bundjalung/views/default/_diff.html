@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+
+<h1>Diff</h1>
+[{{=A('revert to this page', _href=URL(r=request, f='_revert', args=request.args))}}]
+
+<pre>{{=difference}}</pre>

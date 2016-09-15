@@ -1,0 +1,15 @@
+{{extend 'layout.html'}}
+<p></p>
+<h2><strong>
+Resources on site:
+</strong></h2>
+<p></p>
+{{for resource in resources:}}
+<br>
+{{=resource.title}}
+<br>
+Collected by {{=resource.Collected_by}}
+<br>
+<a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Listen to file with transcript</a>
+<br>
+{{pass}}

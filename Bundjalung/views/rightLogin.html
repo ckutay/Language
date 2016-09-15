@@ -1,0 +1,50 @@
+{{if response.menu:
+=MENU(response.menu, _class='nav' ,li_class='dropdown',ul_class='dropdown-menu')
+pass
+}}
+ 
+ action = auth.url(auth.settings.function)
+ href = lambda function: '%s/%s%s' % (action, function, "?_next="+URL())
+ 
+ main_user_ul = UL(_class="nav pull-right")
+ 
+ tmp_user=""
+ if auth.is_logged_in():
+  tmp_user=auth.user.username
+  pass
+ else:
+  tmp_user=T("Login")
+  pass
+ 
+ main_user_li = LI(
+  A(I(_class="icon-user"),tmp_user, _href='#',_class="dropdown-toggle"), # , _data-toggle="dropdown"
+  _class="dropdown")
+ 
+ aaa = UL(_class="dropdown-menu")
+ 
+ if auth.is_logged_in():
+    logout = LI(A(T('Logout'), _href=href('logout')))
+    aaa.append(logout)
+    if not 'change_password' in auth.settings.actions_disabled:
+      password = LI(A(T('Password'), _href=href('change_password')))
+      aaa.append(password)
+      pass
+    if not 'profile' in auth.settings.actions_disabled:
+      profile = LI(A(T('Profile'), _href=href('profile')))
+      aaa.append(profile)
+      pass
+    pass
+  else:
+    login = LI(A(T('Login'), _href=href('login')))
+    aaa.append(login)
+    if not 'register' in auth.settings.actions_disabled:
+       register = LI(A(T('Register'), _href=href('register')))
+       aaa.append(register)
+       pass
+  pass
+ main_user_li.append(aaa)
+ main_user_ul.append(main_user_li)
+ =main_user_ul
+}}
+ 
+
