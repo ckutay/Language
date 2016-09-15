@@ -13,41 +13,34 @@ body{
 .row{
     margin-left: 0px;
 }
-<<<<<<< HEAD
+.fixed_height{
 
-.formatTable table, .formatTable th, .formatTable td{
-border: 1px solid #003300;
-padding: 10px;
+max-height: 100px;
+
 }
+.formatTable table, .formatTable th, .formatTable td{
+border: 2px solid #003300;
+padding: 10px;
+table-layout: fixed:
+}
+.formatTable th{
 
+ background: seagreen;
+}
 #popupword, #popuplist, #popupsearch{
 
-padding: 5px; display: none; margin: 0px; width: 35%; top: 0px; position: absolute; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
+padding: 5px; display: none; margin: 0px; width: 35%; position: absolute; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
 background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; background-color : rgba(00,127,85, 0.3);
 }
 #popupword{
-top: 0px;left: 250px;
+left: 250px;
 }
 #popupsearch{
 margin: 30px 30px; width: 40%; 
 }
 #popuplist{
 left: 80%;
-=======
-
-.formatTable table, .formatTable th, .formatTable td{
-border: 1px solid #003300;
-padding: 10px;
 }
-
-#popupword, #popuplist, #popupsearch{
-
-padding: 5px; display: none; margin: 0px; width: 35%; top: 0px; position: absolute; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
-background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; background-color : rgba(00,127,85, 0.3);
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
-}
-
-
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
 .business-header {
@@ -193,7 +186,7 @@ td#word{
 
 #page-title{
     border: transparent;
-    background:#cccc99 url('../images/img-title.jpg') no-repeat;
+    background:#cccc99 ;
     padding-left: 50px;
     box-shadow: none;
     width:100%;
@@ -214,11 +207,11 @@ td#word{
     padding: 10px;
     padding-left: 40px;
 }
-/* Flash */^M
+/* Flash */
  .flash { background-color: #C0C0C0; font-weight: bold; clear: both; cursor: pointer; color: #FFFFFF; text-align: center; padding-bottom: 5px; padding-top: 5px;
-margin-bottom:20px; position:relative; width:100%; }^M
-div.error { background-color: red; color: white; padding: 3px}^M
- /* Footer */^M
+margin-bottom:20px; position:relative; width:100%; }
+div.error { background-color: red; color: white; padding: 3px}
+ /* Footer */
 .toggle {cursor: pointer;}
 
 .comment {border-bottom: 1px solid #E9E9E9; padding-top: 10px; padding-bottom: 10px; padding-left: 5px}

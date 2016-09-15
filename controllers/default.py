@@ -1,5 +1,5 @@
 # coding: utf-8
-
+import glob
 def index():
 
  redirect(URL(r=request, c='plugin_wiki', f='index.html'))
@@ -7,6 +7,47 @@ def index():
 @auth.requires_membership('editor')
 def edit_page():
 	 redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
+
+@auth.requires_login()
+def upload():
+    import shutil
+    fullpath= os.path.join(request.folder,'uploads/media/',request.args(0))# directory
+    if request.args(1):
+        try:	
+		page_number=int(request.args(1))
+	except: 
+		page_number=1
+    else: page_number=1
+    list=[]
+    directories=[]
+    for path, subdirs, files in os.walk(fullpath):
+    	for subdir in subdirs:
+	    directories.append(subdir)
+    for path, subdirs, files in os.walk(fullpath):
+	for name in files:
+		relpath=os.path.relpath(path,fullpath)
+		if os.path.isfile(os.path.join(path,name)):	
+			item={'path': os.path.join(relpath,name), 'name':name, 'category':relpath}
+        		list.append( item)
+
+    #list=os.listdir(fullpath)
+    sorted_list = sorted(list, key=lambda x: os.path.getmtime(os.path.join(fullpath,x['path'])))
+    options=db(db.plugin_wiki_tag.parent=="index").select(orderby=db.plugin_wiki_tag.id)
+    optionnames=[]
+    for option in options:
+	optionnames.append(option.name.replace(' ','_'))
+    options=optionnames
+    if request.vars:
+	if request.vars.file!=None:
+		tags=""
+    		tags=request.vars.type
+
+        	filename= request.vars.file.filename
+		filepath= os.path.join(fullpath,tags,filename)
+        	dest_file=open(filepath,'wb')
+		shutil.copyfileobj(request.vars.file.file,dest_file)
+        	dest_file.close()
+    return dict(list=sorted_list,directories=directories, options=options,page_number=page_number, type=request.args(0))
 
 def images():
     subdirectory = 'uploads/media/images/'# directory
@@ -26,7 +67,6 @@ def video():
             fullpath = os.path.join(fullpath, filenameadd)
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
-<<<<<<< HEAD
 def sounds():
     subdirectory = 'uploads/media/sounds/'# directory
     filename = request.args(0)
@@ -34,11 +74,10 @@ def sounds():
     if request.args(1):
             filenameadd = request.args(1)
             fullpath = os.path.join(fullpath, filenameadd)
+
     return response.stream(open(os.path.join(request.folder,fullpath),'rb'),chunk_size=4096)
 
 
-=======
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 def doc():
     subdirectory = 'uploads/media/docs/'# directory
     filename = request.args(0)

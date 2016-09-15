@@ -2,8 +2,8 @@
                 <h4>Search </h4>
                 <form method="get" id="getparse" action="{{=URL(r=request,c='learning', f='parser')}}">
                     <fieldset>
-                    <input type="radio" name="lang" value="English" />English
-                    <input type="radio" name="lang" value={{=language}} checked />{{=language}}
+                    <input type="radio" name="lang" value="English" checked />English
+                    <input type="radio" name="lang" value={{=language}} />{{=language}}
 
           
           <input size="50" type="text" id="s" name="query" value="" />

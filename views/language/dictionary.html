@@ -76,37 +76,26 @@ All dialects{{pass}}
             <h3>Word List
             </h3>
             <table class="table table-condensed text-left">
-                <tr><td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category', vars=request.vars))}}
+                <tr>
                     <td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English', vars=request.vars))}}</td>
                     <td>{{=A(language,_href=URL(r=request, c='language', f='dictionary', args=language,vars=request.vars))}}</td>
-                    <td>{{=A('Dialect',_href=URL(r=request, c='language', f='dictionary', args='Dialect' ,vars=request.vars))}}</td><td></td>
+                    <td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category', vars=request.vars))}}</td>
+			<td>{{=A('Dialect',_href=URL(r=request, c='language', f='dictionary', args='Dialect' ,vars=request.vars))}}</td><td></td>
                     <td></td>
                 </tr>
                 {{for word in words:}}
                 <tr style="color: {{=word.color}};" class="text-left">
-                    <td>{{=T(word.Category)}}</td>
                     <td>{{=T(word.Search_English)}}</td>
                     <td>{{=T(word.Language_Word)}}</td>
-                    <td>{{=T(word.dialect)}}</td>
+                      <td>{{=T(word.Category)}}</td>
+			<td>{{=T(word.dialect)}}</td>
                     {{if word.Sound!=None:}}
                     <td >
-<<<<<<< HEAD
                         <a href="#" target="_self"  onmouseover="writeWord();DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.Search_English)}}');" >Listen</a></td>
                         {{else:}}
                         <td ></td>
                         {{pass}}
-                        {{if not auth.has_membership("student") :}}
-=======
-                        <a href={{=URL(r=request, c='language',f='view_word',args=word.id)}} target="_blank" onMouseOver="DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.Search_English)}}');" >Listen</a></td>
-                        {{else:}}
-                        <td ></td>
-                        {{pass}}
-                        {{if auth.is_logged_in() :}}
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
-                        <td>[{{=A('edit',_href=URL(r=request,c='language', f='edit_word',args=word.id))}}]</td>
-                        {{else:}}
                         <td>[{{=A('more',_href=URL(r=request,c='language', f='view_word',args=word.id))}}]</td>
-                        {{pass}}
                     </tr>
                     {{pass}}
                     {{if auth.is_logged_in() :}}
@@ -114,18 +103,6 @@ All dialects{{pass}}
                     {{pass}}
                 </table>
             </div>
-<<<<<<< HEAD
-=======
-
-            <div class="col-md-1 ">
-                <b>Select more</b>
-                <br>
-                {{for num in numerics:}}
-                <br>{{if numeric==num:}}*{{pass}}{{=A(num, _href=URL(r=request, c='language', f='dictionary', vars={'type': sort, 'numeric':num, 'query':query, 'dialect':dialect}))}}
-                {{pass}}
-                <br>
-            </div>
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
             <div class="col-md-1 ">
                 <b>Select more</b>

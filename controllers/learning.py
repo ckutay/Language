@@ -16,7 +16,6 @@ from nltk.corpus import abc
 import os, sys
 from  nltk.tokenize.punkt import PunktSentenceTokenizer
 
-
 def translate_word(word, lang, ws, wd):
                 reduced_word = ws.stem(word, hide_suffixes = False, show_translation = True, show_pos=True)
 
@@ -117,13 +116,25 @@ def parser():
     #wordlist=searchterm.split()
     #for word in wordlist:
 #	pass
+    searchwords=""
+    for word in searchterm.split():
+		searchwords+='%%%s%%' % word
     if lang=="English":
-                query= dblanguage.BundjalungExamples.English.like('%% %s %%' % searchterm)
+
+          query= dblanguage.BundjalungExamples.English.like(searchwords)
     else:
-                query= dblanguage.BundjalungExamples.Language.like('%% %s %%' % searchterm)
+          query= dblanguage.BundjalungExamples.Language.like(searchwords)
     words=dblanguage(query)
     try:
 	words=words.select()
+	lastword=words[0]
+	results=[]
+	results.append(lastword)
+	for word in words:
+		if word.English!=lastword.English:
+			results.append(word)
+		lastword=word
+	words=results
     except:
 	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'lang':lang}))
 ##else load dictionary
@@ -153,6 +164,9 @@ def parser():
 
 
 def pages():
+  if not auth.user:
+        redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
+  else:
     w = db.plugin_wiki_page
     t=db.plugin_wiki_tag
     taglist=db(t.id>0).select(orderby=t.id)
@@ -172,7 +186,7 @@ def pages():
                                 page = w.insert(slug=title.replace(' ','_'),
                                 title=title,
                                 body=request.vars.template and w(slug=request.vars.template).body or '')
-                        redirect(URL(r=request,f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
+                        redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
     else:
                 form=''
     return dict(query=request.vars.query, taglist=taglist, pages=pages, form=form)
@@ -210,20 +224,12 @@ def page():
     page_body=page.body
     if (page.worksheet):
 	page_body = wsread_page(page)
-<<<<<<< HEAD
 	#   page=wsread_question(page_body, page)
     else:
 	page_body=page.body
     title=page.title
 
     return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)
-=======
-    page=wsread_question(page_body, page)
-    title=page.title
-    page_body=page.body
-
-    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug )
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 
 def list():
     page_id=request.args(0)
@@ -235,10 +241,11 @@ def list():
 
 
 @auth.requires_login()
-def edit_page():
+def edit_page_old():
     """
     edit a page
     """
+    import os 
     slug = request.args(0) or 'Index'
     tags=""
     if request.args(1): tags='|'+request.args(1)+'|'
@@ -246,6 +253,21 @@ def edit_page():
     w = db.plugin_wiki_page
     w.role.writable = w.role.readable = plugin_wiki_level>1
     page = w(slug=slug)
+    imgActions=[]
+    imageAction=os.listdir("applications/Bundjalung/uploads/media/images/Actions")
+    for image in imageAction:
+	imgActions.append(image)
+
+    imgNames=[]
+    imageName=os.listdir("applications/Bundjalung/uploads/media/images/Names")
+    for image in imageName:
+        imgNames.append(image)
+    imgAll=[]
+    imageAll=os.listdir("applications/Bundjalung/uploads/media/images")
+    for image in imageAll:
+        imgAll.append(image)
+
+
     """
     db.plugin_wiki_page.tag.default=""
     db.plugin_wiki_page.update.tags=db.plugin_wiki_page.tags
@@ -263,8 +285,9 @@ def edit_page():
         form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:
+		logging.warn(slug)
                 form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                 next=URL(r=request,c='learning', f='page',args=slug))
 
-    return dict(form=form,page=page,tags=tags)
+    return dict(form=form,page=page,tags=tags, imageActions=imgActions, imageAll=imgAll,imageNames=imgNames)
 

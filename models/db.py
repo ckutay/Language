@@ -2,9 +2,9 @@
 from gluon.custom_import import track_changes; track_changes(True)
 from gluon import *
 
-EMAIL_SERVER='email:25'
-EMAIL_SENDER='email'
-EMAIL_AUTH="email:login"
+EMAIL_SERVER='cities.org.au:25'
+EMAIL_SENDER='ckutay@cities.org.au'
+EMAIL_AUTH="ckutay@cities.org.au:AK131391"
 
 RECAPTCHA_PUBLIC_KEY='6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'
 RECAPTCHA_PRIVATE_KEY='6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'
@@ -26,9 +26,9 @@ try:
     from gluon.contclw.gql import *  # if running on Google App Engine
 except:
     #db = SQLDB('sqlite://storage.db')  # if not, use SQLite or other DB
-    dblanguage= DAL('mysql://user:password@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
+    dblanguage= DAL('mysql://language_admin:budyari@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
 
-    db= DAL('mysql://user:password@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
+    db= DAL('mysql://language_admin:budyari@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
 
 session.connect(request, response, db=db)  # and store sessions there
 
@@ -332,6 +332,7 @@ response.menuTop = [
      ['Dictionary', False, URL(r=request, c='language',f='dictionary')],
 	['Resources', False, URL(r=request, c='plugin_wiki', f='resources')],
 
+	['Help', False, URL(r=request,c='plugin_wiki', f='tags_by_tag', args='17')],
         ['Contact', False, URL(r=request, c='plugin_wiki', f='contact')],
      ]
 
@@ -350,6 +351,11 @@ response.menuResource=[
       ['Written examples', False, URL(r=request, c='plugin_wiki', f='page', args='written_examples_of_the_language')],
       ['Work Sheets', False, URL(r=request,c='learning',f='pages')],
     ]
+response.menuUploads=[
+	['Audio Files',False,URL(r=request, c='default', f='upload', args='sounds')],
+	['Images', False, URL(r=request, c='default', f='upload', args='images')]
+]
+
 response.menuLogin=[
       ['Login', False, URL(r=request, c='default' , f='_user', args='login')],
     ]
@@ -357,13 +363,17 @@ response.menuLogin=[
 if auth.is_logged_in():
 
        	response.menuTop.insert(4,
-             ['Change Password', False, URL(r=request, c='default', f='user', args='change_password')])
+                   ['Uploads', False, URL(r=request, c='default', f='uploads')])
+	response.menuTop.insert(5,
+
+		['Change Password', False, URL(r=request, c='default', f='user', args='change_password')])
 
 	response.menuLogin=[
 	      ['Logout', False, URL(r=request, c='default', f='user', args='logout')],
 	    ]
-    	if (auth.user.Role_Name=="editor"):
- 		response.menuTop.insert(3,
+	if (auth.user.Role_Name=="editor"):
+
+ 		response.menuTop.insert(4,
 		     ['Edit Profile', False, URL(r=request, c='default', f='user', args='profile')])
     	elif (auth.has_membership(auth.id_group('developer'))):
 		response.menuTop.insert(4,

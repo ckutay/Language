@@ -3,15 +3,16 @@
 
 <h3>Current Worksheets</h3>
 <table class="formatTable">
-<tr><td><strong>Title</td><td><i>Summary</i></td><td></td></strong></tr>
-
+<tr>
+<th><strong>Title</th><th><strong></th>
+</tr>
   {{for page in pages:}}
 <tr>
-    <td>{{=A(page.title,_href=URL(r=request,f='page',args=page.slug))}}</td>
-   <td>{{=A(plugin_wiki.render(page.summary),_href=URL(r=request,c='learning', f='page',args=page.slug))}}</td>
+    <td>{{=A(page.title,_href=URL(r=request,f='page',args=page.slug))}}
+<br><i>{{=A(plugin_wiki.render(page.summary),_href=URL(r=request,c='learning', f='page',args=page.slug))}}</i></td>
 {{if auth.is_logged_in() :}}
 
-    <td>[{{=A('edit',_href=URL(r=request,c='learning', f='edit_page',args=page.slug))}}]</td>
+    <td>[{{=A('edit',_href=URL(r=request,c='plugin_wiki', f='edit_page',args=page.slug))}}]</td>
 {{else:}}
     <td>Click on Link to view</td>
 {{pass}}

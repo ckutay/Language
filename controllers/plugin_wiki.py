@@ -28,6 +28,7 @@ def search():
 
 
 def pages():
+    slug="pages"	
     w = db.plugin_wiki_page
     t=db.plugin_wiki_tag
     taglist=db(t.id>0).select(orderby=t.id)
@@ -50,13 +51,24 @@ def pages():
             		redirect(URL(r=request,f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
     else:
 		form=''
-    return dict(taglist=taglist, pages=pages, form=form,query=request.vars.query)
+    return dict(slug=slug, taglist=taglist, pages=pages, form=form,query=request.vars.query)
 
 def index():
+  if not auth.user:
+        redirect(URL(r=request, c='plugin_wiki', f='page',args='No_Access'))
+  else:
+    slug="Introduction"
     page= db.plugin_wiki_page(slug="Introduction")
     if page: pageteaser=page.body
     else: pageteaser=""
+    return dict(slug=slug,page=pageteaser,title=page.title,images=images)
+
+def noaccess():
+    page= db.plugin_wiki_page(slug="noaccess")
+    if page: pageteaser=page.body
+    else: pageteaser=""
     return dict(page=pageteaser,title=page.title,images=images)
+
 
 def about():
     images=db(db.image.show==0).select()
@@ -134,7 +146,8 @@ def edit_resource():
         if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
-        w = db.resources
+
+	w = db.resources
         resource = w(slug=slug)
         if not  resource:
            	redirect(URL(r=request, c='plugin_wiki', f='resources'))
@@ -157,6 +170,7 @@ def edit_resource_transcript():
         transcript=db(db.plugin_wiki_transcript.slug==slug).select().first()
 	if plugin_wiki_editor:
     	   if not transcript:
+		w = db.plugin_wiki_transcript
         	transcript= w.insert(slug=slug,
                         title=resource_title,
                         body=request.vars.template and w(slug=request.vars.template).body or '')
@@ -166,26 +180,82 @@ def edit_resource_transcript():
         resource_name=os.path.join('file',resource.name)
 	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
-<<<<<<< HEAD
-@auth.requires_login()
-=======
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
 def resources():
+    if not auth.user:
+        redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
+    else:
 	resources=db.resources
 	resources = db(resources.id>0).select(orderby=resources.title)            
         if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
         return dict(resource=None,resources=resources)
 
+
+def upload_elan():
+        import  Shoebox_parse_dict
+	file=request.vars.elan.filename
+	filename = os.path.join("applications/Bundjalung/uploads",file)
+	try:
+		store_file(request.vars.elan.file,filename)
+	except:
+		pass
+	text=Shoebox_parse_dict.shoebox_to_dictlist(filename)
+	#clear old ones form database
+	query=db(db.elan.resource_id==request.vars.id)
+	if query:query.delete()
+	for item in text:
+		item['resource_id']=request.vars.id
+		entry=""
+		#for key, value in item:
+		#	entry+=value+"' "
+		#	query="insert into elan values (%s)' %(entry)"
+		#logging.warn(query)
+		db['elan'].insert(**item)
+	redirect (URL(f='resource',args=request.vars.id))
+
+def store_file(file, filename=None):
+    import shutil
+    dest_file = open(filename, 'wb')
+    try:
+            shutil.copyfileobj(file, dest_file)
+    finally:
+            dest_file.close()
+    return filename
+
+def retrieve_file(filename):
+    path = "applications/Bundjalung/uploads"
+    return (filename, open(os.path.join(path, filename), 'rb'))
+
+
 def resource():
 	resource_title=request.args(0)
+	try:
+		resource_title=int(resource_title)	
+		resource_title=db.resources(db.resources.id==resource_title)
+		resource_title=resource_title.title
+	except:
+		pass
 	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
         resource=db(db.resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
+	resource_id=db(db.resources.slug==slug).select()
+	transcriptions=db(db.elan.resource_id==resource_id[0].id)
+	
+        if transcriptions:
+		transcription=transcriptions.select()
+                rows=[]
+                #check for repeats
+                for trans in transcription:
+                    for row in rows:
+                        if trans.speech.strip()==row.speech.strip():
+                                trans=None
+                                break
+                    if trans:rows.append(trans)
+                transcription=rows
 	page=db(db.plugin_wiki_transcript.slug==slug)
 	if (page): page=page.select().first()     
 	resource_name=os.path.join("file",resource.name)
-	return dict(resources=None,resource=resource, resource_name=resource_name, page=page)
+	return dict(resources=None,resource=resource, resource_name=resource_name, page=page, transcription=transcription)
 
 
 
@@ -352,12 +422,14 @@ def page():
 	redirect(URL(r=request, c='plugin_wiki', f='index.html'))
     if slug=="Admin_Help" and not auth.user:
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
+    if (slug=="resources" or slug=="written_examples_of_the_language" or slug=="dictionary") and not auth.user:
+	redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
 
 
     w = db.plugin_wiki_page
     page = w(slug=slug)
     #for template
-    if (not page or not page.is_public or not page.is_active):
+    if (not page or not page.is_active):
     	 if plugin_wiki_editor:
 		redirect(URL(r=request, c='plugin_wiki', f='edit_page', args=request.args))
 	 if (session):session.flash=T("Page not available")
@@ -436,19 +508,15 @@ def edit_page():
 	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:	
-<<<<<<< HEAD
 	if page.worksheet:
 		images=dblanguage(dblanguage.images.id>0).select()
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+        next=URL(r=request,c='learning', f='page',args=slug))
+
 	else:
 		images=[]
-	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
-        next=URL(r=request,c='plugin_wiki', f='page',args=slug))
-=======
-		images=dblanguage(dblanguage.images.id>0).select()
-		
 		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
-                next=URL(r=request,c='plugin_wiki', f='page',args=slug))
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
+        next=URL(r=request,c='plugin_wiki', f='page',args=slug))
 
     return dict(images=images, form=form,page=page,tags=tags)
 

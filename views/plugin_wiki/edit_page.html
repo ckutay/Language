@@ -1,4 +1,12 @@
 {{extend 'layout.html'}}
+<div style="position: absolute; width:80%; height:1px;" >
+<div id="popupsearch" >
+{{=LOAD('learning', 'parser.load', ajax=True)}}
+</div>
+<div id="popuplist" >
+{{=LOAD('learning', 'list.load',args=page.id, ajax=True)}}
+</div>
+</div>
 <h3>Edit Page </h3>
 <div id="plugin_wiki_form">
     {{=form.custom.begin}}
@@ -12,6 +20,14 @@
     <b>WorkSheet [Do you want this page automatically linked to other sheets]:</b> {{=form.custom.widget.worksheet}}
 <!--{{if plugin_wiki_level>1:}}[{{=plugin_wiki.widget_builder()}}]{{pass}}
 -->
+<div>
+{{if page.worksheet:}}
+<a href="#" onclick=writeSearch();>Click to search phrase</a>
+&emsp;
+&emsp;
+<a href="#" onclick=writeList();>Click to Show Wordlist</a>
+{{pass}}
+</div>
 <br><b>Summary [Appears in bold at top of page]:</b>
 <textarea id="plugin_wiki_page_summary" class="form-control" name="summary">
     {{=plugin_wiki.render(page.summary)}}
@@ -158,10 +174,8 @@
 </div>
 {{if page.title!="index":}}
 {{=plugin_multiselect(db.plugin_wiki_page.tags)}}<br>
-<! --
 <b>Menu Links: </b>
-{{#=form.custom.widget.tags}}<br>
--->
+{{=form.custom.widget.tags}}<br>
 {{pass}}
 <b>Changelog:</b> {{=form.custom.widget.changelog}} 
 <b>Delete?</b> {{=form.custom.deletable}}<b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{=form.custom.submit}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

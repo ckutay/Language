@@ -175,6 +175,16 @@ db.define_table('resources',
 		Field('Public','boolean', default=False),
                 migrate=plugin_wiki_migrate)
 
+db.define_table('elan',
+                Field('id', 'integer',writable=False,readable=False),
+                Field('resource_id','integer',length=11,requires=IS_IN_DB(db,'resources.id')),
+
+                Field('speech','string',length=500),
+                Field('translation','string',length=500),
+                Field('start','float',length=100),
+
+                Field('end','float',length=100),
+                migrate=plugin_wiki_migrate)
 
 
 db.define_table('plugin_wiki_comment',
@@ -795,7 +805,7 @@ class PluginWiki(object):
 
     def render_html(self,text,page_url=URL()):
         import re
-        text = text.replace('href="page:','href="%s/' % page_url) 
+	text = text.replace('href="page:','href="%s/' % page_url) 
         att_url = URL(r=request,c='plugin_wiki',f='attachment')
         text = text.replace('src="attachment:', 'src="%s/' % att_url)
         regex_code = re.compile('``(?P<t>.*?)``:(?P<c>\w+)',re.S)

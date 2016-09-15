@@ -59,11 +59,8 @@ jQuery(function () {
 tinymce.init({
   selector: "textarea",
   theme: "modern",
-<<<<<<< HEAD
    external_plugins: {"nanospell": "nanospell/plugin.js"},
    nanospell_server: "java",
-=======
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
   plugins: [
     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
     "searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -81,11 +78,7 @@ tinymce.init({
 });
 
 </script>
-<<<<<<< HEAD
 <script src="{{=URL(c='static',f='js', args='video.js')}}"></script>
-=======
-<script src="{{=URL('static',f='js/video.js')}}"></script>
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
   {{block head}}{{end}}
 
 <script>
@@ -120,9 +113,10 @@ $(document).ready(function() {
 
   #zoomLyr {float:right; cursor:crosshair; }
   </style>
+
 </head>
 
-<body onLoad="setupText(this);">
+<body onLoad="setupText(this);" >
 <!-- start header -->
  <!-- Navigation -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -160,6 +154,18 @@ $(document).ready(function() {
         </ul>
         </li>
 
+   {{ elif _name=="Uploads" :}}
+  <li class ="dropdown">
+        <a href="{{=_link}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{=_name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          {{for _name,_active,_link in response.menuUploads:}}
+            <li><a href="{{=_link}}">{{=_name}}</a></li>
+          {{pass}}
+        </ul>
+        </li>
+
+
+
 
   {{  else:}}
       <li><a href="{{=_link}}" >{{=_name}}</a></li>
@@ -189,10 +195,10 @@ $(document).ready(function() {
   <header class="business-header">
       <div class="container">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-4" style="float:left;">
             <img class="img-responsive" id="circle-img-first" src="/Bundjalung/static/images/img_first.png" >
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-8" style="float:left;">
             <a href="{{=URL(r=request, c='plugin_wiki',f='page')}}"> <h1 id="title" class="tagline">{{=response.title}}</h1></a>
           </div>
         </div>
@@ -220,27 +226,15 @@ $(document).ready(function() {
 </div>
     <hr>
 
-<<<<<<< HEAD
 <div is="footer"> 
-=======
- 
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
  <div class="container">
 
         <div class="row">
 <div class="col-sm-2">
 </div>
 
-<<<<<<< HEAD
             <div class="col-sm-8" style="text-align:center">
-=======
-      <div class="col-sm-4"></div>
-            <div class="col-sm-4">
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
               <p> This project is an initiative of:
-              <a href="http://www.muurrbay.org.au/">
-              <img src="/Bundjalung/static/images/muurrbay.png" height="60px"></a>
-and
  <img src="/Bundjalung/static/images/ILSlogo.jpg" height="60px"></a>
 <p> Supported through the Australian Government’s Indigenous Languages Support program and New Media program. Copyright &copy; Muurrbay Aboriginal Language and Culture Cooperative</p></a>
 		<p>Image by Sharon Smith. For more information contact <a href="mailto:gary.williams@muurrbay.org.au">Muurrbay</a>
@@ -248,28 +242,16 @@ and
       <div class="col-sm-4">    </div>
       </div>
 </div>
+</div>
 <script>
 var el=$('#popupword');
-if (el){
-var elpos_original=el.offset().top;
-}
 $(window).scroll(function (){
     var elpos = el.offset().top;
     var windowpos = $(window).scrollTop();
     var finaldestination = windowpos;
     if (el){
-	if(windowpos<elpos_original) {
-        	finaldestination = elpos_original;
-<<<<<<< HEAD
-        	el.stop().css({'top':100});
-    	} else {
-        	el.stop().animate({'top':finaldestination-elpos_original+100},500);
-=======
-        	el.stop().css({'top':10});
-    	} else {
-        	el.stop().animate({'top':finaldestination-elpos_original+10},500);
->>>>>>> 5e27a4d7423724f1c023932db88ae5cfb1224b78
-    	}
+        	el.stop().animate({'top':finaldestination+100},500);
+    	
     }
 });
 

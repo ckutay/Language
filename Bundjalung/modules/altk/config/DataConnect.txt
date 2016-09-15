@@ -1,1 +1,0 @@
-dbType MYSQLdhHost localhostdbPassword darruyadbName LanguageWiki_Path "/Volumes/Transcend/"Python_Path Audacity_Path 

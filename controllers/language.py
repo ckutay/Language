@@ -79,8 +79,11 @@ def lesson():
 
     return dict(wordlist=wordlist)
 
-@auth.requires_login()
+#@auth.requires_login()
 def dictionary():
+  if not auth.user:
+	redirect(URL(r=request, c='plugin_wiki', f='page',args='No_Access'))	
+  else:
     names = db(db.dialect.id>0).select(db.dialect.name)
     numerics=[]
     dialectid=None
@@ -106,6 +109,7 @@ def dictionary():
 	pass
     exact=alphanumeric 
     dialect=""
+    wordlist=[]
     if dialectid: 
 	dialectRow=db.dialect(name=dialectid)
     	if dialectRow: dialect=dialectRow.name
@@ -114,7 +118,7 @@ def dictionary():
 	wordlist =search(orderbys,searchterms,sort,dialect,alphanumeric)
 	numerics=['Exact','Related']
 	exact="Exact"	
-	if wordlist==[]:
+	if (not wordlist) or wordlist==[]:
 		exact="Related"
 		wordlist =search(orderbys, searchterms,sort,dialect,'Related')
     else:
@@ -174,8 +178,11 @@ def view_word():
     words=dblanguage.Bundjalung
     word, examples=read_word(dblanguage.Bundjalung(dblanguage.Bundjalung.id==word_id))
     word=fix_word(word)
+    link=None
+    if not auth.has_membership(auth.id_group('student')):
 
-    link = URL(r=request, c='language' ,f='edit_word', args=word_id)
+		link = URL(r=request, c='language' ,f='edit_word', args=word_id)
+
     return dict(link = link, word=word, exampleSentences=examples, language=language )
 
 def view_word_popup():
@@ -277,9 +284,12 @@ def read_word(word):
 	if(word.Image==None or word.Image==""):word.Image=word.Search_English
 	end=string.find(word.Image,';');
 	if end>0:word.Image=word.Image[0:end]
-        word.Image=word.Image.replace(', ','_')
+	word.Image=word.Image.strip('(generic)')
+        word.Image.strip()
+	word.Image=word.Image.replace(', ','_')
 
 	word.Image=word.Image.replace(' ','_')
+	word.Image.strip()
         if(os.path.exists('applications/'+language+'/uploads/media/images/'+word.Image+'.gif')):
                 word.ImageLink = URL(r=request, c='default',f='images', args=word.Image+'.gif')
         else: word.ImageLink=""

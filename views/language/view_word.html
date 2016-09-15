@@ -75,8 +75,8 @@
 </table>
 </font>
 </p><p>
-<div style="float: right;">
-{{if auth.user:}}
+<div style="float: left;">
+{{if auth.user and link:}}
 {{=A('Edit', _href=link)}}
 {{pass}}
 </div>
