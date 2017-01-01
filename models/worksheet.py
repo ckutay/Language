@@ -13,11 +13,15 @@ def wsread_page(page ):
     import re,os
     page_body=page.body
     worksheet= db(db.plugin_wiki_tag.name=="WorkSheet").select().first()
+    #FIXME
     if(worksheet!=None):
       if(page.tags=="|"+str(worksheet.id)+"|"):
 	#replace Answer with textbox
 	return page.body
 #find sound and upload
+    #FIXME
+    #Need go add links once with community seleect option
+    #ie offer all possible sound files
     examples=os.listdir('applications/'+language+'/uploads/media/sounds')
     examples.sort(lambda x,y: -cmp(len(x), len(y)))
     r = re.compile(r'(<s.*?>|<a.*?<\/a>)')

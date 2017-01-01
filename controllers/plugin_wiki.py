@@ -54,9 +54,6 @@ def pages():
     return dict(slug=slug, taglist=taglist, pages=pages, form=form,query=request.vars.query)
 
 def index():
-  if not auth.user:
-        redirect(URL(r=request, c='plugin_wiki', f='page',args='No_Access'))
-  else:
     slug="Introduction"
     page= db.plugin_wiki_page(slug="Introduction")
     if page: pageteaser=page.body
@@ -135,7 +132,7 @@ def contact():
           pass#   redirect(URL('contact'))
     elif form.errors:
         form.errors.your_email='Unable to send email'
-    top_message = "This form will send an email to Muurrbay. We will try to answer your request quickly"   
+    top_message = "This form is disabled - in future it will send an email to Muurrbay. We will try to answer your request quickly"   
     return dict(form=form, top_message=top_message)
 
 
@@ -185,7 +182,7 @@ def resources():
         redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
     else:
 	resources=db.resources
-	resources = db(resources.id>0).select(orderby=resources.title)            
+	resources = db(resources.id>0 and resources.Active=="T").select(orderby=resources.title)            
         if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
         return dict(resource=None,resources=resources)
 
@@ -236,7 +233,7 @@ def resource():
 		pass
 	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
-        resource=db(db.resources.slug==slug).select().first()
+	resource=db(db.resources.slug==slug).select().first()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
 	resource_id=db(db.resources.slug==slug).select()
 	transcriptions=db(db.elan.resource_id==resource_id[0].id)

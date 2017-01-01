@@ -41,12 +41,13 @@ def  fix_bad_unicode(text):
 
 def search(orderbys, searchterm,typequery, dialect, extra):
     words=None
-    if extra=="Exact":
-    	if typequery=="English":
-    		query=(dblanguage.Bundjalung.Search_English==searchterm)|dblanguage.Bundjalung.Search_English.startswith(searchterm+' ;')|(dblanguage.Bundjalung.Search_English.contains("; "+searchterm ))|(dblanguage.Bundjalung.Search_English.endswith("; "+searchterm))
-    	else:
-                query= dblanguage.Bundjalung.Language_Word==searchterm
+    queryexact=""
+    if typequery=="English":
+    		queryexact=(dblanguage.Bundjalung.Search_English==searchterm)|dblanguage.Bundjalung.Search_English.startswith(searchterm+' ;')|dblanguage.Bundjalung.Search_English.startswith(searchterm+',')|(dblanguage.Bundjalung.Search_English.contains("; "+searchterm+' ' ))|(dblanguage.Bundjalung.Search_English.endswith("; "+searchterm))
     else:
+                queryexact= dblanguage.Bundjalung.Language_Word==searchterm
+    query=queryexact
+    if extra!="Exact":
 	 if typequery=="English":
 		query= dblanguage.Bundjalung.Search_English.contains(searchterm)
 	 else:
@@ -62,7 +63,12 @@ def search(orderbys, searchterm,typequery, dialect, extra):
 		 query=query&(dblanguage.Bundjalung.Gold_Coast_Tweed!="")
 	else:	
 		query=query&(dblanguage.Bundjalung.Copmanhurst!="")
+   #check not uncertain origina
+    query = query & (dblanguage.Bundjalung.uncertain==0)
     words=dblanguage(query).select(orderby=orderbys)
+    if extra!="Exact":
+	exactwords=dblanguage(queryexact).select(orderby=orderbys)
+	words.exclude(lambda r: r in exactwords)
     return words
 
 
@@ -87,7 +93,7 @@ def dictionary():
     names = db(db.dialect.id>0).select(db.dialect.name)
     numerics=[]
     dialectid=None
-    alphanumeric=""
+    alphanumeric="Exact"
     sort=request.vars['type']
     if request.args:
         order=request.args[0]
@@ -111,29 +117,35 @@ def dictionary():
     dialect=""
     wordlist=[]
     if dialectid: 
-	dialectRow=db.dialect(name=dialectid)
-    	if dialectRow: dialect=dialectRow.name
+	for name in names:
+		if dialectid in name.name:
+			dialect=name.name
     if searchterms and searchterms!="":
         response.start=False	
 	wordlist =search(orderbys,searchterms,sort,dialect,alphanumeric)
 	numerics=['Exact','Related']
 	exact="Exact"	
 	if (not wordlist) or wordlist==[]:
-		exact="Related"
 		wordlist =search(orderbys, searchterms,sort,dialect,'Related')
     else:
     	wordlist=[]
     	if (not(sort)):
  		sort="English"
-	if (not alphanumeric):
+	if (not alphanumeric or alphanumeric==""):
 		alphanumeric='A'
     	if(sort=='English'):
 		numerics=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 		condition = dblanguage.Bundjalung.Search_English.startswith(alphanumeric.lower())|dblanguage.Bundjalung.Search_English.startswith('-'+alphanumeric.lower())
 
 	        wordlist=dblanguage(condition).select(orderby=orderbys)
-    	else:
+    	elif (sort=="Category"):
+		numerics=["people","animal"]
+		if (not alphanumeric in numerics):
+                        alphanumeric="people"
+	else:
 		numerics=['A','BA','BE','BI', 'BU','D','J','L','M','N','NG','NY','O','S','WA', 'WE', 'WI', 'WU','YA','YE','Yi','YU']
+		if (not alphanumeric in numerics):
+			alphanumeric="A"
 		condition = dblanguage.Bundjalung.Language_Word.startswith(alphanumeric.lower())|dblanguage.Bundjalung.Language_Word.startswith('-'+alphanumeric.lower())
 		if alphanumeric=='N':
 			c2= (dblanguage.Bundjalung.Language_Word.startswith("na"))
@@ -149,6 +161,11 @@ def dictionary():
     if order=='Dialect':
 	#this is so cool
 	wordlist=sorted(wordlist,key= lambda word: word['dialect'])		
+    else:
+	#sort words by sound - only added now
+    	wordlist=sorted(wordlist,key=lambda word: word['Sound'],reverse=True)
+
+
     top_message = language +" Dictionary"
     w = db.plugin_wiki_page
     page = w(slug='usedictionary')    
@@ -183,7 +200,26 @@ def view_word():
 
 		link = URL(r=request, c='language' ,f='edit_word', args=word_id)
 
-    return dict(link = link, word=word, exampleSentences=examples, language=language )
+    related = []
+    if word.RelatedWord:
+
+        relates=word.Related.split(',')
+        for relate in relates:
+                relate=relate.strip()
+                relateid=dblanguage.Bundjalung(dblanguage.Bundjalung.Language_Word.like( "%%%s%%" %relate, case_sensitive=False))
+                if relateid:
+                        relateid=relateid.id
+                        relate=A(relate,_target="_blank",_href="/language/view_word/"+str(relateid))
+                related.append(relate)
+    relatenew=dblanguage(dblanguage.Bundjalung.English.like( "%%%s%%" %word.English, case_sensitive=False))
+    if relatenew:
+            related.append(BR()+"With same English translation:")
+            for relate in relatenew.select():
+                if str(relate.id)!=word_id:
+			relateid=relate.id
+                	relate=A(relate.Language_Word,_target="_blank",_href="/language/view_word/"+str(relateid))
+                	related.append(relate)
+    return dict(link = link, word=word, related=related,exampleSentences=examples, language=language )
 
 def view_word_popup():
     word_id=request.args(0)

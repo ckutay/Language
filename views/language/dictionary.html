@@ -39,8 +39,8 @@
                 </div>
                 <div class="span4 collapse-group" >
                     <p  class="collapse" id="viewdetails">   
-                       <input type="radio" name="numeric" value="Exact" {{if exact=="Exact":}} checked{{pass}}/> Exact Search  </input>
-                       <input type="radio" name="numeric" value="Related" {{if exact!="Exact":}} checked{{pass}} />Search Related  
+                       <input type="radio" name="numeric" value="Exact" {{if exact!="Related":}} checked{{pass}}/> Exact Search  </input>
+                       <input type="radio" name="numeric" value="Related" {{if exact=="Related":}} checked{{pass}} />Search Related  
                        <br> <label>Select Dialect: </label> <select id="dialect" name="dialect">
                        {{for name in names:}}
                        <option value={{=name.name}} {{if dialect==name.name:}}selected{{pass}}>{{=name.name}}</option>
@@ -77,17 +77,17 @@ All dialects{{pass}}
             </h3>
             <table class="table table-condensed text-left">
                 <tr>
-                    <td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English', vars=request.vars))}}</td>
                     <td>{{=A(language,_href=URL(r=request, c='language', f='dictionary', args=language,vars=request.vars))}}</td>
+                    <td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English', vars=request.vars))}}</td>
                     <td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category', vars=request.vars))}}</td>
 			<td>{{=A('Dialect',_href=URL(r=request, c='language', f='dictionary', args='Dialect' ,vars=request.vars))}}</td><td></td>
                     <td></td>
                 </tr>
                 {{for word in words:}}
                 <tr style="color: {{=word.color}};" class="text-left">
-                    <td>{{=T(word.Search_English)}}</td>
                     <td>{{=T(word.Language_Word)}}</td>
-                      <td>{{=T(word.Category)}}</td>
+                     <td>{{=T(word.Search_English)}}</td>
+			  <td>{{=T(word.Category)}}</td>
 			<td>{{=T(word.dialect)}}</td>
                     {{if word.Sound!=None:}}
                     <td >

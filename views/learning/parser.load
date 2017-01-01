@@ -12,7 +12,7 @@
 </fieldset>
                 </form>
 {{if request.vars:}}
-	<h2>Search result for {{=query}}</h2>
+	<h4>Search result for {{=query}}</h4>
 
 {{if words:}}
 		<h2>Translation:</h2>

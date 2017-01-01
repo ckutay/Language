@@ -4,7 +4,7 @@ from gluon import *
 
 EMAIL_SERVER='cities.org.au:25'
 EMAIL_SENDER='ckutay@cities.org.au'
-EMAIL_AUTH="ckutay@cities.org.au:empty"
+EMAIL_AUTH="ckutay@cities.org.au:AK131391"
 
 RECAPTCHA_PUBLIC_KEY='6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'
 RECAPTCHA_PRIVATE_KEY='6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'
@@ -240,6 +240,8 @@ else:
 
         Field('id', 'integer' , readable=False, writable=False),
         Field('Category'),
+	Field('sense'),
+	Field('uncertain'),
         Field('Language_Word',requires=IS_NOT_EMPTY()),
         Field('Part_of_Speech'),
 

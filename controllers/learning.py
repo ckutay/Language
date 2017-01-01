@@ -116,14 +116,11 @@ def parser():
     #wordlist=searchterm.split()
     #for word in wordlist:
 #	pass
-    searchwords=""
-    for word in searchterm.split():
-		searchwords+='%%%s%%' % word
     if lang=="English":
 
-          query= dblanguage.BundjalungExamples.English.like(searchwords)
+          query= dblanguage.BundjalungExamples.English.contains(searchterm.split(), all=True)
     else:
-          query= dblanguage.BundjalungExamples.Language.like(searchwords)
+          query= dblanguage.BundjalungExamples.Language.contains(searchterm.split(),all=True)
     words=dblanguage(query)
     try:
 	words=words.select()
@@ -136,7 +133,9 @@ def parser():
 		lastword=word
 	words=results
     except:
-	redirect (URL(r=request,c="language",f="dictionary",vars={'query':searchterm, 'lang':lang}))
+### language/dictonary or learning/paerser
+	#redirect (URL(r=request,c="learning",f="parser",vars={'query':searchterm, 'lang':lang}))
+	redirect (URL(r=request,c="learning",f="parser"))
 ##else load dictionary
     wd = dictionary.AboriginalLanguageDictionary()
     ws = stemmer.AboriginalLanguageStemmer()
@@ -285,7 +284,6 @@ def edit_page_old():
         form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:
-		logging.warn(slug)
                 form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                 next=URL(r=request,c='learning', f='page',args=slug))
 

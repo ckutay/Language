@@ -173,7 +173,8 @@ db.define_table('resources',
                 Field('Collected_by','string',length=100),
 		Field('description','string', length=500),
 		Field('Public','boolean', default=False),
-                migrate=plugin_wiki_migrate)
+                Field('Active','boolean', default=False),
+		migrate=plugin_wiki_migrate)
 
 db.define_table('elan',
                 Field('id', 'integer',writable=False,readable=False),

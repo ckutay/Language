@@ -30,13 +30,16 @@ table-layout: fixed:
 #popupword, #popuplist, #popupsearch{
 
 padding: 5px; display: none; margin: 0px; width: 35%; position: absolute; font-family: arial; font-size: 11px; color: rgb(0, 0, 0); border: 1px solid rgb(0, 0, 0); visibility: visible; z-index: 100; 
-background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; background-color : rgba(00,127,85, 0.3);
+background: 0px 0px no-repeat ; background-color: rgb(176, 196, 222) ; background-color : rgba(50,177,135,1);
+}
+#popupword a, #popuplist a, #popupsearch a{
+  color: red;
 }
 #popupword{
 left: 250px;
 }
 #popupsearch{
-margin: 30px 30px; width: 40%; 
+left -50px; width: 40%; 
 }
 #popuplist{
 left: 80%;
@@ -165,7 +168,8 @@ footer p{
 table#word {
     margin-left: auto;
     margin-right: auto;
-
+    width:80%;
+ border: 3px solid green;
 }
 td#word{
 	padding: 10px;
@@ -207,9 +211,6 @@ td#word{
     padding: 10px;
     padding-left: 40px;
 }
-/* Flash */
- .flash { background-color: #C0C0C0; font-weight: bold; clear: both; cursor: pointer; color: #FFFFFF; text-align: center; padding-bottom: 5px; padding-top: 5px;
-margin-bottom:20px; position:relative; width:100%; }
 div.error { background-color: red; color: white; padding: 3px}
  /* Footer */
 .toggle {cursor: pointer;}
@@ -236,14 +237,13 @@ div.error { background-color: red; color: white; padding: 3px}
 
 /*********** web2py specific ***********/
 div.flash {
+    margin-left:100px;
     font-weight:bold;
-    display:none;
     position:fixed;
     padding:10px;
     top:48px;
-    right:250px;
-    min-width:280px;
-    opacity:0.95;
+    width:180px;
+    opacity:0.9;
     margin:0px 0px 10px 10px;
     vertical-align:middle;
     cursor:pointer;
@@ -254,13 +254,7 @@ div.flash {
     -o-border-radius: 8px;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
-    background-image: -webkit-linear-gradient(top,#222,#000);
-    background-image: -o-linear-gradient(top,#222,#000);
-    background-image: -moz-linear-gradient(90deg, #222, #000);
-    background-image: linear-gradient(top,#222,#000);
-    background-repeat: repeat-x;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
     z-index:2000;
 }
 

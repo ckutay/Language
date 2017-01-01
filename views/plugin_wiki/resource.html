@@ -11,7 +11,7 @@ Collected by {{=resource.Collected_by}}
 <br>
 <br>
 
-<h4>Upload Elan Transcription File (Toolbox export '.tbt') for this Collection</h4>
+<h4>Upload Elan Transcription File (ELAN export as Toolbox file '.tbt') for this Collection</h4>
 <form method="post" action={{=URL(c="plugin_wiki", f="upload_elan", args=resource.id)}} enctype="multipart/form-data">
 <input type="file" name="elan" >
 <input type="hidden" name="id" value={{=resource.id}}>
@@ -35,6 +35,7 @@ Your browser does not support the audio element.
 <!---remove empty trnascription-->
 <tr id="formatTable"><td align="right">{{=row.speech}}
 <br>
+
 {{=row.translation}}
 </td><td>
 </script>
@@ -50,7 +51,7 @@ $('#{{=row.id}}').bind('timeupdate',function() {
     if (this.currentTime >= {{=row.end}}) {
 	this.currentTime={{=row.start}};
         this.pause();
-
+ 	
 	document.getElementById("silence").play();
 // replace silence with no event listener
 	$('#silence').bind("ended",  function(){
@@ -61,7 +62,7 @@ $('#{{=row.id}}').bind('timeupdate',function() {
 });
 
 </script>
-<button onclick="document.getElementById({{=row.id}}).play();document.getElementById({{=row.id}}).currentTime={{=row.start}};">Play</button>
+<button onclick="$('#silence').bind('ended',function(){});document.getElementById({{=row.id}}).play();document.getElementById({{=row.id}}).currentTime={{=row.start}};">Play</button>
 </td><td>
     <button onclick="document.getElementById({{=row.id}}).pause();document.getElementById({{=row.id}}).currentTime={{=row.start}};document.getElementById({{=row.id}}).pause();  $('#silence').replaceWith($('#silence').clone());">Stop</button>
 </td></tr>
@@ -88,10 +89,12 @@ Time aligned Transcription:
 
 </div>
 {{if not transcription:}}
+{{if resource.file!="":}}
 <div class="col-sm-8">
 <iframe width=100% height=1000px seamless=true src={{=URL(c="default", f="doc", args=resource.file)}}>
 
 </iframe>
 </div>
+{{pass}}
 {{pass}}
 {{pass}}
