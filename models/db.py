@@ -4,7 +4,7 @@ from gluon import *
 
 EMAIL_SERVER='cities.org.au:25'
 EMAIL_SENDER='ckutay@cities.org.au'
-EMAIL_AUTH="ckutay@cities.org.au:AK131391"
+EMAIL_AUTH="ckutay@cities.org.au:none"
 
 RECAPTCHA_PUBLIC_KEY='6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'
 RECAPTCHA_PRIVATE_KEY='6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'
