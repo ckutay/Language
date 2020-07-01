@@ -10,6 +10,8 @@
 ###
 import os
 
+from bs4 import BeautifulSoup
+
 def search():
     words=None
     pages=None
@@ -54,11 +56,16 @@ def pages():
     return dict(slug=slug, taglist=taglist, pages=pages, form=form,query=request.vars.query)
 
 def index():
+   try:
     slug="Introduction"
     page= db.plugin_wiki_page(slug="Introduction")
     if page: pageteaser=page.body
     else: pageteaser=""
-    return dict(slug=slug,page=pageteaser,title=page.title,images=images)
+
+   except IOERROR:
+	pass
+
+   return dict(slug=slug,page=pageteaser,title=page.title,images=images)
 
 def noaccess():
     page= db.plugin_wiki_page(slug="noaccess")
@@ -124,15 +131,19 @@ def contact():
     form=SQLFORM.factory(
         Field('your_email',requires=IS_EMAIL()),
         Field('question','text', requires=IS_NOT_EMPTY()))
+    top_message = "This form is to contact the website developer. We will try to answer your request quickly"
+
     if form.process().accepted:
+        soup=BeautifulSoup (form.vars.question,'html.parser')
+        reply_to="%s" % form.vars.your_email
         if mail.send(to ="cat.kutay@gmail.com",
         subject="From %s website" % language,
-	reply_to="%s" % form.vars.your_email,
-	message=form.vars.question):
+        message=reply_to +'\r\n'+T(soup.get_text())):
+          top_message="Message Sent"
           pass#   redirect(URL('contact'))
     elif form.errors:
         form.errors.your_email='Unable to send email'
-    top_message = "This form is disabled - in future it will send an email to Muurrbay. We will try to answer your request quickly"   
+        top_message='Unable to send email'
     return dict(form=form, top_message=top_message)
 
 
@@ -178,13 +189,20 @@ def edit_resource_transcript():
 	return dict(form=form, resources=None,resource=resource, resource_name=resource_name,transcript=transcript)
 
 def resources():
-    if not auth.user:
-        redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
-    else:
+    	teaching = None
+    	if request.args:teaching = request.args(0)
+		
 	resources=db.resources
-	resources = db(resources.id>0 and resources.Active=="T").select(orderby=resources.title)            
-        if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
-        return dict(resource=None,resources=resources)
+	if teaching=="Archive":
+		resources = db(resources.Active=="0").select(orderby=resources.title)
+
+	elif teaching=='2':
+		resources = db(resources.Active>0 and resources.Teaching=="T").select(orderby=resources.title)            
+        else:
+		 resources = db(resources.Teaching=="F" and resources.Active>0).select(orderby=resources.title)
+
+	if(resources==None):redirect(URL(r=request, c='plugin_wiki', f='pages'))
+        return dict(resource=None,resources=resources, teachNum=teaching)
 
 
 def upload_elan():
@@ -205,7 +223,6 @@ def upload_elan():
 		#for key, value in item:
 		#	entry+=value+"' "
 		#	query="insert into elan values (%s)' %(entry)"
-		#logging.warn(query)
 		db['elan'].insert(**item)
 	redirect (URL(f='resource',args=request.vars.id))
 
@@ -233,7 +250,7 @@ def resource():
 		pass
 	if(resource_title==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))
 	slug=resource_title.strip().replace(' ','_').lower()
-	resource=db(db.resources.slug==slug).select().first()
+	resource=db(db.resources.slug==slug).select().first().as_dict()
 	if(resource==None):redirect(URL(r=request, c='plugin_wiki', f='resources'))   
 	resource_id=db(db.resources.slug==slug).select()
 	transcriptions=db(db.elan.resource_id==resource_id[0].id)
@@ -251,7 +268,7 @@ def resource():
                 transcription=rows
 	page=db(db.plugin_wiki_transcript.slug==slug)
 	if (page): page=page.select().first()     
-	resource_name=os.path.join("file",resource.name)
+	resource_name=os.path.join("file",resource["name"])
 	return dict(resources=None,resource=resource, resource_name=resource_name, page=page, transcription=transcription)
 
 
@@ -341,6 +358,21 @@ def tags_by_tag():
                 word=read_word(word)
         if (words and page==None):
                 title="Words in Category"
+	if plugin_wiki_editor:
+	   	w = db.plugin_wiki_page
+
+                form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires))
+                if form.accepts(request.vars):
+                        title=request.vars.title
+                        page =db(w.title==title).select().first()
+                        if not page:
+                                page = w.insert(slug=title.replace(' ','_'),tags="|17|",
+                                title=title,
+                                body=request.vars.template and w(slug=request.vars.template).body or '')
+                        redirect(URL(r=request,f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
+        else:
+                form=''
+
         return dict(tag=tag, words=words,form=form,pages=pages,title=title,page=page,page_body=page_body)
 
 
@@ -419,7 +451,8 @@ def page():
 	redirect(URL(r=request, c='plugin_wiki', f='index.html'))
     if slug=="Admin_Help" and not auth.user:
         redirect(URL(r=request, c='plugin_wiki', f='pages'))
-    if (slug=="resources" or slug=="written_examples_of_the_language" or slug=="dictionary") and not auth.user:
+    #FIXME when tapes done
+    if (slug=="resources") and not auth.user:
 	redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
 
 
@@ -444,7 +477,7 @@ def page():
     page.attachments=db(query).select()
     tag=page.tags
     tags=tag.split('|')
-    page_body=page.body
+    page_body=page.body 
     if request.extension=='load':
         return plugin_wiki.render(page_body)
     if request.extension=='html':         
@@ -501,21 +534,27 @@ def edit_page():
                         body=request.vars.template and w(slug=request.vars.template).body or '')
     else:
 	tags = page.tags #in practice 'xyz' would be a variable
+    options=[]
     if page.title=="Index":
 	form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
-    else:	
-	if page.worksheet:
-		images=dblanguage(dblanguage.images.id>0).select()
-		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
-        next=URL(r=request,c='learning', f='page',args=slug))
+    else:
+	if (request.vars["delete_this_record"]=="on"):
+		crud.delete(w, page["id"], next=URL(r=request, c='plugin_wiki', f='pages'))
+	elif page.worksheet:
+		images=dblanguage(dblanguage.images.id>0 and dblanguage.images.Community==auth.user.Community).select()
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive,next=URL(r=request,c='learning', f='page',args=slug))
+		options=db(db.plugin_wiki_tag.parent=="index").select(orderby=db.plugin_wiki_tag.id)
+		optionnames=[]
+    		for option in options:
+        		optionnames.append(option.name.replace(' ','_'))
+    		options=optionnames
+    		options=(set(options))
 
 	else:
 		images=[]
-		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
-        next=URL(r=request,c='plugin_wiki', f='page',args=slug))
-
-    return dict(images=images, form=form,page=page,tags=tags)
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive, next=URL(r=request,c='plugin_wiki', f='page',args=slug))
+    return dict(options=options, images=images, form=form,page=page)
 
 
 def page_history():

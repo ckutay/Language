@@ -52,7 +52,7 @@ response.menu = [  ['Home', False, URL(r=request, c='plugin_wiki', f='page', arg
 # ## auxiliary functions
 # ###########################################################
 
-
+@auth.requires_login()
 def get_databases(request):
     dbs = {}
     for (key, value) in global_env.items():
@@ -68,12 +68,12 @@ def get_databases(request):
 
 databases = get_databases(None)
 
-
+@auth.requires_login()
 def eval_in_global_env(text):
     exec ('_ret=%s' % text, {}, global_env)
     return global_env['_ret']
 
-
+@auth.requires_login()
 def get_database(request):
     if request.args and request.args[0] in databases:
         return eval_in_global_env(request.args[0])
@@ -81,7 +81,7 @@ def get_database(request):
         session.flash = T('invalid request')
         redirect(URL(r=request,c='appadmin', f='index'))
 
-
+@auth.requires_login()
 def get_table(request):
     db = get_database(request)
     if len(request.args) > 1 and request.args[1] in db.tables:
@@ -90,14 +90,14 @@ def get_table(request):
         session.flash = T('invalid request')
         redirect(URL(r=request,c='appadmin',f='index'))
 
-
+@auth.requires_login()
 def get_query(request):
     try:
         return eval_in_global_env(request.vars.query)
     except Exception:
         return None
 
-
+@auth.requires_login()
 def query_by_table_type(tablename,db,request=request):
   if(tablename!="ALC" and tablename!="CLW"):
     keyed = hasattr(db[tablename],'_primarykey')
@@ -126,7 +126,7 @@ def index():
 # ## insert a new record
 # ###########################################################
 
-
+@auth.requires_login()
 def insert():
     (db, table) = get_table(request)
     if (table!="ALC" and table!="CLW"):

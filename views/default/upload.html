@@ -1,14 +1,23 @@
 {{extend 'layout.html'}}
-<h1>Sound Files</h1>
 
+<h3>Page for uploading {{=type[:-1]}} files</h3>
+These pages allow you to upload and use your own images and sound files
 <p>
 {{if auth.user.Role_Name!='student':}}
 <h3>Upload {{=type[:-1]}} file</h1>
-Filename should match language words matched to the file (.mp3/.wav)
+The button below will let you select a file from your computer.
+<br>
+{{if type[:-1]=="image":}}
+
+Add a title name for the file that is the language word it is describing.
+<br>
+{{else:}}
+You must have  saved the file on your computer with its name as the asssociated language word (plus its ending .wav or .mp3).</p>
+{{pass}}
 <br>
 <form action={{=URL(r=request, c='default', f='upload', args=type)}} method='POST' enctype='multipart/form-data'>
     <input type='file' name='file'><br>
-
+Title for File (eg language word associated to image): <input type='text' name='fileTitle' ><br>
 <b> Type: </b><select name="type">
 {{for option in options:}}
 <option value={{=option}}>{{=option}}</option>>
@@ -39,7 +48,7 @@ Filename should match language words matched to the file (.mp3/.wav)
 
 <div class="col-sm-12" style="height:1000px;">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height:200px;">
-{{for directory in directories:}}
+{{for directory in options:}}
 {{heading="heading"+str(index)}}
 {{collapse="collapse"+str(index)}}
 {{hcollapse="#"+collapse}}

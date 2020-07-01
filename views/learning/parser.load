@@ -7,11 +7,11 @@
 
           
           <input size="50" type="text" id="s" name="query" value="" />
-<input type="submit" value="Search" />
-<a onclick=stopText('popupsearch') href="#"  >Close</a>
+<input type="submit" value="Search" /><div style="float:right;">
+<a onclick=stopText('popupsearch')  >Close</a></div>
 </fieldset>
                 </form>
-{{if request.vars:}}
+{{if request.vars and words:}}
 	<h4>Search result for {{=query}}</h4>
 
 {{if words:}}

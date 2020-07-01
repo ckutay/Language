@@ -1,30 +1,14 @@
 {{extend 'layout.html'}}
-<div style="position: absolute; width:80%; height:1px;" >
 <div id="popupsearch" >
 {{=LOAD('learning', 'parser.load', ajax=True)}}
 </div>
 <div id="popuplist" >
-{{=LOAD('learning', 'list.load',args=page.id, ajax=True)}}
+{{=LOAD('learning', 'list.load', ajax=True)}}
 </div>
-</div>
-   <!-- Page Content -->
-<div class="container">
 
-            <div class="col-sm-4">
-<br><br>
-<strong>Lessons</strong>
-<hr>
-<table>
-<tbody>
-{{for pageitem in pages:}}
-<tr><td> {{=A(pageitem.title,_href=URL(r=request,f='page',args=pageitem.slug))}}
-<br><i>{{=A(plugin_wiki.render(pageitem.summary),_href=URL(r=request,c='learning', f='page',args=pageitem.slug))}}</i>
-<hr></td></tr>
-{{pass}}
-</tbody>
-</table>
-</div>
-<div class="col-sm-8">
+   <!-- Page Content -->
+<div class="container" style="position:absolute;">
+            <div class="col-sm-8">
 
                 <br><br>
 
@@ -38,7 +22,6 @@
 &emsp;
 <a href="#" onclick=writeList();>Click to Show Wordlist</a>
 {{pass}}
-
 <hr>
 <strong>{{=plugin_wiki.render(page.summary)}}</strong>
 </p><p>
@@ -56,45 +39,45 @@
 {{=form}}
 </p><p>
 {{pass}}
-{{if plugin_wiki_editor:}}
 <hr>
+{{if plugin_wiki_editor:}}
 <div class="plugin_wiki_info">Last modified by {{=db.plugin_wiki_page.modified_by.represent(page.modified_by)}} {{=prettydate(page.modified_on)}} 
 
 [<a href="{{=URL(r=request,f='page_history',args=page.slug)}}">history</a>]
-[<a href="{{=URL(r=request,c='plugin_wiki', f='edit_page',args=page.slug)}}">edit</a>]</div>
+[<a href="{{=URL(r=request,c='plugin_wiki', f='edit_page',args=page.slug)}}">edit</a>]
+</div>
 {{pass}}
 </div>
 </div>
 <script>
-var ell=$('#popupsearch');
-if (ell){
-var ellpos_original=ell.offset().top;
+var el=$('#popupsearch');
+if (el){
+var elpos_original=el.offset().top;
 }
 var er=$('#popuplist');
 if (er){
 var erpos_original=er.offset().top;
 }
 $(window).scroll(function (){
-    var elpos = ell.offset().top;
+    var elpos = el.offset().top;
     var erpos = er.offset().top;
     var windowpos = $(window).scrollTop();
     var finaldestination = windowpos;
-    if (ell){
-        if(windowpos<ellpos_original) {
-                finaldestination = ellpos_original;
-                ell.stop().css({'top':-100});
+    if (el){
+        if(windowpos<elpos_original) {
+                finaldestination = elpos_original;
+                el.stop().css({'top':10});
         } else {
-                ell.stop().animate({'top':finaldestination-ellpos_original-100},500);
+                el.stop().animate({'top':finaldestination-elpos_original+10},500);
         }
     }
     if (er){
         if(windowpos<erpos_original) {
                 finaldestination = erpos_original;
-                er.stop().css({'top':-100});
+                er.stop().css({'top':10});
         } else {
-                er.stop().animate({'top':finaldestination-erpos_original-100},500);
+                er.stop().animate({'top':finaldestination-erpos_original+10},500);
         }
     }
 });
 </script>
-

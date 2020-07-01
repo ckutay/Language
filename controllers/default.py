@@ -1,7 +1,6 @@
 # coding: utf-8
 import glob
 def index():
-
  redirect(URL(r=request, c='plugin_wiki', f='index.html'))
 
 @auth.requires_membership('editor')
@@ -20,10 +19,17 @@ def upload():
     else: page_number=1
     list=[]
     directories=[]
-    for path, subdirs, files in os.walk(fullpath):
+    options=db(db.plugin_wiki_tag.parent=="index").select(orderby=db.plugin_wiki_tag.id)
+    optionnames=[]
+    for option in options:
+        optionnames.append(option.name.replace(' ','_'))
+    options=optionnames
+    options=(set(options))
+    if request.args[0]=="sounds":
+      for path, subdirs, files in os.walk(fullpath):
     	for subdir in subdirs:
 	    directories.append(subdir)
-    for path, subdirs, files in os.walk(fullpath):
+      for path, subdirs, files in os.walk(fullpath):
 	for name in files:
 		relpath=os.path.relpath(path,fullpath)
 		if os.path.isfile(os.path.join(path,name)):	
@@ -31,31 +37,36 @@ def upload():
         		list.append( item)
 
     #list=os.listdir(fullpath)
-    sorted_list = sorted(list, key=lambda x: os.path.getmtime(os.path.join(fullpath,x['path'])))
-    options=db(db.plugin_wiki_tag.parent=="index").select(orderby=db.plugin_wiki_tag.id)
-    optionnames=[]
-    for option in options:
-	optionnames.append(option.name.replace(' ','_'))
-    options=optionnames
+      sorted_list = sorted(list, key=lambda x: os.path.getmtime(os.path.join(fullpath,x['path'])))
+
+    else:
+	sorted_list=images=dblanguage(dblanguage.images.id>0 and dblanguage.images.Community==auth.user.Community).select()
+        sorted_list=sorted_list.sort(lambda row: row.category,reverse=True)	
+	sorted_list=sorted_list.as_list()
+	for category in sorted_list:
+		category["path"]=category["filename"]
     if request.vars:
 	if request.vars.file!=None:
 		tags=""
     		tags=request.vars.type
-
+		filetitle=request.vars.fileTitle
         	filename= request.vars.file.filename
-		filepath= os.path.join(fullpath,tags,filename)
+		filepath= os.path.join(fullpath,filename)
         	dest_file=open(filepath,'wb')
 		shutil.copyfileobj(request.vars.file.file,dest_file)
         	dest_file.close()
+		filenameShort=os.path.splitext(filename)[0]
+		if (not filetitle): filetitle=filenameShort
+		dblanguage.images.insert(name=filenameShort,title=filetitle,filename=filename,category=tags,Community=auth.user.Community)
     return dict(list=sorted_list,directories=directories, options=options,page_number=page_number, type=request.args(0))
 
 def images():
     subdirectory = 'uploads/media/images/'# directory
-    filename = request.args(0)
+    filename = r"%s" %(request.args(0))
     fullpath = os.path.join(subdirectory, filename)
     if request.args(1):
-            filenameadd = request.args(1)
-            fullpath = os.path.join(fullpath, filenameadd)
+             filenameadd = r"%s" %  (request.args(1))
+             fullpath = os.path.join(fullpath, filenameadd)
     response.stream(os.path.join(request.folder,fullpath))
 
 def video():
@@ -210,7 +221,7 @@ def _diff():
 def _create():
     db.plugin_wiki_page.title.requires.append(
         IS_NOT_IN_DB(db, 'page.title',
-                     error_message=T('This page titele already exists!'))
+                     error_message=T('This page title already exists!'))
     )
     form = crud.create(db.plugin_wiki_page, next='_pages')
     if len(request.args): form.custom.widget.title['_value'] = request.args[0]
@@ -313,18 +324,22 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
+    message=None
+    if request.env.http_referrer:
+   	auth.settings.login_next =redirect(request.env.http_referrer)
 
-def user():
-	from gluon.tools import Mail
-	form=auth()
-	if request.args(0)=='register':
+    from gluon.tools import Mail
+    form=auth()
+    if request.args(0)=='register':
                if form.accepts(request.vars, session):
                    try: 
                         mail=Mail()
                         mail.settings.server=EMAIL_SERVER+":25"
                         mail.settings.sender=EMAIL_SENDER
-                        mail.send(to=[EMAIL_SENDER],subject="Registration for approval",             message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://www.irca.net.au/appadmin/update/db/auth_user/registration_key/pending'% {'email' : form.vars.email})
-                        session.flash=T("Your registration is being held for approval")
+                        mail.send(to=[EMAIL_SENDER],subject="Registration for approval", message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://bundjalung.dalang.com.au/appadmin/update/db/auth_user/registration_key/pending'% {'email' : form.vars.email})
+                        system.flash=T("Your registration is being held for approval")
+			EMAIL_RECIPIENT="%(email)s" % {'email':form.vars.email}
+			mail.send(to=[EMAIL_RECIPIENT],subject="Language Registration being held for approval",  message="Registration for language site. Your registration is being held for approval")
 
                    except:
 		    	session.flash=T("Mail being held for approval")
@@ -332,48 +347,18 @@ def user():
                    	redirect(URL(r=request, c='plugin_wiki', f='index'))
  	    	   db.auth_user[form.vars.id] = dict(registration_key='pending')
 	       else:
+			session.flash=T("Error in your entry eg Password and confirm Password  must match")
 			form=auth.register()
-        elif request.args(0)=='login':
+    elif request.args(0)=='login':
 		if request.env.http_referrer:
 
 			auth.settings.login_next =redirect(request.env.http_referrer)
 		return dict(form=auth.login())
 
-	else:
+    else:
 		if request.env.http_referrer:
     			auth.settings.login_next =redirect(request.env.http_referrer)
-        return dict(form=form)
-
-def _user():
-   #without layout and need to direct form to this method
-        from gluon.tools import Mail
-        form=auth()
-	if request.args(0)=='register':
-                if form.accepts(request.vars, session):
-                   try:
-                        mail=Mail()
-                        mail.settings.server=EMAIL_SERVER+":25"
-                        mail.settings.sender=EMAIL_SENDER
-                        mail.send(to=[EMAIL_SENDER],subject="Registration for approval",             message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://www.irca.net.au/appadmin/update/db/auth_user/registration_key/pending'% {'email' : form.vars.email})
-                        session.flash=T("Your registration is being held for approval")
-
-                   except:
-                        session.flash=T("Mail being held for approval")
-
-                        redirect(URL(r=request, c='plugin_wiki', f='index'))
-                   db.auth_user[form.vars.id] = dict(registration_key='pending')
-
-        elif request.args(0)=='login':
-                if request.env.http_referrer:
-
-                        auth.settings.login_next =redirect(request.env.http_referrer)
-		form=auth.login()
-		redirect (URL('user',args='login'))
-
-        else:
-                if request.env.http_referrer:
-                        auth.settings.login_next =redirect(request.env.http_referrer)
-        return dict(form=form)
+    return dict(form=form, message=message)
 
 
 
@@ -391,9 +376,9 @@ def download():
 
     response.headers['Content-Type']=contenttype(filename)
     if type:
-	return open(os.path.join(request.folder,'uploads/','%s/%s' % (type, filename )),'rb').read()
+	return open(os.path.join(request.folder,'uploads/media/','%s/%s' % (type, filename )),'rb').read()
     else:
-        return open(os.path.join(request.folder,'uploads/','%s' % filename),'rb').read()
+        return open(os.path.join(request.folder,'uploads/media/','%s' % filename),'rb').read()
 
 def _download(): return response.download(request, db)
 

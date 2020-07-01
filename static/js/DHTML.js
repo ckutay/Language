@@ -17,7 +17,6 @@ hp = document.getElementById("popupword");
 function writeList(){
   hp = document.getElementById("popuplist");
   hp.style.display="block";
-
 }
 function writeSearch(){
   hp = document.getElementById("popupsearch");
@@ -25,10 +24,17 @@ function writeSearch(){
   hp.style.float="left";
 
 }
-
-function stopText(el){
-hp = document.getElementById(el);
-hp.style.display="none";
+function stopText(){
+hp=document.getElementById("popupword");
+         hp.innerHTML="";
+        hp.style.display="none";
+        hp.style.width="0%";
+}
+function stopText(component){
+hp = document.getElementById(component);
+         hp.innerHTML="";
+        hp.style.display="none";
+        hp.style.width="0%";
 }
 function DHTMLText(text){
  
@@ -39,14 +45,21 @@ function DHTMLText(text){
      }
   if (navigator.appName == "Microsoft Internet Explorer")
 
-        hp.innerHTML=text+' <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+        hp.innerHTML=text+' <a onclick="<div style="float:right;"><a onclick=stopText("popupword") >Close</a><\div>';
   else if (navigator.appName != "Netscape")
 
-        hp.innerHTML=text+' <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+        hp.innerHTML=text+' <div style="float:right;"><a onclick=stopText("popupword")  >Close</a><\div>';
   else
 
-        hp.innerHTML=text+' <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div> ';
+        hp.innerHTML=text+' <div style="float:right;"><a onclick=stopText("popupword")   >Close</a><\div> ';
 
+
+
+}
+
+function  DHTMLSoundnoTextFull(surl){
+
+	DHTMLSound(surl,"");
 
 
 }
@@ -54,21 +67,41 @@ function DHTMLSound(surl,text) {
 
    hp=document.getElementById("popupword");
      if(hp) {
-	    hp.style.display="block";
+	    hp.style.display="none";
 		hp.style.width="35%";
 	}
   if (navigator.appName == "Microsoft Internet Explorer")
 
-    	hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <a onclick="stopText()" href="#"> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+    	hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <div style="float:right;"><a onclick=stopText("popupword")  >Close</a><\div>';
   else if (navigator.appName != "Netscape")
 
-	hp.innerHTML=text+' '+'<audio controls autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div>';
+	hp.innerHTML=text+' '+'<audio controls="None" autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText("popupword")  >Close</a><\div>';
   else
 
-	hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword") href="#"  >Close</a><\div> ';
+	hp.innerHTML=text+' '+'<audio controls="None" autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword")  >Close</a><\div> ';
 
 }
 
+function DHTMLFrontSound(surl,text) {
+	console.log("Front page Sound file");
+   hp=document.getElementById("popupword");
+     if(hp) {
+            hp.style.display="block";
+	 hp.style.background="grey";
+                hp.style.width="100%";
+        }
+   surl="/Dharug/sounds/"+surl;
+  if (navigator.appName == "Microsoft Internet Explorer")
+
+        hp.innerHTML=text+' '+surl+'<BGSOUND SRC="' + surl+ '"  type="audio/mpeg"> <div style="float:right;"><a onclick=stopText("popupword")  ></a><\div>';
+  else if (navigator.appName != "Netscape")
+
+        hp.innerHTML=text+' '+'<audio controls autoplay> <source src="' + surl+ '"     type="audio/mpeg"></audio> <div style="float:right;"><a onclick=stopText("popupword")  ></a><\div>';
+  else
+
+        hp.innerHTML=text+' '+'<audio controls autoplay> <source height="30px" src="' + surl+ '"    type="audio/mpeg"></audio><div style="float:right;"><a onclick=stopText("popupword")  ></a><\div> ';
+
+}
 function DHTMLVideo(vurl){
  hp=document.getElementById("popupword");
 

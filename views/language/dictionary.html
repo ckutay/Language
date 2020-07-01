@@ -59,7 +59,7 @@
 <h4>
     <p><strong>The Search parameters used are:</strong>
     </p><p>
-    Search word: {{=exact}}
+    Search word: {{=query}}
 </p><p>
 Search Type: {{=sort}}
 </p><p>
@@ -77,9 +77,9 @@ All dialects{{pass}}
             </h3>
             <table class="table table-condensed text-left">
                 <tr>
-                    <td>{{=A(language,_href=URL(r=request, c='language', f='dictionary', args=language,vars=request.vars))}}</td>
-                    <td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English', vars=request.vars))}}</td>
-                    <td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category', vars=request.vars))}}</td>
+                    <td>{{=A(language,_href=URL(r=request, c='language', f='dictionary', args=language,vars={'query':request.vars['query'],'type':language,'dialect':request.vars['dialect']}))}}</td>
+                    <td>{{=A('English',_href=URL(r=request, c='language', f='dictionary', args='English', vars={'query':request.vars['query'],'type':'English','dialect':request.vars['dialect']}))}}</td>
+                    <td>{{=A('Category',_href=URL(r=request, c='language', f='dictionary', args='Category', vars={'numeric':'Exact','query':request.vars['query'],'type':'Category','dialect':request.vars['dialect']}))}}</td>
 			<td>{{=A('Dialect',_href=URL(r=request, c='language', f='dictionary', args='Dialect' ,vars=request.vars))}}</td><td></td>
                     <td></td>
                 </tr>

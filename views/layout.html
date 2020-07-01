@@ -153,8 +153,26 @@ $(document).ready(function() {
           {{pass}}
         </ul>
         </li>
+ {{ elif _name=="Teaching" :}}
 
-   {{ elif _name=="Uploads" :}}
+    <li class ="dropdown">
+        <a href="{{=_link}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{=_name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          {{for _name,_active,_link in response.menuTeaching:}}
+            <li><a href="{{=_link}}">{{=_name}}</a></li>
+          {{pass}}
+        </ul>
+        </li>
+{{ elif _name=="Help" :}}
+  <li class ="dropdown">
+        <a href="{{=_link}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{=_name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          {{for _name,_active,_link in response.menuProfile:}}
+            <li><a href="{{=_link}}">{{=_name}}</a></li>
+          {{pass}}
+        </ul>
+        </li>  
+ {{ elif _name=="Uploads" :}}
   <li class ="dropdown">
         <a href="{{=_link}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{=_name}}<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -170,6 +188,7 @@ $(document).ready(function() {
   {{  else:}}
       <li><a href="{{=_link}}" >{{=_name}}</a></li>
    {{pass}}
+
 {{pass}}
 </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -237,7 +256,7 @@ $(document).ready(function() {
               <p> This project is an initiative of:
  <img src="/Bundjalung/static/images/ILSlogo.jpg" height="60px"></a>
 <p> Supported through the Australian Government’s Indigenous Languages Support program and New Media program. Copyright &copy; Muurrbay Aboriginal Language and Culture Cooperative</p></a>
-		<p>Image by Sharon Smith. For more information contact <a href="mailto:gary.williams@muurrbay.org.au">Muurrbay</a>
+		<p>Image by Sharon Smith. For more information contact <a href="mailto:admin@muurrbay.org.au">Muurrbay</a>
             </div>
       <div class="col-sm-4">    </div>
       </div>

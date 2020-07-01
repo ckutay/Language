@@ -164,16 +164,17 @@ db.define_table('plugin_wiki_attachment',
 
 db.define_table('resources',
                 Field('id', 'integer',writable=False,readable=False),
-                Field('slug','string',length=50),
+                Field('slug','string',length=100),
 
                 Field('name','upload',requires=IS_NOT_EMPTY(),autodelete=True),
-                Field('title','string',length=50),
+                Field('title','string',length=100),
                 Field('file','string',length=100),
 
                 Field('Collected_by','string',length=100),
 		Field('description','string', length=500),
 		Field('Public','boolean', default=False),
                 Field('Active','boolean', default=False),
+                Field('Teaching','boolean', default=False),
 		migrate=plugin_wiki_migrate)
 
 db.define_table('elan',
@@ -187,6 +188,14 @@ db.define_table('elan',
                 Field('end','float',length=100),
                 migrate=plugin_wiki_migrate)
 
+
+db.define_table('lesson',
+                Field('id', 'integer',writable=False,readable=False),
+                 Field('name','string',length=100),
+                Field('resource_id','integer',length=11,requires=IS_IN_DB(db,'region.id')),
+
+                 Field('timestamp',default=now),
+                migrate=plugin_wiki_migrate)
 
 db.define_table('plugin_wiki_comment',
                 Field('tablename',

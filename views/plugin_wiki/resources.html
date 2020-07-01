@@ -1,5 +1,20 @@
 {{extend 'layout.html'}}
 <p></p>
+{{if teachNum=='2':}}
+<h4>Teaching Material</h4>
+<p>
+These sound recordings can be used in Picture-Talk classes, and are designed to help teachers with the language to be used with a set of pictures that you will need to assemble yourselves. </p>
+<p>
+For example, to start with you will need a picture of a man, a woman, a girl and a boy. Then you will need pictures of a bird, a dog, a kangaroo and a fish (or other animals, but 4 different ones) and then of a house, canoe, fire and tree (or other objects) etc. 
+</p>
+<p>They are very useful as a way to start to learn to put words together to make phrases and sentences using a method based on Accelerated Second Language Acquisition©™(ASLA) teaching methodology developed by Stephen Neyooxet Greymorning. </p>
+<p>If you are planning to use this method, you will probably need to attend a workshop on the method if you have not already done so. It is a great way of learning to put sentences together, but you do need to understand the system properly to use it well. </p>
+<p>If you would like more information about this, please contact us a Muurrbay www.muurrbay.org.au
+</p>
+{{else:}}
+<p>The items listed below are the archival tapes of Bundjalung language. You may wish to listen to thse for immersion in language. Also those tapes that are transcribed will be linked to the word when it appears on the web pages</p>
+
+{{pass}}
 <h2><strong>
 Resources on site:
 </strong></h2>
@@ -10,6 +25,6 @@ Resources on site:
 <br>
 Collected by {{=resource.Collected_by}}
 <br>
-<a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Listen to file with transcript</a>
+<a href={{=URL(c="plugin_wiki", f="resource", args=resource.title)}}>Listen to tape, some tapes are transcribed into separate words</a>
 <br>
 {{pass}}

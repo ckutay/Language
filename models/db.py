@@ -2,9 +2,9 @@
 from gluon.custom_import import track_changes; track_changes(True)
 from gluon import *
 
-EMAIL_SERVER='cities.org.au:25'
-EMAIL_SENDER='ckutay@cities.org.au'
-EMAIL_AUTH="ckutay@cities.org.au:none"
+EMAIL_SERVER='127.0.0.1:25'
+EMAIL_SENDER='contact@email'
+EMAIL_AUTH=None
 
 RECAPTCHA_PUBLIC_KEY='6LefJwQAAAAAAEuj02bmS2LgiZiPhGBqKP1kbn26'
 RECAPTCHA_PRIVATE_KEY='6LefJwQAAAAAAPcK2G6SO_pyJDegHi58J41bEVrV'
@@ -14,7 +14,6 @@ from gluon.validators import Validator
 #distiguish in dictionary or not
 
 languageList=None
-
 class SlugValidator(Validator):
     def __call__(self, value):
         return (value.replace(' ', '_'), None)
@@ -26,14 +25,14 @@ try:
     from gluon.contclw.gql import *  # if running on Google App Engine
 except:
     #db = SQLDB('sqlite://storage.db')  # if not, use SQLite or other DB
-    dblanguage= DAL('mysql://language_admin:budyari@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
+    dblanguage= DAL('mysql://user:password@localhost/language', pool_size=0,migrate=False, fake_migrate=True)
 
-    db= DAL('mysql://language_admin:budyari@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
+    db= DAL('mysql://user:password@localhost/'+language, pool_size=0,migrate=False, fake_migrate=True)
 
 session.connect(request, response, db=db)  # and store sessions there
 
 import sys, nltk, re, pprint # NLTK and related modules -- are these all needed?
-from  nltk.tokenize.punkt import PunktSentenceTokenizer
+#from  nltk.tokenize.punkt import PunktSentenceTokenizer
 
 
 from gluon.tools import *
@@ -47,18 +46,18 @@ logger.setLevel(logging.DEBUG)
 auth = Auth(db)
 
 mail =  Mail()
+mail = auth.settings.mailer
 mail.settings.server = EMAIL_SERVER
 mail.settings.sender =  EMAIL_SENDER
 mail.settings.login = EMAIL_AUTH
 mail.settings.tls = False
-#mail.settings.login = 'username:password'
 auth.settings.mailer=mail
 
 service = Service()
 plugins = PluginManager()
 
 ## configure auth policy
-auth.settings.registration_requires_verification = True
+##auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = True
 auth.settings.reset_password_requires_verification = True
 
@@ -72,21 +71,22 @@ response.start=True
 
 auth.settings.captcha = None
 #Recaptcha(request, RECAPTCHA_PUBLIC_KEY,          RECAPTCHA_PRIVATE_KEY)
-auth.settings.login_url = URL(r=request, c='default', f='_user', args='login')
+auth.settings.login_url = URL(r=request, c='default', f='user', args='login')
 auth.settings.logged_url = URL(r=request, c='default', f='user', args='profile')
 auth.settings.login_next=URL(r=request, c='plugin_wiki', f='index')
 auth.settings.logout_next=URL(r=request, c='plugin_wiki', f='index')
-auth.settings.verify_email_next = URL(r=request, c='default', f='user', args='login')
+auth.settings.verify_email_next = URL(r=request, c='plugin_wiki', f='index')
 auth.settings.create_user_groups = False
-auth.settings.register_onaccept=lambda form: mail.send(to=EMAIL_SENDER,subject='New Registration',
-             message='Registration requires approval. New user id number is %s'%form.vars.id)
+auth.settings.register_onaccept=lambda form: mail.send(to=EMAIL_SENDER,subject='New Registration',     message='Registration requires approval. New user email is %(email)s. Click on link to view pending requests: http://bundjalung.dalang.com.au/appadmin/update/db/auth_user/%(id)s'% {'email' : form.vars.email, 'id': form.vars.id})
+auth.settings.registration_requires_verification = True
 
 crud = Crud(globals(), db) #for CRUD helpers using auth
 #crud.settings.auth = auth # (optional) enforces authorization on crud
 
-auth.messages.verify_email = 'Click on the link:\n https://www.web2py.com' + \
+auth.messages.verify_email = 'Click on the link:\n https://bundjalung.dalang.com.au' + \
     URL(r=request, c='default', f='user/verify_email') +  '/%(key)s\n' + \
     'to verify your email'
+auth.messages.verify_email = 'We will approve your registration soon'
 
 who = default = auth.user.id if auth.is_logged_in() else 0
 now = request.now
@@ -128,7 +128,8 @@ db.define_table(auth.settings.table_user_name,
     Field('registration_id', 'integer',readable=False, writable=False),
     Field('reset_password_key', length=512,
           writable=False, readable=False, default=''),
-    Field('Role_Name','string',default=''), 
+    Field('Role_Name','string',default='student',writable=False), 
+    Field('Community','string',default='Muurrbay'),
 	migrate=False)
 
 custom_auth_table = db[auth.settings.table_user_name] # get the custom_auth_table
@@ -137,15 +138,12 @@ custom_auth_table.first_name.requires = \
 custom_auth_table.last_name.requires = \
   IS_NOT_EMPTY(error_message=auth.messages.is_empty)
 custom_auth_table.Role_Name.requires = IS_IN_SET(['student', 'teacher', 'editor'])
+custom_auth_table.Community.requires = IS_IN_DB(db, 'region.name', '%(name)s')
 
 custom_auth_table.password.requires = [CRYPT()]
 custom_auth_table.email.requires = [
   IS_EMAIL(error_message=auth.messages.invalid_email),
   IS_NOT_IN_DB(db, custom_auth_table.email)]
-
-#custom_auth_table.ALC_Name.requires=(IS_IN_DB(dblanguage,'ALCS.ALC_Name','%(ALC_Name)s') or '')
-#custom_auth_table.CLW_Name.requires=(IS_IN_DB(dblanguage,'CLW.CLW','%(CLW)s') or '')
-#custom_auth_table.CLW_Name.requires=IS_IN_SET([dblanguage]  ,error_message=T('Please select CLW or ALC '))
 
 
 def represent_author(id_):
@@ -196,6 +194,7 @@ db.document.slug.requires = IS_IN_DB(db, 'page.slug', '%(title)s')
 db.document.name.requires = IS_NOT_EMPTY()
 db.document.file.requires = IS_NOT_EMPTY()
 db.document.created_by.represent = represent_author
+
 ## slide show imafes
 db.define_table('image',
                 Field ('id', 'integer'),
@@ -208,15 +207,46 @@ db.define_table('topics',
                 Field ('id', 'integer'),
                 Field ('page_id', 'integer'),
                 Field ('English', 'string'),
-                Field ('Language', 'string')
+                Field ('Language_Word', 'string')
 )
-db.topics.page_id.requires = IS_IN_DB(db, 'page.id')
+db.define_table('message_store',
+
+                Field ('id', 'integer'),
+                Field ('email', 'email'),
+                Field ('subject', 'string'),
+                Field ('message', 'text')
+)
+db.message_store.email.requires=IS_EMAIL(error_message='Please enter email')
+
+db.topics.page_id.requires = IS_IN_DB(db, 'page.id', '%(id)s')
 db.define_table('dialect',
 	Field('id',  'integer' , requires=IS_NOT_EMPTY() ),
 	Field('name'),
 	Field('color'),
 	Field('next'),
 	migrate=False
+)
+## dialect regions
+db.define_table('region',
+                Field('id', 'integer',writable=False,readable=False),
+                 Field('name','string',length=100, default='Muurrbay'),
+                Field('dialect_id','integer',length=11,requires=IS_IN_DB(db,'dialect.id')),
+)
+db.region.dialect_id.requires = IS_IN_DB(db, 'dialect.id' , '%(id)s')
+
+db.define_table('Lesson',
+        Field ('id','integer', requires=IS_NOT_EMPTY() ),
+        Field ('page_id', 'integer'),
+
+        Field('name'),
+        Field('community'),
+        Field('description'),
+        migrate=False
+)
+db.define_table('Lesson_word',
+        Field('lesson_id', requires=IS_IN_DB(db, 'Lesson.id', '%(id)s')),
+        Field('language_id', requires=IS_IN_DB(dblanguage, 'Dharug.id', '%(id)s')),
+        migrate=False
 )
 
 
@@ -258,7 +288,6 @@ else:
         Field('RelatedWord'),
         Field('Image'),
         Field('SoundFile'),
-	Field('Lesson'),
         migrate=False
         )
    dblanguage.define_table (language+"_archive",
@@ -272,7 +301,11 @@ dblanguage.define_table('images',
                 Field('title',requires=IS_NOT_EMPTY()),
                 Field('filename','upload',requires=IS_NOT_EMPTY(),autodelete=True),
 		Field('category','string'),
+		Field( 'Community','string',default='Muurrbay'),
                 migrate=False)
+images= dblanguage['images']
+images.Community.requires = IS_IN_DB(db, 'region.name', '%(name)s')
+
 dblanguage.define_table (language+'Examples',
 
         Field('id', 'integer' , readable=False, writable=False),
@@ -331,13 +364,19 @@ response.title = T('Bundjalung-Yugambeh Dictionary')
 response.menuTop = [
         ['Home', False, URL(r=request, c='plugin_wiki', f='index.html')],
         ['About Us', False, URL(r=request, c='plugin_wiki',f='page', args='about_us')],
-     ['Dictionary', False, URL(r=request, c='language',f='dictionary')],
+     ['Interactive Dictionary', False, URL(r=request, c='language',f='dictionary')],
 	['Resources', False, URL(r=request, c='plugin_wiki', f='resources')],
+	['Teaching', False, URL(r=request, c='learning', f='pages')],
+
 
 	['Help', False, URL(r=request,c='plugin_wiki', f='tags_by_tag', args='17')],
         ['Contact', False, URL(r=request, c='plugin_wiki', f='contact')],
      ]
+response.menuTeaching=[
+	['Pages', False, URL(r=request, c='learning', f='pages')],
+	['Resources', False, URL(r=request, c='plugin_wiki', f='resources', args='2')],
 
+]
 response.menuAbout = [
       ['People', False, URL(r=request, c='plugin_wiki', f='page', args='people')],
       ['Traditional country', False, URL(r=request, c='plugin_wiki', f='page', args='traditional_country')],
@@ -349,14 +388,15 @@ response.menuAbout = [
 ]
 response.menuResource=[
       ['Dictionary Book', False, URL(r=request, c='plugin_wiki', f='page', args='dictionary')],
+ ['Grammar', False, URL(r=request, c='plugin_wiki', f='page', args='bundjalung-yugambeh_grammar')],
       ['Language Resources', False, URL(r=request, c='plugin_wiki', f='resources')],
-      ['Written examples', False, URL(r=request, c='plugin_wiki', f='page', args='written_examples_of_the_language')],
-      ['Work Sheets', False, URL(r=request,c='learning',f='pages')],
-    ]
+      ['Written examples', False, URL(r=request, c='plugin_wiki', f='page', args='written_examples_of_the_language')]
+]
 response.menuUploads=[
 	['Audio Files',False,URL(r=request, c='default', f='upload', args='sounds')],
 	['Images', False, URL(r=request, c='default', f='upload', args='images')]
 ]
+response.menuProfile=[['Help Pages', False, URL(r=request,c='plugin_wiki', f='tags_by_tag', args='17')]]
 
 response.menuLogin=[
       ['Login', False, URL(r=request, c='default' , f='_user', args='login')],
@@ -364,22 +404,23 @@ response.menuLogin=[
     
 if auth.is_logged_in():
 
-       	response.menuTop.insert(4,
+       	response.menuTop.insert(5,
                    ['Uploads', False, URL(r=request, c='default', f='uploads')])
-	response.menuTop.insert(5,
-
-		['Change Password', False, URL(r=request, c='default', f='user', args='change_password')])
 
 	response.menuLogin=[
 	      ['Logout', False, URL(r=request, c='default', f='user', args='logout')],
 	    ]
 	if (auth.user.Role_Name=="editor"):
 
- 		response.menuTop.insert(4,
+ 		response.menuProfile.insert(1,
 		     ['Edit Profile', False, URL(r=request, c='default', f='user', args='profile')])
-    	elif (auth.has_membership(auth.id_group('developer'))):
-		response.menuTop.insert(4,
-        		['Accept Regos', False, URL(r=request, c='appadmin', f='update', args="db.auth_user/registration_key/pending")])
+	response.menuProfile.insert(2,
+
+                ['Change Password', False, URL(r=request, c='default', f='user', args='change_password')])
+
+    	if (auth.has_membership(auth.id_group('editor'))):
+		response.menuTop.insert(6,
+        		['Accept Regos', False, URL(r=request, c='appadmin', f='select', args='db',vars={'query':'db.auth_user.registration_key>""'} )])
 
 def menu_rec(items):
     return [(x.title,None,URL('default', 'menu',

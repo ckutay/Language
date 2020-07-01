@@ -1,35 +1,35 @@
 {{extend 'layout.html'}}
 {{if resource:}}
-<h3>{{=resource.title}}</h3>
+<h3>{{=resource["title"]}}</h3>
 <br>
-Collected by {{=resource.Collected_by}}
+Collected by {{=resource["Collected_by"]}}
 <br>
 {{if resource_name!="":}}
-{{=resource.description}}
+{{=resource["description"]}}
 <br>
-<a href={{=URL(c="plugin_wiki", f="edit_resource", args=resource.title)}}>Edit Resource Details</a>
+<a href={{=URL(c="plugin_wiki", f="edit_resource", args=resource["title"])}}>Edit Resource Details</a>
 <br>
 <br>
-
-<h4>Upload Elan Transcription File (ELAN export as Toolbox file '.tbt') for this Collection</h4>
-<form method="post" action={{=URL(c="plugin_wiki", f="upload_elan", args=resource.id)}} enctype="multipart/form-data">
+{{if auth.user and auth.user.Role_Name=="editor":}}
+<h4>If you upload Elan Transcription File (ELAN export as Toolbox file '.tbt') for this Collection this will show as sound bites</h4>
+<form method="post" action={{=URL(c="plugin_wiki", f="upload_elan", args=resource["id"])}} enctype="multipart/form-data">
 <input type="file" name="elan" >
-<input type="hidden" name="id" value={{=resource.id}}>
+<input type="hidden" name="id" value={{=resource["id"]}}>
 <input type="submit">
 </form>
+{{pass}}
 <br>
 <audio controls>
   <source src={{=URL(c="default", f="filedown", args=resource_name)}} type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
 <br>
-{{if transcription:}}
+{{if transcription and ((auth.user and auth.user.id==2) or resource["Teaching"]=="0"):}}
 <audio id="silence">
 <source src={{=URL(c="default", f="filedown", args="file/silence.mp3")}} type="audio/mpeg">
 </audio>
 <div class="col-sm-12">
 <table class="formatTable"><tbody>
-
 {{for row in transcription:}}
 {{if row.end>0:}}
 <!---remove empty trnascription-->
@@ -39,9 +39,7 @@ Your browser does not support the audio element.
 {{=row.translation}}
 </td><td>
 </script>
-
 <audio id={{=row.id}} preload="none">
-
   <source src={{=URL(c="default", f="filedown", args=resource_name)}}#t={{=row.start}},{{=row.end}} type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
@@ -62,15 +60,22 @@ $('#{{=row.id}}').bind('timeupdate',function() {
 });
 
 </script>
-<button onclick="$('#silence').bind('ended',function(){});document.getElementById({{=row.id}}).play();document.getElementById({{=row.id}}).currentTime={{=row.start}};">Play</button>
+<button onclick="$('#silence').bind('ended',function(){});document.getElementById({{=row.id}}).play();document.getElementById({{=row.id}}).currentTime={{=row.start}};document.getElementById('{{=row.id}} btn').style.color='red';">Play</button>
 </td><td>
-    <button onclick="document.getElementById({{=row.id}}).pause();document.getElementById({{=row.id}}).currentTime={{=row.start}};document.getElementById({{=row.id}}).pause();  $('#silence').replaceWith($('#silence').clone());">Stop</button>
+    <button id='{{=row.id}} btn' onclick="document.getElementById({{=row.id}}).pause();document.getElementById({{=row.id}}).currentTime={{=row.start}};document.getElementById({{=row.id}}).pause();document.getElementById('{{=row.id}} btn').style.color='';  $('#silence').replaceWith($('#silence').clone());">Stop</button>
 </td></tr>
 {{pass}}
 {{pass}}
 </tbody></table>
 {{else:}}
 <div class="col-sm-4">
+{{if resource["file"]!="":}}
+</div><div >
+
+<iframe width=100% height=1000px seamless=true src={{=URL(c="default", f="doc", args=resource["file"])}}>
+
+</iframe>
+</div>
 {{pass}}
 {{pass}}<br>
 {{if page and page.body!="":}}
@@ -80,21 +85,12 @@ Time aligned Transcription:
 {{=XML(plugin_wiki.render(page.body))}}
 <br>
 {{pass}}
-<!--
-{{if resource.file:}}
-<a href={{=URL(c="plugin_wiki", f="edit_resource_transcript", args=resource.title)}}>Edit Time Aligned Transcript</a>
+{{if resource["file"]:}}
+<a href={{=URL(c="plugin_wiki", f="edit_resource_transcript", args=resource["title"])}}>Edit Time Aligned Transcript</a>
 {{pass}}
--->
 <br>
 
 </div>
-{{if not transcription:}}
-{{if resource.file!="":}}
-<div class="col-sm-8">
-<iframe width=100% height=1000px seamless=true src={{=URL(c="default", f="doc", args=resource.file)}}>
-
-</iframe>
 </div>
-{{pass}}
 {{pass}}
 {{pass}}

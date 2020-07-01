@@ -52,124 +52,33 @@
 {{if page.worksheet:}}
     <div class="col-sm-4">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="height:200px;">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
+    {{i=-1}}
+{{for option in options:}}
+{{option}}
+{{i+=1}}
+        <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading{{=i}}">
                     <h4 class="panel-title">
-                        <span data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Actions</span>
+                        <span data-toggle="collapse" data-parent="#accordion" href="#collapse{{=i}}" aria-expanded="true" aria-controls="collapse{{=i}}">{{=option}}</span>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div id="collapse{{=i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{=i}}">
                     <div class="panel-body" style="max-height:300px;overflow-y:scroll;">
                     {{for image in images:}}
-			{{if image.category=="action":}}
+			{{if image.category==option:}}
 			<img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
 			{{pass}}
 			{{pass}}
 			</div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Human</span>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="human":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Object</span>
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="object":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>
-                </div>
-            </div>
-   <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFour">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Plant</span>
-                    </h4>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="plant":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>          
-                </div>
-            </div>
+{{pass}}
 
-   <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFive">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Animal</span>
-                    </h4>
-                </div>
-                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="animal":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>          
-                </div>
-            </div>
-
-
-   <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingSix">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Place</span>
-                    </h4>
-                </div>
-                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="place":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>          
-                </div>
-            </div>
-   <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingSeven">
-                    <h4 class="panel-title">
-                        <span class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">Bird</span>
-                    </h4>
-                </div>
-                <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
-                    <div class="panel-body">
-                    {{for image in images:}}
-                        {{if image.category=="bird":}}
-                        <img src={{=URL(r=request, c="default",f="images",args=image.filename)}} height="50" />
-                        {{pass}}
-                        {{pass}}
-</div>          
-                </div>
-            </div>
 
         </div>
     </div>
+</div>
+</div>
 {{pass}}
 </div>
 {{if page.title!="index":}}

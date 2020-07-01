@@ -6,43 +6,6 @@
 <table>
 <b><tr><td>Short Name</td><td>Sector</td><td> Web URL</td><td>Created On </td><td></td></tr></b>
   <tr></tr>
-{{for alc in alcs:}}
-{{if (alc.Organisation=='ALC'):}}
-  <tr><td>{{=T(alc.ALC_Name)}}</td>
-    <td>{{=A(alc.ALC_Full_Name,_href=URL(r=request,f='alc',args=str(alc.id)))}}</td>
-    <td>{{=A(alc.Web_URL,_href=alc.Web_URL)}}</td>
-    <td>{{=alc.created_on}}</td>
-{{if auth.is_logged_in() :}}
-	<td>[{{=A('edit',_href=URL(r=request,c='plugin_gmap', f='edit_alc',args=alc.id))}}]</td>
-{{pass}}
- </tr>
-  {{pass}}
-{{pass}}
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr>
-{{for alc in alcs:}}
-<!--clumsy if exists one - do in controller -->
-{{if (alc.Organisation!='ALC'):}}
-<td></td>
-<td><h2>Other Community Language Organisations</h2>
-</td></tr>
-{{pass}}{{pass}}
-{{for alc in alcs:}}
-{{if (alc.Organisation!='ALC'):}}
-  <tr><td>{{=T(str(alc.ALC_Name))}}</td>
-
-    <td>{{=A(alc.ALC_Full_Name,_href=URL(r=request,f='alc',args=str(alc.id)))}}</td>
-    <td>{{=A(alc.Web_URL,_href=alc.Web_URL)}}</td>
-    <td>{{=alc.created_on}}</td>
-   {{if auth.is_logged_in() :}}
-	<td>[{{=A('edit',_href=URL(r=request,c='plugin_gmap', f='edit_alc',args=alc.id))}}]</td>
-{{pass}}
-  </tr>
-  {{pass}}
-{{pass}}
 
 </table>
-[{{=A(T('Create new ALC'), _href=URL(r=request, f='create_alc'))}}]
 

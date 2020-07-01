@@ -1,4 +1,4 @@
-          <div id="Search">
+<div id="Search">
                 <h2><b class="text1" >Search or translate sentence</b></h2>
                 <form method="get" id="getparse" action="{{=URL(r=request,c='learning', f='parser')}}">
                     <fieldset>
@@ -8,7 +8,8 @@
           
           <input size="50" type="text" id="s" name="query" value="" />
 <input type="submit" value="Search" />
-<a onclick=stopText('popupsearch') href="#"  >Close</a>
+<div style="float:right;">
+<a onclick=stopText('popupsearch')   >Close</a></div>
 </fieldset>
                 </form>
 {{if request.vars:}}

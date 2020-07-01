@@ -291,12 +291,12 @@ class PhoneticStemmer(StemmerI):
                 return False
         return True
 
-    def stemPh(self, word, hide_suffixes=True, show_translation=False):
+    def stem(self, word, hide_suffixes=True, show_translation=False):
         if hide_suffixes == True:
             return self.reduce_word(word)[0]
         else:
             return self.reduce_word(word, show_translation) 
     
-    #def stem(self, word):
-    #    return self.reduce_word(word)[0]
+    def stem(self, word):
+        return self.reduce_word(word)[0]
     

@@ -7,8 +7,7 @@
 # For license information, see LICENSE.TXT
 
 """
-altk -- the aboriginal language Toolkit -- is a added to NLTK, a suite of open source
-Python modules, data sets and tutorials supporting research and
+altk -- the aboriginal language Toolkit -- is a added to NLTK, a suite of open source Python modules, data sets and tutorials supporting research and
 development in natural indigneous language processing.
 
 @version: 0.1.2
@@ -51,7 +50,7 @@ __author_email__ = __maintainer_email__
 from dictionary import *
 from tagger import *
 from stemmer import *
-import sys, nltk, re, pprint # NLTK and related modules -- are these all needed?
+#import sys, nltk, re, pprint # NLTK and related modules -- are these all needed?
 
 
 

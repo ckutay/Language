@@ -5,10 +5,6 @@
 # -*- coding: utf-8 -*-
 # try something like
 
-import altk
-from altk.dictionary import *
-from altk.tagger import *
-from altk.stemmer import *
 import urllib
 import nltk, re, pprint # NLTK and related modules -- are these all needed?
 from nltk.corpus import abc
@@ -110,12 +106,9 @@ def parser():
     if not(request.vars):
     	return dict(wordlist=True, words=words)
     elif not(searchterm):
-    	redirect (URL(r=request,c="language",f="dictionary"))
+	return dict(wordlist=False, words=None, query=searchterm)
 
 ### add reference to example sentences
-    #wordlist=searchterm.split()
-    #for word in wordlist:
-#	pass
     if lang=="English":
 
           query= dblanguage.BundjalungExamples.English.contains(searchterm.split(), all=True)
@@ -137,35 +130,32 @@ def parser():
 	#redirect (URL(r=request,c="learning",f="parser",vars={'query':searchterm, 'lang':lang}))
 	redirect (URL(r=request,c="learning",f="parser"))
 ##else load dictionary
-    wd = dictionary.AboriginalLanguageDictionary()
-    ws = stemmer.AboriginalLanguageStemmer()
-
+    #wd = dictionary.AboriginalLanguageDictionary()
+   # ws = stemmer.AboriginalLanguageStemmer()
     if (words):
 	return dict(wordlist=False, words=words, query=searchterm)
     else:
-		newwords = PunktSentenceTokenizer().tokenize(searchterm)
-		words = []
+	return null
+	newwords = PunktSentenceTokenizer().tokenize(searchterm)
+	words = []
 	
-                for word in newwords:
+        for word in newwords:
                 	words+= [translate_word(word, lang, ws, wd)]   
-    		lang=[]
-    		english=[]
-    		pos=[]
-    		for word in words:
+    	lang=[]
+    	english=[]
+    	pos=[]
+    	for word in words:
                         printed_word = print_word(word)
                         lang.append(printed_word[0])
                         english.append(printed_word[1])
                         pos.append(printed_word[2])
-		leng=len(lang)
+	leng=len(lang)
 
-    		words=[lang,english,pos]
+    	words=[lang,english,pos]
     return dict(wordlist=True, words=words, query=request.vars.query)
 
 
 def pages():
-  if not auth.user:
-        redirect(URL(r=request, c='plugin_wiki', f='page',args='no_access'))
-  else:
     w = db.plugin_wiki_page
     t=db.plugin_wiki_tag
     taglist=db(t.id>0).select(orderby=t.id)
@@ -176,14 +166,13 @@ def pages():
                 pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
 
     if plugin_wiki_editor:
-                form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires),
-                             Field('from_template',requires=IS_EMPTY_OR(IS_IN_DB(db,db.plugin_wiki_page.title))))
+                form=SQLFORM.factory(Field('title',requires=db.plugin_wiki_page.title.requires))
                 if form.accepts(request.vars):
                         title=request.vars.title
                         page =db(w.title==title).select().first()
                         if not page:
                                 page = w.insert(slug=title.replace(' ','_'),
-                                title=title,
+                                title=title,worksheet="T",
                                 body=request.vars.template and w(slug=request.vars.template).body or '')
                         redirect(URL(r=request,c="plugin_wiki",f='edit_page',args=form.vars.title,vars=dict(template=request.vars.from_template or '')))
     else:
@@ -203,6 +192,10 @@ def page():
 
 
     w = db.plugin_wiki_page
+    if plugin_wiki_editor:
+            pages = db(w.worksheet==True).select(orderby=w.title)
+    else:
+                pages = db(w.worksheet==True)(w.is_public==True).select(orderby=w.title)
     page = w(slug=slug)
     #for template
     if (not page or not page.is_public or not page.is_active):
@@ -222,20 +215,75 @@ def page():
     page.attachments=db(query).select()
     page_body=page.body
     if (page.worksheet):
-	page_body = wsread_page(page)
+	    
+        page_body = wsread_page(page)
 	#   page=wsread_question(page_body, page)
     else:
 	page_body=page.body
     title=page.title
 
-    return dict(form="", title=page.title, page=page, page_body=page_body, slug=slug)
+    return dict(query=request.vars,form="", title=page.title, pages=pages, page=page, page_body=page_body, slug=slug)
 
 def list():
     page_id=request.args(0)
+    query=request.vars
+#pickup a query of two dimension, not sure why FIXME
+    #logging.warn(query)
+#get# new word and add
+    try:
+        word_id=query["word_id"]
+
+        word=dblanguage.Bundjalung(dblanguage.Bundjalung.id==word_id)
+        db.topics.insert(page_id=page_id,English=word.English,Language=word.Language_Word)
+        db.commit()  
+        newwords=None
+    except:
+        pass
+
+    words=[]  
     wl=wordlist(page_id)
-    if wl: words=wl['words'];
+    if wl: 
+	for word in wl['words']:
+		words.append({"English":word.English,"Language":word.Language_Word})
     else: wl=None
-    return dict(words=words, page_id=page_id)
+    #logging.warn(newwords)
+    return dict(words=words,  page_id=page_id)
+
+def addlist():
+    logging.warn("addlist")
+    page_id=request.args(0)
+    query=request.vars
+#pickup a query of two dimension, not sure why FIXME
+    #logging.warn(query)    
+#get new word and add
+    newwords=None
+    searchterm=None
+    try:
+        searchterm=query['query']
+    except:
+        pass
+ 
+    if query['lang']=="English" :
+
+                query=(dblanguage.Bundjalung.Search_English==searchterm)|dblanguage.Bundjalung.Search_English.startswith(searchterm+' ;')|dblanguage.Bundjalung.Search_English.startswith(searchterm+',')|(dblanguage.Bundjalung.Search_English.contains("; "+searchterm+' ' ))|(dblanguage.Bundjalung.Search_English.endswith("; "+searchterm))
+    else:
+                query= dblanguage.Bundjalung.Language_Word==searchterm
+
+	#get new word and add
+    newwords=[]
+    newword=dblanguage(query).select() 
+    if newword:
+        	lastword=newword[0]
+        	#db.topics.insert(page_id=page_id,English=lastword["English"],Language=lastword["Language_Word"])
+        	newwords.append({"English":lastword.English,"Language":lastword.Language_Word, "id":lastword.id})
+        	for word in newword:
+                	if word.Language_Word!=lastword.Language_Word:
+                	        newwords.append({"English":word.English,"Language":word.Language_Word, "id":word.id})
+                		lastword=word
+    
+   
+    #logging.warn(newwords)
+    return dict( newwords=newwords, page_id=page_id)
 
 
 
@@ -284,7 +332,7 @@ def edit_page_old():
         form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                        next=URL(r=request, c='plugin_wiki', f='index'))
     else:
-                form = crud.update(w, page, deletable=True, onaccept=crud.archive,
+		form = crud.update(w, page, deletable=True, onaccept=crud.archive,
                 next=URL(r=request,c='learning', f='page',args=slug))
 
     return dict(form=form,page=page,tags=tags, imageActions=imgActions, imageAll=imgAll,imageNames=imgNames)

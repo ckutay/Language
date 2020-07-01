@@ -2,7 +2,7 @@
 #
 # Author: Alistair Macleod
 
-import stemmer
+from . import stemmer
 from gluon import *
 import sys 
 class AboriginalLanguageDictionary:
@@ -28,7 +28,7 @@ class AboriginalLanguageDictionary:
 
         # Create a stemmer for removing superfluous suffixes
         ws = stemmer.AboriginalLanguageStemmer()
-        ps = stemmer.PhoneticStemmer()
+        # ps = stemmer.PhoneticStemmer()
         dictionary = self.encodePartofSpeech(dictionary)
         # Create the POS lookup dictionary and the permanent Language/English translation lookup
         for entry in dictionary:

@@ -11,7 +11,7 @@
 </td></tr>
 <tr id="word"><td id="word">
 <b>Bundjalung: </b>
-{{if word.Sound:}}
+{{if word.Sound and word.Sound!=";":}}
 <a href="" target="_blank" onMouseOver="DHTMLSound('{{=T(word.Sound)}}','<b><i>{{=T(word.Language_Word)}}</i></b><br>{{=T(word.Search_English)}}');" >{{=word.Language_Word}} [Hover over to listen]</a>
 
 {{else:}}
@@ -19,7 +19,11 @@
 {{=word.Language_Word}}
 {{pass}}
 <br>
-</td></tr><tr><td id="word">
+</td></tr>
+{{word}}
+<tr id="word"><td id="word"><b>Part of Speech:</b> {{=word.Part_of_Speech}}
+</td></tr>
+<tr><td id="word">
 <b>Related Words: </b> {{for relate in related:}}
         {{=relate}} &nbsp;
 {{pass}}

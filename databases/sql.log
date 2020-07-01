@@ -47,3 +47,4 @@ CREATE TABLE plugin_wiki_rating_aux(
     PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET utf8;
 faked!
+success!
